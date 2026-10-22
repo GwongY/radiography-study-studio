@@ -16,7 +16,7 @@ import { isPhoneViewer, setTaskPanelExpanded, setToolsPanelOpen } from './small-
  * ------------------------------------------------------------------ */
 
 /* Contextual back: only meaningful on a phone drilled into a topic. */
-/* The bottom bar's Spread, Cut and Regions buttons each open the Tools panel
+/* The bottom bar's Tools and Regions buttons each open the Tools panel
    on their own section; pressing the one already open closes it. */
 document.querySelectorAll('.ctrlpill [data-tsec]').forEach((b) => {
   b.onclick = () => {

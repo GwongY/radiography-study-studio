@@ -978,9 +978,7 @@ html[data-ts="xl"]{--ts:1.55}
 /* Named section levels. One row per axis, the axis named down the left so a
    chip never has to repeat it, and the citation for the live level underneath. */
 .toolcard .cut-levels{margin-top:8px;display:grid;gap:6px}
-.toolcard .cut-levelrow{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.toolcard .cut-levelax{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);min-width:58px;font-size:calc(10px * var(--ts))}
-.toolcard .cut-levelrow .icon-btn.sm{min-height:30px;padding:0 9px;font-size:calc(11px * var(--ts));border-radius:8px}
+.toolcard .cut-levelpick{display:block;margin:6px 0}
 .toolcard .cut-levelnote{margin:2px 0 0;font-size:calc(11.5px * var(--ts));line-height:1.5;color:var(--muted)}
 .toolcard .cut-levelnote strong{color:#cfd8d9}
 .toolcard .cut-levelcite{display:block;margin-top:3px;font:11px ui-monospace,Menlo,monospace;color:rgba(114,227,207,.85);word-break:break-word;font-size:calc(11px * var(--ts))}
@@ -1109,7 +1107,6 @@ html[data-ts="xl"]{--ts:1.55}
 
 /* The Tools panel shows only the section its bottom-bar button named. */
 .viewer-tools-panel[data-show="spread"] .vsheet-grid>[data-tsec]:not([data-tsec="spread"]),
-.viewer-tools-panel[data-show="cut"] .vsheet-grid>[data-tsec]:not([data-tsec="cut"]),
 .viewer-tools-panel[data-show="regions"] .vsheet-grid>[data-tsec]:not([data-tsec="regions"]){display:none}
 
 /*

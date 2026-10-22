@@ -59,6 +59,9 @@ export const MODELS = {
   testis: { file: './cell/models/testis.glb', sources: [] },
   follicle: { file: './cell/models/follicle.glb', sources: [] },
   oogenesis: { file: './cell/models/oogenesis.glb', sources: [] },
+  vessels: { file: './cell/models/vessels.glb', sources: [] },
+  capillaries: { file: './cell/models/capillaries.glb', sources: [] },
+  gutwall: { file: './cell/models/gutwall.glb', sources: [] },
 };
 
 /* the credit line for a level's model */

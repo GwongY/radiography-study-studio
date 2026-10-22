@@ -30,7 +30,7 @@ export function renderViewerTools() {
     else { cut.axis = null; cut.level = null; }
     const specs = o && o.cutAxes ? o.cutAxes() : [];
     axes.innerHTML = specs.map((a) => `<button class="icon-btn${cut.axis === a.id ? ' active' : ''}"
-        data-cut="${esc(a.id)}" title="${esc(a.hint)}" aria-pressed="${cut.axis === a.id}">${esc(a.label)}</button>`).join('');
+        data-cut="${esc(a.id)}" aria-pressed="${cut.axis === a.id}">${esc(a.label)}</button>`).join('');
     axes.querySelectorAll('[data-cut]').forEach((b) => {
       b.onclick = () => {
         if (!osteo() || !osteo().setCut) { toast('Open the 3D model first.'); return; }
@@ -77,15 +77,9 @@ function renderCutLevels() {
   const host = $$('cutLevels');
   if (!host) return;
   const o = osteo();
-  if (o && o.inXray && o.inXray()) {
-    host.innerHTML = '<p class="small">The section is put away while the Projection tab is open — that beam is drawn by a shader that ignores clipping planes, so a cut there would be silently ignored. It comes back exactly as you left it.</p>';
-    return;
-  }
-  const rows = o && o.cutLevels ? o.cutLevels() : [];
-  if (!rows.length) {
-    host.innerHTML = '<p class="small">Open the 3D model to measure its levels.</p>';
-    return;
-  }
+  const rows = o && o.cutLevels && !(o.inXray && o.inXray()) ? o.cutLevels() : [];
+  if (!rows.length) { host.innerHTML = ''; return; }
+  /* One menu, not a button per level: the axis chips and Flip are the only buttons Cut keeps. */
   const groups = [];
   for (const r of rows) {
     let g = groups.find((x) => x.axis === r.axis);
@@ -93,26 +87,19 @@ function renderCutLevels() {
     g.rows.push(r);
   }
   const active = rows.find((r) => r.active) || null;
-  host.innerHTML = groups.map((g) => `<div class="cut-levelrow">
-      <span class="cut-levelax">${esc(AXIS_TITLE[g.axis] || g.axis)}</span>
-      ${g.rows.map((r) => `<button class="icon-btn sm${r.active ? ' active' : ''}" data-level="${esc(r.id)}"
-        aria-pressed="${r.active}">${esc(r.label)}</button>`).join('')}
-    </div>`).join('')
-    /* Coronal is absent by decision, not by accident, so the panel says so
-       rather than leaving a student to wonder which button they are missing. */
-
+  host.innerHTML = `<label class="small cut-levelpick">Level <select id="cutLevelSelect" aria-label="Named cut level">
+      <option value="">—</option>
+      ${groups.map((g) => `<optgroup label="${esc(AXIS_TITLE[g.axis] || g.axis)}">${g.rows.map((r) => `<option value="${esc(r.id)}"${r.active ? ' selected' : ''}>${esc(r.label)}</option>`).join('')}</optgroup>`).join('')}
+    </select></label>`
     + (active ? `<p class="small cut-levelnote"><strong>${esc(active.label)}.</strong> ${esc(active.note)}${citationHTML(active)}</p>` : '');
 
-  host.querySelectorAll('[data-level]').forEach((b) => {
-    b.onclick = () => {
-      if (!osteo() || !osteo().setCutLevel) { toast('Open the 3D model first.'); return; }
-      /* Pressing the level you are already on clears the cut, the same way the
-         axis chips and the layer chips already work. */
-      if (b.classList.contains('active')) osteo().clearCut();
-      else osteo().setCutLevel(b.dataset.level, cut.flip);
-      renderViewerTools();
-    };
-  });
+  const pick = $$('cutLevelSelect');
+  pick.onchange = () => {
+    if (!osteo() || !osteo().setCutLevel) { toast('Open the 3D model first.'); return; }
+    if (!pick.value) osteo().clearCut();
+    else osteo().setCutLevel(pick.value, cut.flip);
+    renderViewerTools();
+  };
 }
 
 /*

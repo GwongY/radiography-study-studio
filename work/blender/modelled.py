@@ -1417,7 +1417,12 @@ def parietal():
     2: a countertransporter in the basolateral membrane swaps HCO3- out for Cl- in; the HCO3- is the alkaline tide,
     into the capillary. 3: the Cl- diffuses across the cell and leaves through open chloride channels into the lumen,
     beside the H+. Molecules are ball and stick (C grey, O red, H white); H+ and Cl- are coloured balls. Nothing is to
-    scale: the proteins and ions are drawn far larger than they are against the cell."""
+    scale: the proteins and ions are drawn far larger than they are against the cell.
+    Then the regulation of gastric activity, its three phases (pp 30-33, 56-57): (5) cephalic: impulses run down the
+    vagus nerve (N X) to the parietal cell and to a G cell, whose gastrin enters the capillary; more acid leaves the
+    cell; (6) gastric: gastrin, carried by the bloodstream, reaches the parietal cell in quantity and acid production
+    rises (a stream of H+ and Cl- into the lumen); (7) intestinal: CCK, GIP and secretin arrive in the blood from the
+    duodenum, the vagus falls quiet, and no more acid leaves. Hormones are glowing beads far larger than they are."""
     K.reset()
     tr = Track()
     W = 6.0                                              # the membranes: basolateral at x = -W, apical at x = +W
@@ -1472,7 +1477,32 @@ def parietal():
     tide = [K.part(molecule(HCO3(), 'tide', 0.75, seg=(10, 7)), 'tide') for _ in range(10)]
     TIDE = [CAP + V(1.8, 2.6, 0), CAP + V(1.0, 1.4, 0), CAP + V(0.1, 0.2, 0), CAP + V(0, 0, 0)]
     K.anchor('tide', tuple(CAP + V(0.3, -1.3, 1.2)))
-    an = anchors(('hplus', 'hco3', 'cl', 'co2', 'h2o', 'h2co3'))
+    # the regulation of gastric activity: the vagus nerve down the far left, a G cell below the interstitial fluid
+    VX = -W - 4.9
+    GC = V(-W - 2.2, -6.2, 0)
+    vgm = K.mat('vagus', 0xffd166, 0.45)
+    TO_P = [V(VX, 7.4, 1.2), V(VX, 3.6, 1.2), V(VX + 1.6, 3.2, 1.0), V(-W - 1.0, 2.9, 0.9), V(-W - 0.4, 2.9, 0.8)]
+    TO_G = [V(VX, 7.4, 1.2), V(VX, -5.2, 1.2), V(VX + 1.2, -6.0, 0.8), GC + V(-0.95, 0, 0.4)]
+    K.part(K.join([K.curve_tube([tuple(TO_P[0]), tuple(TO_G[1])], 0.16, vgm, 'vagus', res=3),
+                   K.curve_tube([tuple(p) for p in TO_P[1:]], 0.09, vgm, 'vagus', res=4),
+                   K.curve_tube([tuple(p) for p in TO_G[1:]], 0.09, vgm, 'vagus', res=4)], 'vagus'), 'vagus')
+    K.anchor('vagus', tuple(V(VX, 5.6, 1.6)))
+    gco = K.sphere(0.95, tuple(GC), K.mat('gcell', 0xff99c8, 0.5), seg=(28, 18), name='gcell')
+    K.lumpy(gco, 0.1, 0.4, 41)
+    K.part(K.apply(gco), 'gcell')
+    K.anchor('gcell', tuple(GC + V(0.3, -1.1, 0.6)))
+    imp_m = K.mat('impulse', 0xfff3b0, 0.3, emit=0xfff3b0)
+    impulses = [K.decor(K.sphere(0.15, (0, 0, 0), imp_m, seg=(10, 6), name='impulse'), 'impulse') for _ in range(8)]
+    gm_ = K.mat('gastrin', 0xff6d00, 0.35, emit=0xff6d00)
+    gastrin = [hormone(0.24, gm_, 'gastrin') for _ in range(12)]
+    G_AT = [V(-W - 0.45, 2.0 + 0.45 * (j % 4), -1.9 + 0.75 * (j // 4) + 0.2 * (j % 2)) for j in range(12)]
+    duo = [hormone(0.24, K.mat(n, col, 0.35, emit=col), n) for n, col in (('cck', 0x7209b7), ('gip', 0x00b4d8), ('secretin', 0x52b788)) for _ in range(4)]
+    D_AT = [V(-W - 0.45, -2.6 - 0.45 * (j % 4), -1.8 + 1.2 * (j // 4)) for j in range(12)]
+    # more acid while the cell is stimulated: H+ through the pumps, Cl- through the channels, into the lumen
+    xh = [K.part(K.sphere(0.24, (0, 0, 0), hm, seg=(16, 10), name='hplus'), 'hplus') for _ in range(12)]
+    xc = [K.part(K.sphere(0.33, (0, 0, 0), clm, seg=(16, 10), name='cl'), 'cl') for _ in range(12)]
+    LUM = [V(W + 1.2 + 2.2 * ((j * 7) % 12) / 12, -3.4 + 6.4 * ((j * 5) % 12) / 12, -2.2 + 4.4 * ((j * 11) % 12) / 12) for j in range(12)]
+    an = anchors(('hplus', 'hco3', 'cl', 'co2', 'h2o', 'h2co3', 'gastrin', 'cck', 'gip', 'secretin'))
     rot = [q_three((0.3, 1, 0.2), i * 1.7) for i in range(10)]
 
     def wob(i, t, a=0.25):
@@ -1480,8 +1510,44 @@ def parietal():
         return V(math.sin(t * 9.1 + i * 2.3), math.sin(t * 7.3 + i * 1.1), math.sin(t * 8.2 + i * 3.7)) * a
 
     def place(s, frame):
-        p = stage_prog(s, 4)
+        p = stage_prog(s, 7)
         make, pump, cnt, dif = p(0), p(1), p(2), p(3)
+        ceph, gas, inte = p(4), p(5), p(6)
+        # (5) impulses down the vagus to the parietal cell and the G cell, while the cephalic phase runs
+        for j, o in enumerate(impulses):
+            path = TO_P if j % 2 == 0 else TO_G
+            u = (ceph * 2.5 - 0.3 * (j // 2)) % 1.0 if 0.02 < ceph < 0.98 else 0.0
+            tr.pose(o, frame, along(path, u), None, 1 if 0.02 < ceph < 0.98 and u > 0.02 else HIDE)
+        # gastrin: from the G cell into the capillary, carried by the bloodstream, out to the parietal cell; four in the
+        # cephalic phase, the rest in the gastric phase
+        for j, o in enumerate(gastrin):
+            k = span(ceph, 0.25 + 0.12 * j, 0.75 + 0.06 * j) if j < 4 else span(gas, 0.05 + 0.07 * (j - 4), 0.5 + 0.05 * (j - 4))
+            z = -1.6 + 0.4 * j * 0.6
+            path = [GC + V(0.3, 0.9, 0.2), CAP + V(0.0, -0.4, 0.0), CAP + V(0.0, 0.0, z), CAP + V(0.9, 0.6, z), G_AT[j]]
+            tr.pose(o, frame, along(path, k) + wob(j + 20, s, 0.05), None, 1 if k > 0.01 else HIDE)
+        # CCK, GIP and secretin, in the blood from the duodenum, to the parietal cell
+        for j, o in enumerate(duo):
+            k = span(inte, 0.05 + 0.05 * j, 0.55 + 0.035 * j)
+            z = D_AT[j].z
+            path = [CAP + V(0, 0, -3.6), CAP + V(0, 0, z), CAP + V(0.9, 0.2, z), D_AT[j]]
+            tr.pose(o, frame, along(path, k) + wob(j + 40, s, 0.05), None, 1 if k > 0.01 else HIDE)
+        # more acid: a few in the cephalic phase, the rest in the gastric phase; none in the intestinal phase
+        for j in range(12):
+            k = span(ceph, 0.45 + 0.13 * j, 0.7 + 0.08 * j) if j < 3 else span(gas, 0.3 + 0.06 * (j - 3), 0.55 + 0.045 * (j - 3))
+            q = PUMP[j % 3]
+            h = along([CA[j % 3] + V(0.4, -0.6, 0.3), q + V(-1.3, 0, 0), q + V(-0.3, 0, 0), q + V(1.0, 0, 0), LUM[j]], k)
+            tr.pose(xh[j], frame, h + wob(j + 60, s, 0.06), None, 1 if k > 0.01 else HIDE)
+            ch = CHAN[j % 3]
+            cl_ = along([SWAP[j % 3] + V(-1.4, -0.5, 0.3), SWAP[j % 3] + V(1.2, -0.6, 0), V(0.5, -2.6 - 0.3 * (j % 3), ch.z), ch + V(-1.2, 0, 0),
+                         ch + V(1.0, 0, 0), LUM[11 - j] + V(0, -0.4, 0)], k)
+            tr.pose(xc[j], frame, cl_ + wob(j + 80, s, 0.06), None, 1 if k > 0.01 else HIDE)
+        gj = 0 if gas < 0.05 else 4
+        gk = span(ceph, 0.25, 0.75) if gj == 0 else span(gas, 0.05, 0.5)
+        gz = -1.6 + 0.24 * gj
+        tr.pose(an['gastrin'], frame, along([GC + V(0.3, 0.9, 0.2), CAP + V(0.0, -0.4, 0.0), CAP + V(0.0, 0.0, gz), CAP + V(0.9, 0.6, gz), G_AT[gj]], gk) + V(0.3, 0.45, 0.3))
+        for n, j, dy in (('cck', 0, 1.1), ('gip', 5, 0.0), ('secretin', 10, -1.1)):   # one bead each, their tags apart
+            k = span(inte, 0.05 + 0.05 * j, 0.55 + 0.035 * j)
+            tr.pose(an[n], frame, along([CAP + V(0, 0, -3.6), CAP + V(0, 0, D_AT[j].z), CAP + V(0.9, 0.2, D_AT[j].z), D_AT[j]], k) + V(-0.6, dy, 0.3))
         for i, z in enumerate(ZS):
             ca = CA[i]
             # 1: CO2 and H2O meet at the enzyme; H2CO3 forms there and drops away to dissociate
@@ -1524,7 +1590,7 @@ def parietal():
             u = clamp01(t * 1.6 - j * 0.06)
             q = along(TIDE, u) + V(0, 0, (j - 4.5) * 0.55 * u) + V(0, -0.15 * (j % 3), 0)
             tr.pose(o, frame, q + wob(j + 12, s, 0.06), rot[j], 1 if 0.02 < u else HIDE)
-    sample(place, 4, step=2)
+    sample(place, 7, step=2)
     tr.write()
     export('parietal')
 
@@ -3512,3 +3578,371 @@ def oogenesis():
     tr.write()
     VIEW['oogenesis'] = [0.05, 0.1, 1]
     export('oogenesis', [])
+
+
+# ------------------------------------------------------------------ vessel walls, capillaries and the gut wall ----
+CUT = (5 * math.pi / 6, 13 * math.pi / 6)        # the angles a tube along x keeps: its front third cut away
+
+
+def wall(r_in, r_out, x0, x1, m, name, keep=None, c=(0.0, 0.0), nx=24, na=72, hole=None):
+    """a tube wall along three x, from radius r_in to r_out (numbers, or functions of x and the angle a), x0 to x1,
+    centred on (y, z) = c. The angle runs round the x axis from +y toward +z (the viewer). keep: the angles (a0, a1)
+    kept, the rest cut away; none keeps it whole. hole(x, a) True leaves that face of both surfaces out (a pore).
+    The inner and outer surfaces are smooth, the cut faces flat, with a sharp edge between."""
+    fi = r_in if callable(r_in) else (lambda x, a, r=r_in: r)
+    fo = r_out if callable(r_out) else (lambda x, a, r=r_out: r)
+    full = keep is None
+    a0, a1 = (0.0, 2 * math.pi) if full else keep
+    nj = na if full else na + 1
+    xs = [x0 + (x1 - x0) * i / nx for i in range(nx + 1)]
+    As = [a0 + (a1 - a0) * j / na for j in range(nj)]
+    bm = bmesh.new()
+
+    def P(x, a, r):
+        return T((x, c[0] + r * math.cos(a), c[1] + r * math.sin(a)))
+    In = [[bm.verts.new(P(x, a, fi(x, a))) for a in As] for x in xs]
+    Out = [[bm.verts.new(P(x, a, fo(x, a))) for a in As] for x in xs]
+    nxt = (lambda j: (j + 1) % na) if full else (lambda j: j + 1)
+
+    def quad(vs, sm):
+        bm.faces.new(vs).smooth = sm
+    da = (a1 - a0) / na
+    for i in range(nx):
+        for j in range(na):
+            if hole and hole((xs[i] + xs[i + 1]) / 2, As[j] + da / 2):
+                continue
+            quad((Out[i][j], Out[i + 1][j], Out[i + 1][nxt(j)], Out[i][nxt(j)]), True)
+            quad((In[i][j], In[i][nxt(j)], In[i + 1][nxt(j)], In[i + 1][j]), True)
+    for i in (0, nx):
+        for j in range(na):
+            quad((In[i][j], Out[i][j], Out[i][nxt(j)], In[i][nxt(j)]), False)
+    if not full:
+        for j in (0, na):
+            for i in range(nx):
+                quad((In[i][j], In[i + 1][j], Out[i + 1][j], Out[i][j]), False)
+    for e in bm.edges:
+        if len(e.link_faces) == 2 and e.link_faces[0].smooth != e.link_faces[1].smooth:
+            e.smooth = False
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    return K.mesh_obj(name, bm, m)
+
+
+def on_tube(x, r, a, c=(0.0, 0.0)):
+    """the three.js point at x, radius r and angle a round a tube along x centred on c"""
+    return V(x, c[0] + r * math.cos(a), c[1] + r * math.sin(a))
+
+
+def arc_line(x, r, a0, a1, m, name, c=(0.0, 0.0), rr=0.03, n=36, wave=0.0, k=0):
+    """a thin fibre round a tube at x, radius r (with a wave of k crests), from angle a0 to a1"""
+    pts = []
+    for t in range(n + 1):
+        a = a0 + (a1 - a0) * t / n
+        pts.append(tuple(on_tube(x, r + wave * math.sin(k * a), a, c)))
+    return K.curve_tube(pts, rr, m, name, res=2)
+
+
+def vessels():
+    """Structures of different types of blood vessels (HSS2011 W8 pp 33-47; ABCT2326 L2 p10): an artery above a
+    vein, each a length of vessel with its front third cut away and its three layers stepped like a telescope, so
+    each layer shows: the tunica externa (connective tissue) cut shortest, then the tunica media (smooth muscle,
+    drawn as fibres round the vessel, and elastic fibres, the wavy yellow lines on its cut face), then the tunica
+    intima, lined by the endothelium. The artery: a thick wall, mostly media, round a narrow lumen, with the vasa
+    vasorum on its externa. The vein: a thinner wall with less smooth muscle and elastic tissue, a larger lumen, and
+    a valve's two cusps inside it. Blood shows as a faint fill with a few red cells. Not to scale."""
+    K.reset()
+    X0 = -6.5
+    me, mi = K.mat('endothelium', 0xfff0f3, 0.5), K.mat('intima', 0xf4acb7, 0.5)
+    mm, mx = K.mat('media', 0xc8553d, 0.55), K.mat('externa', 0xe9c46a, 0.7)
+    fib, ela = K.mat('muscle-fibres', 0x9d2b1f, 0.5), K.mat('elastic', 0xffd166, 0.4, emit=0xffd166)
+    rbm = K.mat('red-cells', 0xc1121f, 0.45)
+
+    def vessel(part, cy, R, steps, fill, elastic):
+        c = (cy, 0.0)
+        e_in, i_in, m_in, x_in, x_out = R
+        x_ext, x_med, x_int = steps
+        K.part(wall(e_in, i_in, X0, x_int, me, 'endothelium', CUT, c, nx=20, na=72), 'endothelium')
+        K.part(wall(i_in, m_in, X0, x_int, mi, 'intima', CUT, c, nx=20, na=72), 'intima')
+        K.part(wall(m_in, x_in, X0, x_med, mm, 'media', CUT, c, nx=20, na=72), 'media')
+        K.part(wall(x_in, x_out, X0, x_ext, mx, 'externa', CUT, c, nx=20, na=72), 'externa')
+        # the media's smooth muscle, round the vessel where the externa has been cut back, and its elastic fibres
+        rings = [arc_line(x, x_in + 0.02, CUT[0], CUT[1], fib, 'fibre', c, rr=0.028)
+                 for x in [x_ext + 0.12 + 0.2 * k for k in range(int((x_med - x_ext - 0.15) / 0.2))]]
+        K.decor(K.join(rings, 'muscle'), 'smooth-muscle')
+        waves = [arc_line(x_med + 0.012, m_in + (x_in - m_in) * (k + 1) / (elastic + 1), CUT[0], CUT[1], ela, 'elastic', c,
+                          rr=0.022, n=90, wave=0.035, k=22) for k in range(elastic)]
+        K.decor(K.join(waves, 'elastic'), 'elastic-fibres')
+        # the blood in the lumen: a faint fill, and red cells
+        K.part(K.between((X0, cy, 0), (x_int, cy, 0), e_in - 0.03, K.mat(part, fill, 0.8, alpha=0.14), part, seg=48), part, shell=True)
+        rnd = random.Random(int(cy * 10) + 7)
+        cells = []
+        for k in range(7 if part == 'artery' else 11):
+            at = V(X0 + 0.8 + rnd.random() * (x_int - X0 - 1.6), cy + (rnd.random() - 0.5) * e_in, -rnd.random() * e_in * 0.7)
+            o = K.sphere(0.36, tuple(at), rbm, seg=(16, 10), scale=(0.34, 1, 1), name='rbc')
+            o.rotation_mode = 'QUATERNION'
+            o.rotation_quaternion = q_euler(rnd.random(), rnd.random() * 0.6, rnd.random() * 0.6)
+            cells.append(bake(o))
+        K.decor(K.join(cells, 'rbc'), 'red-cells')
+        return c, R, steps
+
+    cA, RA, SA = vessel('artery', 3.4, (1.05, 1.13, 1.28, 2.3, 2.85), (0.4, 2.6, 4.6), 0xd00000, 4)
+    cV, RV, SV = vessel('vein', -3.4, (1.85, 1.91, 2.0, 2.3, 2.8), (0.4, 2.6, 4.6), 0x6a040f, 1)
+    # vasa vasorum: small vessels on the artery's externa
+    vm = K.mat('vasa', 0xe63946, 0.45)
+    ro = RA[4] + 0.05
+
+    def va(x):
+        return 0.35 + 0.18 * math.sin(1.3 * x)
+    vv = [K.curve_tube([tuple(on_tube(x, ro, va(x), cA)) for x in [X0 + 0.3 + 0.35 * k for k in range(19)]], 0.065, vm, 'vasa', res=3)]
+    for xb, sgn in ((-4.6, 1), (-2.4, -1), (-0.6, 1)):
+        # branches run back over the top, never into the cut-away front
+        vv.append(K.curve_tube([tuple(on_tube(xb + sgn * 0.12 * t, ro, va(xb) - 0.2 * t, cA)) for t in range(8)], 0.045, vm, 'vasa', res=3))
+        vv.append(K.curve_tube([tuple(on_tube(xb - sgn * 0.1 * t, ro, va(xb) - 0.16 * t, cA)) for t in range(6)], 0.04, vm, 'vasa', res=3))
+    K.part(K.join(vv, 'vasa'), 'vasa')
+    K.anchor('vasa', tuple(on_tube(-2.4, ro + 0.1, va(-2.4), cA)))
+    # the vein's valve: two cusps, pockets opening toward the heart (+x)
+    cm = K.mat('valves', 0xffe5ec, 0.45)
+
+    def cusp(a0, x0=-2.4, L=1.9, nu=14, nv=26):
+        R = RV[0] - 0.01
+        bm = bmesh.new()
+        rows = []
+        for i in range(nu + 1):
+            u = i / nu
+            row = []
+            for j in range(nv + 1):
+                ph = math.pi * j / nv
+                r = R * (1 - 0.94 * u * math.sin(ph))
+                x = x0 + L * u * (1 - 0.3 * math.sin(ph) * u)
+                row.append(bm.verts.new(T(tuple(on_tube(x, r, a0 + ph, cV)))))
+            rows.append(row)
+        for i in range(nu):
+            for j in range(nv):
+                bm.faces.new((rows[i][j], rows[i + 1][j], rows[i + 1][j + 1], rows[i][j + 1])).smooth = True
+        o = K.mesh_obj('valve', bm, cm)
+        s = o.modifiers.new('thick', 'SOLIDIFY')
+        s.thickness = 0.06
+        return K.apply(o)
+    K.part(K.join([cusp(-math.pi / 2), cusp(math.pi / 2)], 'valves'), 'valves')
+    K.anchor('valves', tuple(on_tube(-0.9, 0.5, 0.2, cV)))
+    # the layers' labels, once each, on the artery's steps (top front); the endothelium inside its back wall
+    a = 0.32
+    K.anchor('externa', tuple(on_tube(SA[0], (RA[3] + RA[4]) / 2, a, cA)))
+    K.anchor('media', tuple(on_tube(SA[1], (RA[2] + RA[3]) / 2, a, cA)))
+    K.anchor('intima', tuple(on_tube(SA[2], (RA[1] + RA[2]) / 2, a, cA)))
+    K.anchor('endothelium', tuple(on_tube(SA[2] - 1.2, RA[0] - 0.02, 4.4, cA)))
+    K.anchor('artery', (X0 + 0.6, cA[0] + RA[4] + 0.35, 0.4))
+    K.anchor('vein', (X0 + 0.6, cV[0] - RV[4] - 0.35, 0.4))
+    VIEW['vessels'] = [0.35, 0.3, 1]
+    export('vessels', [])
+
+
+def capillaries():
+    """Types of Capillaries (HSS2011 W8 pp 35-39; ABCT2326 L2 pp 10, 15): three capillaries, one above another, each a
+    tube of endothelial cells (three round, staggered lengthwise, each with its nucleus bulging outward) on a
+    basement membrane, its front cut away on the right half so the red blood cell inside shows. Continuous: the cells
+    tightly joined (tight junctions along the seams), the basement membrane whole. Fenestrated: the same, but every
+    cell holed with fenestrations. Sinusoid: an irregular, wider lumen, large gaps between the cells, one missing,
+    and the basement membrane in pieces. Slider, one step per type: what crosses its wall - water and small solutes
+    through the intercellular clefts; substances like hormones and nutrients through the fenestrations; large
+    molecules and even a blood cell through the gaps. Not to scale."""
+    K.reset()
+    tr = Track()
+    X0, X1 = -6.0, 6.0
+    YS = {'continuous': 4.4, 'fenestrated': 0.0, 'sinusoid': -4.6}
+    em = K.mat('endothelial', 0xf4a3a8, 0.5)
+    bmm = K.mat('basement', 0x9fa8ff, 0.6, alpha=0.5)
+    tjm, fm = K.mat('tight', 0x3a0ca3, 0.4), K.mat('fenestrations', 0x4361ee, 0.4)
+    rbm = K.mat('rbc', 0xc1121f, 0.45)
+    A, B, C = (math.pi / 6, 5 * math.pi / 6), (5 * math.pi / 6, 3 * math.pi / 2), (3 * math.pi / 2, 13 * math.pi / 6)
+    SEAMS = {A: [-6.0, -3.0, 0.0], B: [-6.0, -1.5, 2.5, 6.0], C: [-6.0, -3.5, 0.8, 6.0]}
+    rnd = random.Random(73)
+    tiles, nuclei, junctions, rims, basement = [], [], [], [], []
+    pores = []                                        # (x, a) of the fenestrations on the right half, to pass through
+    gaps = {'seams': []}                              # the sinusoid's openings, to pass through
+
+    def sin_r(x, a):
+        return 1.35 + 0.12 * math.sin(3 * a + 0.8 * x) + 0.06 * math.sin(1.7 * x)
+    for kind, cy in YS.items():
+        c = (cy, 0.0)
+        ri = sin_r if kind == 'sinusoid' else (lambda x, a: 0.92)
+        ro = (lambda x, a, ri=ri: ri(x, a) + 0.12)
+        ga, gx = (0.22, 0.45) if kind == 'sinusoid' else (0.012, 0.02)
+        for row, xs in SEAMS.items():
+            for xa, xb in zip(xs, xs[1:]):
+                if kind == 'sinusoid' and row == C and xa == -3.5:
+                    gaps['missing'] = (xa, xb, row)
+                    continue
+                a0, a1 = row[0] + ga / 2, row[1] - ga / 2
+                xa2, xb2 = xa + gx / 2, xb - gx / 2
+                xm, am = (xa2 + xb2) / 2, (a0 + a1) / 2
+                hole = None
+                if kind == 'fenestrated':
+                    mine = []
+                    for _ in range(600):
+                        if len(mine) >= int((xb2 - xa2) * 5):
+                            break
+                        px, pa = rnd.uniform(xa2 + 0.25, xb2 - 0.25), rnd.uniform(a0 + 0.25, a1 - 0.25)
+                        if abs(px - xm) < 0.7 and abs(pa - am) < 0.45:
+                            continue                     # not through the nucleus
+                        if all((px - qx) ** 2 + (0.92 * (pa - qa)) ** 2 > 0.4 ** 2 for qx, qa in mine):
+                            mine.append((px, pa))
+                    hole = (lambda x, a, mine=mine: any((x - px) ** 2 + (0.98 * (a - pa)) ** 2 < 0.12 ** 2 for px, pa in mine))
+                    for px, pa in mine:
+                        rims.append(K.torus(0.12, 0.02, tuple(on_tube(px, 1.05, pa, c)), fm, 'rim', axis=(0, math.cos(pa), math.sin(pa)), seg=(14, 4)))
+                        if px > 0.3 and row != A:
+                            pores.append((px, pa))
+                nx = max(8, int((xb2 - xa2) * (14 if hole else 6)))
+                na = max(8, int((a1 - a0) * (16 if hole else 10)))
+                tiles.append(wall(ri, ro, xa2, xb2, em, 'cell', (a0, a1), c, nx=nx, na=na, hole=hole))
+                n = K.sphere(1.0, tuple(on_tube(xm, ri(xm, am) + 0.14, am, c)), em, seg=(18, 10), scale=(0.5, 0.15, 0.32), name='nucleus')
+                n.rotation_mode = 'QUATERNION'
+                n.rotation_quaternion = q_three((1, 0, 0), am)
+                nuclei.append(bake(n))
+                if kind == 'continuous':                  # tight junctions along the cell's seams, outside
+                    junctions.append(K.curve_tube([tuple(on_tube(xa2 + (xb2 - xa2) * t / 8, 1.045, a1 + ga / 2, c)) for t in range(9)], 0.03, tjm, 'tj', res=2))
+                    if xb < X1:
+                        junctions.append(arc_line(xb2 + gx / 2, 1.045, a0, a1, tjm, 'tj', c, rr=0.03, n=12))
+                if kind == 'sinusoid' and xb < X1 and xb > 0.3 and row != A:
+                    gaps['seams'].append((xb, am))
+        # the basement membrane: whole on the left, cut with the cells on the right; in pieces round the sinusoid
+        if kind == 'sinusoid':
+            for xa, xb, aa, ab in ((-5.6, -3.9, 2.8, 4.0), (-2.6, -0.4, 4.4, 5.4), (0.6, 2.2, 3.2, 4.2), (3.1, 5.6, 4.6, 5.9), (-5.0, -2.2, 5.6, 6.6)):
+                basement.append(wall(lambda x, a: sin_r(x, a) + 0.14, lambda x, a: sin_r(x, a) + 0.18, xa, xb, bmm, 'bm', (aa, ab), c, nx=10, na=12))
+        else:
+            basement.append(wall(1.06, 1.1, X0, 0.0, bmm, 'bm', None, c, nx=6, na=48))
+            basement.append(wall(1.06, 1.1, 0.0, X1, bmm, 'bm', CUT, c, nx=6, na=40))
+        # the blood: a faint fill (tap it: which type)
+        K.part(K.between((X0, cy, 0), (X1, cy, 0), (1.22 if kind == 'sinusoid' else 0.86), K.mat(kind, 0xff8fa3, 0.8, alpha=0.1), kind, seg=40), kind, shell=True)
+        K.anchor(kind, (X0 + 0.9, cy + (1.95 if kind == 'sinusoid' else 1.45), 0.5))
+    K.part(K.join(tiles + nuclei, 'endothelial'), 'endothelial')
+    K.part(K.join(junctions, 'tight'), 'tight')
+    K.part(K.join(rims, 'fenestrations'), 'fenestrations')
+    K.part(K.join(basement, 'basement'), 'basement')
+    K.anchor('endothelial', tuple(on_tube(-4.5, 1.1, 0.5, (YS['continuous'], 0))))
+    K.anchor('tight', tuple(on_tube(-1.5, 1.08, 5 * math.pi / 6, (YS['continuous'], 0))))
+    K.anchor('fenestrations', tuple(on_tube(pores[0][0], 1.12, pores[0][1], (YS['fenestrated'], 0))))
+    K.anchor('basement', tuple(on_tube(-2.0, 1.12, 0.6, (YS['fenestrated'], 0))))
+
+    def disc(at):
+        return bake(K.sphere(0.62, tuple(at), rbm, seg=(20, 12), scale=(0.32, 1, 1), name='rbc'))
+    K.part(K.join([disc(V(2.8, YS['continuous'], -0.05)), disc(V(3.2, YS['fenestrated'], -0.05))], 'rbc'), 'rbc')
+    K.anchor('rbc', (2.8, YS['continuous'] + 0.2, 0.75))
+    squeeze = K.part(disc(V(0, 0, 0)), 'rbc')            # the sinusoid's red cell, which leaves through the missing cell's gap
+    # what crosses each wall (drawn, unlabelled)
+    wm, hm, pm = K.mat('solutes', 0x90e0ef, 0.4, emit=0x90e0ef), K.mat('nutrients', 0xffb703, 0.4, emit=0xffb703), K.mat('proteins', 0x80ed99, 0.5)
+    cy0, cy1, cy2 = YS['continuous'], YS['fenestrated'], YS['sinusoid']
+    clefts = [(2.5, math.pi + d) for d in (-0.45, -0.2, 0.05, 0.3)] + [(0.8, 2 * math.pi + d) for d in (-0.35, -0.1, 0.15, 0.4)]
+    small = [(K.decor(K.sphere(0.07, (0, 0, 0), wm, seg=(10, 6), name='solute'), 'solute'), clefts[k % 8], k) for k in range(12)]
+    fast = [(K.decor(K.sphere(0.09, (0, 0, 0), hm, seg=(10, 6), name='nutrient'), 'nutrient'), pores[(k * 5) % len(pores)], k) for k in range(18)]
+    big = []
+    for k in range(6):
+        o = K.ico(0.17, (0, 0, 0), pm, level=2, name='protein')
+        K.lumpy(o, 0.06, 0.3, 80 + k)
+        big.append((K.decor(K.apply(o), 'protein'), k))
+    seams = gaps['seams'] or [(2.5, math.pi)]
+
+    def path_out(c, x, a, r_in, r_out, wob=0.0):
+        return [V(x - 0.6, c[0], -0.1), on_tube(x, r_in * 0.5, a, c), on_tube(x, (r_in + r_out) / 2, a, c), on_tube(x + wob, r_out + 0.9, a, c)]
+
+    def place(s, frame):
+        p = stage_prog(s, 3)
+        k0, k1, k2 = p(0), p(1), p(2)
+        for o, (x, a), k in small:
+            u = span(k0, 0.04 * k, 0.5 + 0.04 * k)
+            tr.pose(o, frame, along(path_out((cy0, 0), x, a, 0.92, 1.04, 0.1), u), None, 1 if u > 0.01 else HIDE)
+        for o, (x, a), k in fast:
+            u = span(k1, 0.025 * k, 0.35 + 0.025 * k)
+            tr.pose(o, frame, along(path_out((cy1, 0), x, a, 0.92, 1.04, 0.15), u), None, 1 if u > 0.01 else HIDE)
+        for o, k in big:
+            x, a = seams[k % len(seams)]
+            u = span(k2, 0.05 * k, 0.5 + 0.05 * k)
+            tr.pose(o, frame, along(path_out((cy2, 0), x, a, 1.35, 1.5, 0.1), u), None, 1 if u > 0.01 else HIDE)
+        # the red cell: along the sinusoid, then up through the gap the missing cell leaves, into the tissue
+        xa, xb, row = gaps['missing']
+        xm, am = (xa + xb) / 2, (row[0] + row[1]) / 2
+        u = span(k2, 0.3, 0.95)
+        pts = [V(xm - 3.0, cy2, -0.1), V(xm, cy2, -0.1), on_tube(xm, 1.45, am, (cy2, 0)), on_tube(xm + 0.3, 2.6, am, (cy2, 0))]
+        tr.pose(squeeze, frame, along(pts, u), q_three((0, 0, 1), math.pi / 2 * span(u, 0.25, 0.6)), 1)
+    sample(place, 3, step=2)
+    tr.write()
+    VIEW['capillaries'] = [0.3, 0.3, 1]
+    export('capillaries', [])
+
+
+def gutwall():
+    """Digestive Tract Layers (ABCT2326 L4 pp 7-11): a length of the tract with its front third cut away and its four
+    layers stepped like a telescope. From the lumen out: the mucosa (the epithelium, folded to increase the surface
+    area, with enteroendocrine cells among its cells; the lamina propria; the muscularis mucosae); the submucosa, with
+    large blood vessels and a lymphatic vessel along it and exocrine glands whose duct opens into the lumen; the
+    muscularis externa, smooth muscle (an inner layer of fibres round the tract and an outer layer along it); the
+    serosa covering it. A white bracket spans the mucosa's three layers. Not to scale."""
+    K.reset()
+    X0 = -7.0
+
+    def fold(x):
+        return max(0.0, math.cos(2 * math.pi * (x + 0.4) / 1.7)) ** 3
+
+    def r_lum(x, a):
+        return 2.0 - 0.62 * fold(x) * (1 + 0.15 * math.sin(5 * a + x))
+
+    def r_epi(x, a):
+        return r_lum(x, a) + 0.2
+    STEP = {'serosa': -1.6, 'long': -0.4, 'circ': 0.6, 'sub': 2.2, 'mm': 3.4, 'mucosa': 4.6}
+    R = {'mm': (3.0, 3.2), 'sub': (3.2, 4.3), 'circ': (4.3, 4.85), 'long': (4.85, 5.3), 'serosa': (5.3, 5.42)}
+    nxm = int((STEP['mucosa'] - X0) * 9)
+    K.part(wall(r_lum, r_epi, X0, STEP['mucosa'], K.mat('epithelium', 0xf7a8b8, 0.5), 'epithelium', CUT, nx=nxm, na=90), 'epithelium')
+    K.part(wall(r_epi, R['mm'][0], X0, STEP['mucosa'], K.mat('lamina', 0xffe5d9, 0.6), 'lamina', CUT, nx=nxm, na=90), 'lamina')
+    K.part(wall(*R['mm'], X0, STEP['mm'], K.mat('mm', 0xe5989b, 0.55), 'mm', CUT, nx=20, na=90), 'mm')
+    K.part(wall(*R['sub'], X0, STEP['sub'], K.mat('submucosa', 0xf1e3c8, 0.7), 'submucosa', CUT, nx=20, na=90), 'submucosa')
+    circ = wall(*R['circ'], X0, STEP['circ'], K.mat('externa', 0xd1495b, 0.55), 'externa', CUT, nx=20, na=90)
+    lng = wall(*R['long'], X0, STEP['long'], K.mat('externa-outer', 0xb23a48, 0.55), 'externa', CUT, nx=20, na=90)
+    K.part(K.join([circ, lng], 'externa'), 'externa')
+    K.part(wall(*R['serosa'], X0, STEP['serosa'], K.mat('serosa', 0xcdeaf5, 0.4), 'serosa', CUT, nx=20, na=90), 'serosa')
+    # the smooth muscle's fibres: round the tract on the inner layer, along it on the outer
+    fm = K.mat('externa-fibres', 0x7a1f2b, 0.5)
+    rings = [arc_line(STEP['long'] + 0.12 + 0.18 * k, R['circ'][1] + 0.015, CUT[0], CUT[1], fm, 'fibre', rr=0.025, n=60) for k in range(5)]
+    lines = [K.curve_tube([tuple(on_tube(STEP['serosa'] + 0.08 + (STEP['long'] - STEP['serosa'] - 0.16) * t / 4, R['long'][1] + 0.015, a)) for t in range(5)], 0.025, fm, 'fibre', res=2)
+             for a in [CUT[0] + 0.03 + 0.11 * k for k in range(int((CUT[1] - CUT[0]) / 0.11))]]
+    K.decor(K.join(rings + lines, 'fibres'), 'muscle-fibres')
+    # the submucosa's blood vessels, half out of the cut face at the top; its lymphatic vessel and glands below
+    top, bottom = CUT[1], CUT[0]
+    art = K.curve_tube([tuple(on_tube(x, 3.52, top)) for x in (X0, -4.0, -1.0, STEP['sub'])], 0.17, K.mat('artery', 0xd62828, 0.45), 'vessel', res=3)
+    vei = K.curve_tube([tuple(on_tube(x, 3.98, top)) for x in (X0, -4.0, -1.0, STEP['sub'])], 0.22, K.mat('vein', 0x3a6ea5, 0.45), 'vessel', res=3)
+    K.part(K.join([art, vei], 'bloodvessels'), 'bloodvessels')
+    K.anchor('bloodvessels', tuple(on_tube(-3.0, 4.0, top - 0.12) + V(0, 0, 0.3)))
+    lym = K.curve_tube([tuple(on_tube(STEP['sub'], 3.75, bottom)), tuple(on_tube(0.0, 3.75, bottom)), tuple(on_tube(-2.2, 3.75, bottom + 0.06)),
+                        tuple(on_tube(-3.0, 3.75, bottom + 0.35))], 0.2, K.mat('lymph', 0x95d5b2, 0.45, alpha=0.8), 'lymph', res=4)
+    K.part(lym, 'lymph')
+    K.anchor('lymph', tuple(on_tube(-0.8, 3.95, bottom) + V(0, 0, 0.3)))
+    gm = K.mat('glands', 0xa98467, 0.55)
+    G = on_tube(-4.6, 3.72, bottom)
+    rnd = random.Random(91)
+    acini = [K.sphere(0.2, tuple(G + V(rnd.uniform(-0.45, 0.45), 0, 0) + on_tube(0, rnd.uniform(-0.25, 0.25), bottom)), gm, seg=(14, 8), name='acinus')
+             for _ in range(9)]
+    duct = K.curve_tube([tuple(on_tube(-4.6, r, bottom)) for r in (3.6, 3.1, 2.6, 2.1, r_lum(-4.6, bottom) - 0.05)], 0.07, gm, 'duct', res=3)
+    K.part(K.join(acini + [duct], 'glands'), 'glands')
+    K.anchor('glands', tuple(G + V(0, -0.2, 0.5)))
+    # enteroendocrine cells, among the epithelium's cells on the inside of the back wall
+    eem = K.mat('enteroendocrine', 0xffd166, 0.4, emit=0xffd166)
+    ee = [K.sphere(0.15, tuple(on_tube(x, r_lum(x, a) + 0.07, a)), eem, seg=(14, 8), name='ee')
+          for x, a in ((-5.2, 4.3), (-3.6, 4.9), (-2.1, 4.5), (-0.6, 5.0), (1.0, 4.4), (2.6, 4.8), (3.9, 4.5))]
+    K.part(K.join(ee, 'enteroendocrine'), 'enteroendocrine')
+    K.anchor('enteroendocrine', tuple(on_tube(1.0, r_lum(1.0, 4.4) - 0.1, 4.4)))
+    # a bracket across the mucosa's three layers, just past its end
+    bkm = K.mat('mucosa', 0xffffff, 0.4, emit=0xffffff)
+    ab = bottom + 0.35
+    r0, r1 = r_lum(STEP['mucosa'], ab), R['mm'][1]
+    xb = STEP['mucosa'] + 0.15
+    K.part(K.join([K.between(tuple(on_tube(xb, r0, ab)), tuple(on_tube(xb, r1, ab)), 0.03, bkm, 'bracket', seg=8),
+                   K.between(tuple(on_tube(xb, r0, ab)), tuple(on_tube(xb - 0.3, r0, ab)), 0.03, bkm, 'bracket', seg=8),
+                   K.between(tuple(on_tube(xb, r1, ab)), tuple(on_tube(xb - 0.3, r1, ab)), 0.03, bkm, 'bracket', seg=8)], 'mucosa'), 'mucosa')
+    K.anchor('mucosa', tuple(on_tube(xb + 0.1, (r0 + r1) / 2, ab)))
+    a = 0.3                                              # each layer's label on its step, top front
+    K.anchor('epithelium', tuple(on_tube(0.8, r_lum(0.8, 4.0) - 0.05, 4.0)))
+    K.anchor('lamina', tuple(on_tube(STEP['mucosa'], 2.65, a)))
+    K.anchor('mm', tuple(on_tube(STEP['mm'], 3.1, a)))
+    K.anchor('submucosa', tuple(on_tube(STEP['sub'], 3.75, a)))
+    K.anchor('externa', tuple(on_tube(STEP['circ'], 4.6, a)))
+    K.anchor('serosa', tuple(on_tube(-3.4, R['serosa'][1] + 0.05, a)))
+    VIEW['gutwall'] = [0.4, 0.35, 1]
+    export('gutwall', [])

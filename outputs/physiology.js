@@ -115,31 +115,31 @@ export const FLOW_CLASSES = {
   arterial: {
     label: 'Systemic artery', short: 'Artery',
     color: 0xc4372f, flow: 0xff8a72,
-    says: 'Oxygenated blood leaving the heart. The crest is the PRESSURE wave, not a packet of blood: the artery wall expands as it passes and recoils behind it — expand in systole, recoil in diastole. On the aortic arch, the carotid, subclavian, right vertebral, iliac and femoral arteries the wall itself swells under the crest, by a twentieth of each vessel’s own calibre and fading towards the far end — Display parameters: 5% radial swell, 50% distal falloff and crest sharpness 5; these are illustration choices, not measurements. Routes that fail the geometry gate keep the light alone. The light and the swell cross the chained vessels as one wave each beat, slowed a long way down to be watchable.',
+    says: 'Oxygenated blood leaving the heart. The crest is the PRESSURE wave, not a packet of blood: the artery wall expands as it passes and recoils behind it — expand in systole, recoil in diastole.',
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.95, freq: 1.7, sharp: 5, gain: 1.5, beat: 'cardiac' },
   },
   venous: {
     label: 'Systemic vein', short: 'Vein',
     color: 0x2f5aa8, flow: 0x7fb0ff,
-    says: 'Deoxygenated blood returning to the heart. Here the blood itself is what moves: steady, low pressure, one way only, from the femoral and jugular veins along the measured length of each vessel and on into the venae cavae. The speed is this app illustration, not a measurement.',
+    says: 'Deoxygenated blood returning to the heart: steady, low pressure, one way only, from the femoral and jugular veins on into the venae cavae.',
     rule: { from: 'heart', wrap: 'mirror', dir: -1, speed: 0.42, freq: 1.3, sharp: 3, gain: 0.9, beat: null },
   },
   pulmArtery: {
     label: 'Pulmonary artery', short: 'Pulm. artery',
     color: 0x5a4bbf, flow: 0x9d8cff,
-    says: 'The exception: an artery carrying DEOXYGENATED blood. Right ventricle to lung, and the same pressure wave, leaving the trunk each beat and passing into both pulmonary arteries together — the left one’s wall swells under the crest where its route carries a frame. Display parameters: 5% radial swell, 50% distal falloff and crest sharpness 5; these are illustration choices, not measurements.',
+    says: 'The exception: an artery carrying DEOXYGENATED blood. Right ventricle to lung, with the same pressure wave each beat, into both pulmonary arteries together.',
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.9, freq: 2.6, sharp: 5, gain: 1.5, beat: 'cardiac' },
   },
   pulmVein: {
     label: 'Pulmonary vein', short: 'Pulm. vein',
     color: 0xd0453d, flow: 0xffa88f,
-    says: 'The other half of the exception: a vein carrying OXYGENATED blood. Lung back to left atrium. No measured route: three of the four pulmonary vein meshes in this atlas are in several disconnected pieces, so these keep the illustrative cue.',
+    says: 'The other half of the exception: a vein carrying OXYGENATED blood. Lung back to left atrium.',
     rule: { from: 'heart', wrap: 'mirror', dir: -1, speed: 0.55, freq: 2.6, sharp: 4, gain: 1.1, beat: null },
   },
   heart: {
     label: 'Heart', short: 'Heart',
     color: 0x9e2f2f, flow: 0xff7a63,
-    says: 'A subtle pulse marks the cardiac cycle around the supporting heart structures. This is an activity cue; valve opening and internal conducting pathways are not resolved by these surface meshes.',
+    says: 'The cardiac cycle: the atria contract first, then the ventricles.',
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.45, beat: 'cardiac' },
   },
   heartAtrium: {
@@ -164,25 +164,25 @@ export const FLOW_CLASSES = {
   heartAVValve: {
     label: 'AV valve leaflet', short: 'AV leaflet',
     color: 0x9e2f2f, flow: 0xff7a63,
-    says: 'Lit while open. The atrioventricular valves stand open while the ventricles relax and fill, and are held shut while they contract — the leaflet mesh itself does not bend.',
+    says: 'Lit while open. The atrioventricular valves stand open while the ventricles relax and fill, and are held shut while they contract.',
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.55, beat: 'avValve' },
   },
   heartSemilunarValve: {
     label: 'Semilunar valve leaflet', short: 'Semilunar leaflet',
     color: 0x9e2f2f, flow: 0xff7a63,
-    says: 'Lit while open. The pulmonary and aortic valves stay shut while the ventricles fill, then stand open for the ejection — the leaflet mesh itself does not bend.',
+    says: 'Lit while open. The pulmonary and aortic valves stay shut while the ventricles fill, then stand open for the ejection.',
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.55, beat: 'semilunar' },
   },
   nerve: {
     label: 'Peripheral nerve', short: 'Nerve',
     color: 0xd8c65e, flow: 0xfffbc9,
-    says: 'Travelling light marks illustrative nerve activity. The axillary and musculocutaneous examples follow the measured length of the nerve itself, outwards from the central nervous system and on into its muscular branches, before the target muscle contracts; the timing is slowed for visibility. Every other nerve, including any whose mesh the measurement refused, flashes without claiming a direction: most peripheral nerves are mixed, and nothing here says which way a given fibre is carrying traffic.',
+    says: 'Nerve activity travels outwards from the central nervous system, along the nerve and into its muscular branches, before the target muscle contracts. Most peripheral nerves are mixed.',
     rule: { from: 'cord', wrap: 'mirror', dir: 1, speed: 3.4, freq: 3.2, sharp: 9, gain: 1.4, beat: null },
   },
   cns: {
     label: 'Brain and spinal cord', short: 'CNS',
     color: 0xbfc6a8, flow: 0xf2f6d8,
-    says: 'A subtle light pulse represents neural activity without deforming the brain or spinal cord. It is an illustrative cue; these surfaces do not resolve individual neural circuits.',
+    says: 'Neural activity in the brain and spinal cord.',
     rule: { from: 'cord', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.35, beat: 'spike' },
   },
   /*
@@ -221,7 +221,7 @@ export const FLOW_CLASSES = {
   muscle: {
     label: 'Skeletal muscle', short: 'Muscle',
     color: 0xa8443c, flow: 0xff9b7a,
-    says: 'Skeletal muscle. It is coloured, not animated: live physiology moves the heart, lungs, gut and vessels, and leaves the muscles still.',
+    says: 'Skeletal muscle.',
     rule: null,
   },
   bursa: {
@@ -251,19 +251,19 @@ export const FLOW_CLASSES = {
   airway: {
     label: 'Airway or lung', short: 'Lung',
     color: 0x86b4c9, flow: 0xd6f0ff,
-    says: 'Where the gas exchange the whole circulation exists to serve actually happens. Watch it swell with each breath in and settle as you breathe out.',
+    says: 'Where the gas exchange the whole circulation exists to serve actually happens. It swells with each breath in and settles as you breathe out.',
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0, freq: 0, sharp: 1, gain: 0.3, beat: 'breath', mode: 'inflate', deform: 'breath', inflate: 0.05, match: /lung/i },
   },
   gut: {
     label: 'Digestive organ', short: 'Gut',
     color: 0xc08a56, flow: 0xffd2a1,
-    says: 'A ring of contraction travels down the tube, squeezing its contents onward — peristalsis, shown as the constriction you can watch move. On the oesophagus, duodenum and transverse and descending colon the ring follows the measured centreline of the tube itself, so it stays a ring around the lumen through every bend.',
+    says: 'A ring of contraction travels down the tube, squeezing its contents onward — peristalsis.',
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.45, freq: 1.2, sharp: 4, gain: 0, beat: null, mode: 'peristalsis', deform: 'steady', pinch: 0.18, pathSpeed: 0.085, pathWavelength: 0.10, pathTaper: 0.14, match: /stomach|intestine|colon|caec|cecum|duoden|jejun|ile|rect|oesophag|esophag|appendix/i },
   },
   urinary: {
     label: 'Urinary organ', short: 'Urinary',
     color: 0xa07bb8, flow: 0xe4c8f5,
-    says: 'The ureters squeeze urine onward in slow ripples, along the measured centreline of each ureter from renal pelvis to bladder. The direction is from the source; the ripple itself is an illustration written by this app. The kidneys filter steadily — no rhythm to show, so they sit still.',
+    says: 'The ureters squeeze urine onward in slow ripples, from renal pelvis to bladder. The kidneys filter steadily.',
     rule: { from: 'heart', wrap: 'mirror', dir: 1, speed: 0.3, freq: 2.0, sharp: 3, gain: 0, beat: null, mode: 'peristalsis', deform: 'steady', pinch: 0.15, pathSpeed: 0.05, pathWavelength: 0.07, pathTaper: 0.16, match: /ureter/i },
   },
   gland: { label: 'Gland', short: 'Gland', color: 0xcf9a4e, flow: 0xffe0a8, rule: null },

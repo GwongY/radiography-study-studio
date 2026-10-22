@@ -2,7 +2,7 @@
  * Cell zoom — the cells of the other lectures, each its own level beside the typical cell.
  *
  * The plasma membrane and an epithelial cell row (ABCT2326 Cells), blood (Cardiovascular), the alveolar epithelium
- * (Respiratory), a parietal cell making acid (Digestive), a spermatozoon in the slide's proportions (Reproduction),
+ * (Respiratory), a spermatozoon in the slide's proportions (Reproduction),
  * a neuron (HSS2011 W5 Nervous system I), an NK cell killing an abnormal cell and a phagocytic antigen-presenting
  * cell (Immune). Which page each comes from is its cite in outputs/cell-zoom.js, with the labels, stages and notes.
  * Procedural and schematic. The shared helpers are cell/kit.js. Nothing runs at module scope.
@@ -14,7 +14,6 @@ export const LECTURE_PARTS = {
   epithelium: ['cilia', 'microvilli', 'apical', 'basolateral', 'junctions', 'basement', 'golgi', 'nucleus', 'mito'],
   blood: ['rbc', 'wbc', 'platelets', 'plasma'],
   alveolus: ['type1', 'type2', 'surfactant', 'macrophage', 'capillary', 'endothelial'],
-  parietal: ['ca', 'hplus', 'hco3', 'cl', 'clchannels', 'lumen', 'isf', 'tide', 'cell', 'blood', 'pump', 'counter', 'co2', 'h2o', 'h2co3'],
   sperm: ['head', 'acrosome', 'nucleus', 'neck', 'centrioles', 'middle', 'spiral', 'tail', 'sheath'],
   neuron: ['body', 'nucleus', 'nucleolus', 'nissl', 'neurofibrils', 'dendrites', 'hillock', 'axon', 'myelin', 'schwann', 'node', 'terminals'],
   nk: ['nkcell', 'abnormal', 'golgi', 'vesicles', 'perforin', 'pores'],
@@ -189,55 +188,6 @@ function buildAlveolus(K) {
   add(g, lv, 'endothelial', tube(pts, 0.85, mat(0xff99ac, { opacity: 0.45, side: THREE.DoubleSide }), 200), { shell: true });
   add(g, lv, 'capillary', tube(pts, 0.55, mat(0xd00000), 200));
   anchor(lv, 'endothelial', pts[18].clone().add(V(0, 0.9, 0))); anchor(lv, 'capillary', pts[40]);
-}
-
-/* ---------------------------------------------------------------- Parietal cell ---- */
-function buildParietal(K, stageFns) {
-  const { THREE, V, mat, level, add, anchor, sphere, instanced } = K;
-  const lv = 'parietal', g = level(lv);
-  const cell = new THREE.Mesh(K.keep(new THREE.BoxGeometry(10, 8, 5)), mat(0xbde0fe, { opacity: 0.22, side: THREE.DoubleSide }));
-  g.add(cell);   /* the cell itself (drawn, unlabelled: the level's title names it) */
-  const lumen = new THREE.Mesh(K.keep(new THREE.BoxGeometry(10, 3, 5)), mat(0xfff3b0, { opacity: 0.18 })); lumen.position.y = 5.5;
-  add(g, lv, 'lumen', lumen, { shell: true });
-  const isf = new THREE.Mesh(K.keep(new THREE.BoxGeometry(10, 3, 5)), mat(0xffd6e0, { opacity: 0.18 })); isf.position.y = -5.5;
-  add(g, lv, 'isf', isf, { shell: true });
-  anchor(lv, 'lumen', V(-4, 6.4, 2.5)); anchor(lv, 'isf', V(-4, -6.4, 2.5));
-  /* carbonic anhydrase in the middle, chloride channels in the apical membrane; pumps drawn, unlabelled */
-  add(g, lv, 'ca', sphere(0.9, mat(0x2a9d8f), V(0, 0, 0))).scale.set(1.2, 0.9, 0.9);
-  anchor(lv, 'ca', V(0, 0.9, 0.6));
-  const chan = K.keep(new THREE.CylinderGeometry(0.45, 0.45, 0.6, 16, 1, true)), cMat = mat(0x4cc9f0, { side: THREE.DoubleSide });
-  for (const x of [2.5, 3.6]) { const c = new THREE.Mesh(chan, cMat); c.position.set(x, 4, 0); add(g, lv, 'clchannels', c); }
-  anchor(lv, 'clchannels', V(3.05, 4.5, 0.6));
-  const pump = new THREE.Mesh(K.keep(new THREE.CylinderGeometry(0.5, 0.5, 0.6, 16)), mat(0xe63946)); pump.position.set(-2, 4, 0); g.add(pump);
-  const counter = new THREE.Mesh(K.keep(new THREE.CylinderGeometry(0.5, 0.5, 0.6, 16)), mat(0x8338ec)); counter.position.set(1, -4, 0); g.add(counter);
-  /* the ions: four of each, moving with the stages */
-  const N = 4, D = new THREE.Object3D();
-  const ions = (part, colour, r) => add(g, lv, part, instanced(K.lowSphere, mat(colour), N, (i, d) => d.scale.setScalar(r)));
-  const H = ions('hplus', 0xe63946, 0.22), B = ions('hco3', 0x8338ec, 0.3), C = ions('cl', 0x06d6a0, 0.28);
-  const tide = add(g, lv, 'tide', instanced(K.lowSphere, mat(0xc77dff, { opacity: 0.7 }), 16, (i, d) => { d.position.set(-3 + (i % 8) * 1.1, -5.2 - Math.floor(i / 8) * 0.8, ((i * 7) % 5) * 0.4 - 0.8); d.scale.setScalar(0.24); }));
-  const jit = (i) => V(((i * 37) % 7) / 7 - 0.5, ((i * 53) % 5) / 5 - 0.5, ((i * 11) % 3) / 3 - 0.5).multiplyScalar(0.8);
-  const set = (im, i, p, r) => { D.position.copy(p); D.scale.setScalar(r); D.updateMatrix(); im.setMatrixAt(i, D.matrix); };
-  const st = { h: V(), b: V(), c: V() };
-  stageFns[lv] = (s) => {
-    const prog = stageProg(s, 4), make = prog(0), pumpP = prog(1), cnt = prog(2), dif = prog(3);
-    const born = span(make, 0, 0.6);
-    for (let i = 0; i < N; i++) {
-      const j = jit(i);
-      const h = along([V(0.6, 0.3, 0).add(j), V(-2, 3.5, 0), V(-2, 5.4, 0).add(j)], pumpP);
-      const b = along([V(-0.6, -0.3, 0).add(j), V(1, -3.5, 0), V(1, -5.4, 0).add(j)], cnt);
-      const c = along([V(1, -5.6, 0).add(j), V(1, -3.5, 0), V(1.5, -2.6, 0).add(j), V(3.05, 3.6, 0), V(3.05, 5.4, 0).add(j)], mix(0, 0.5, cnt) + mix(0, 0.5, dif));
-      set(H, i, h, 0.22 * Math.max(0.001, born)); set(B, i, b, 0.3 * Math.max(0.001, born)); set(C, i, c, 0.28);
-      if (i === 0) { st.h = h; st.b = b; st.c = c; }
-    }
-    for (const im of [H, B, C]) { im.instanceMatrix.needsUpdate = true; im.computeBoundingSphere(); }
-    K.show(lv, 'hplus', born > 0.05 ? 1 : 0); K.show(lv, 'hco3', born > 0.05 ? 1 : 0);
-    K.show(lv, 'tide', span(cnt, 0.6, 1));
-  };
-  anchor(lv, 'hplus', () => st.h.clone().add(V(0, 0.4, 0.3)));
-  anchor(lv, 'hco3', () => st.b.clone().add(V(0, 0.45, 0.3)));
-  anchor(lv, 'cl', () => st.c.clone().add(V(0, 0.45, 0.3)));
-  anchor(lv, 'tide', V(2.5, -6.2, 0.6));
-  void tide;
 }
 
 /* ---------------------------------------------------------------- Spermatozoon ---- */
@@ -458,6 +408,6 @@ function buildApc(K, stageFns) {
 }
 
 export function buildLectureCells(K, stageFns, tickFns) {
-  buildMembrane(K); buildEpithelium(K); buildBlood(K); buildAlveolus(K); buildParietal(K, stageFns);
+  buildMembrane(K); buildEpithelium(K); buildBlood(K); buildAlveolus(K);
   buildSperm(K, tickFns); buildNeuron(K); buildNk(K, stageFns); buildApc(K, stageFns);
 }

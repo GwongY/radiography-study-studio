@@ -86,7 +86,7 @@ function panelHtml() {
     </section>
     <ol class="mz-labels" id="mz-labels" aria-label="Labels"></ol>
     <article class="ha-info mz-info" id="mz-info" aria-live="polite" hidden><strong id="mz-infoTitle"></strong><p id="mz-infoNote"></p><small id="mz-infoCite"></small><div class="sel-revise mz-revise" data-mz-revise="label" hidden></div></article>
-    <p class="ha-credit">The muscle is the model's own (BodyParts3D, CC BY-SA 2.1 JP). The levels inside it are drawn for this app, schematic, not to scale. Labels and notes are the 2026 HSS2011 and ABCT2326 slides' words. <a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Notices</a></p>
+    <p class="ha-credit">Muscle model: BodyParts3D, CC BY-SA 2.1 JP. <a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Notices</a></p>
   </div>`;
 }
 

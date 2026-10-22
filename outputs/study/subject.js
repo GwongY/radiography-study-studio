@@ -123,8 +123,7 @@ function renderFlowKey() {
   const pulm = rows.some((r) => r.cls === 'pulmArtery' || r.cls === 'pulmVein');
   return `<div class="flowkey"><div class="kh">What the colours mean</div>${
     rows.map((r) => `<div class="kr"><span class="sw" style="background:${hex(r.spec.color)}"></span>${esc(r.spec.short)}<span class="kn">${r.n}</span></div>`).join('')
-  }${pulm ? '<div class="note">Red is oxygenated, blue is not — which is why the pulmonary artery is blue-violet and the pulmonary veins are red. Vessel type does not decide the colour; what it carries does.</div>' : ''}
-    <div class="note">Colours and rhythms are drawn by this app, not measured.</div></div>`;
+  }${pulm ? '<div class="note">Red is oxygenated, blue is not — which is why the pulmonary artery is blue-violet and the pulmonary veins are red. Vessel type does not decide the colour; what it carries does.</div>' : ''}</div>`;
 }
 
 /*
@@ -139,8 +138,7 @@ function renderCircExtras() {
   if (!api || !on) return '';
   const st = api.state();
   return `<div class="circextras"><div class="kh">Circulation extras</div>
-    <label class="ce"><input type="checkbox" id="ceDots"${st.dots ? ' checked' : ''}><span>Flow dots</span><small>arteries and veins</small></label>
-    <div class="note">The Heart chip draws the enhanced heart -- valves, chambers, beating -- in place of the heart's own meshes, so those cannot be tapped; focus and Projection bring them back.</div></div>`;
+    <label class="ce"><input type="checkbox" id="ceDots"${st.dots ? ' checked' : ''}><span>Flow dots</span><small>arteries and veins</small></label></div>`;
 }
 
 export function renderLayerRail() {
@@ -162,7 +160,7 @@ export function renderLayerRail() {
     return `<button class="layerchip" data-layer="${esc(l.key)}" data-state="${st}"${sub} aria-pressed="${st !== 'off'}">
       <span class="dot"></span><span>${esc(l.label)}</span><span class="cnt" title="${layerCourseCount(l.key)} named by your course · ${layerCount(l.key)} modelled · ${layerUnitCount(l.key)} separately selectable">${layerCourseCount(l.key)}<i>/${layerCount(l.key)}</i></span>
     </button>`;
-  }).join('') + '<div class="layerhint">tap to cycle · solid → ghost → off</div>' + renderCircExtras() + renderFlowKey();
+  }).join('') + renderCircExtras() + renderFlowKey();
   rail.querySelectorAll('[data-layer]').forEach((b) => { b.onclick = () => cycleLayer(b.dataset.layer, b); });
   const circ = window.__osteo && window.__osteo.circulation;
   if (circ) {

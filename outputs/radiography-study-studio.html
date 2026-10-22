@@ -219,14 +219,14 @@
         <button class="htoggle" id="hiddenToggle" aria-expanded="false">🚫 <span id="hiddenCount">Hidden</span></button>
         <div class="hlist" id="hiddenList"></div>
       </div>
-      <div class="stagenote"><span class="stagenote-row"><span id="stageMeta">z-anatomy-skeleton.glb · cached offline</span><span class="mono" id="regionMeta">All regions</span></span><span class="stage-hint">drag to rotate · pinch to zoom · tap a structure · tap the same spot again to go deeper</span></div>
+      <div class="stagenote"><span class="stagenote-row"><span id="stageMeta">z-anatomy-skeleton.glb · cached offline</span><span class="mono" id="regionMeta">All regions</span></span></div>
 <div class="viewer-dock" id="viewerDock">      <aside class="selpanel hidden" id="taskCard">
         <button class="panel-toggle" id="taskPanelToggle" aria-expanded="false" aria-controls="taskPanelContent">Explore &amp; study</button>
         <div id="taskPanelContent">
         <div class="pickstack hidden" id="pickStack"></div>
         <div class="task-kicker" id="taskKicker">Explore</div>
         <h2 class="task-title" id="taskTitle">Select a structure</h2>
-        <p class="task-copy" id="taskCopy">Tap a named mesh to see only the high-yield anatomy you need right now.</p>
+        <p class="task-copy" id="taskCopy" hidden></p>
         <div class="selected" id="selectedCard"><div class="selected-name" id="selectedName">Nothing selected</div><div class="chips" id="selectedChips"></div><div id="selectedDetails"></div><div id="selectedRevise" class="sel-revise" hidden></div></div>
         </div>
       </aside>
@@ -234,24 +234,23 @@
 
       <div class="vsheet-grid">
         <!--
-          Three bottom-bar buttons, three sections: Spread opens the first,
-          Cut the second, Regions the last two. The panel shows only the
-          section its button names (data-tsec, filtered in app.css).
+          Two bottom-bar buttons: Tools opens Spread with Cut below it,
+          Regions the last two. The panel shows only the sections its button
+          names (data-tsec, filtered in app.css).
         -->
         <section class="card toolcard" data-tsec="spread">
           <div class="tool-lab">Spread the body</div>
           <label class="small">Layout <select id="spreadMode" aria-label="Spread layout"><option value="pieces">Pieces</option><option value="layers">Layers</option></select></label>
           <label class="tool-slider"><span>Spread</span><input type="range" id="sepSlider" min="0" max="100" value="0" aria-label="Spread the course body"><span class="mono" id="sepRead">together</span></label>
-          <p class="small">Pieces packs visible structures into rows at 100%. Layers fans whole layers sideways. Display layouts, not anatomical positions.</p>
           <div class="tool-lab">Layer depth</div>
           <div class="depthlist" id="layerDepth"></div>
         </section>
-        <section class="card toolcard" data-tsec="cut">
+        <section class="card toolcard" data-tsec="spread">
           <div class="tool-lab">Section cut</div>
           <div class="tool-row" id="cutButtons"></div>
           <div class="cut-levels" id="cutLevels"></div>
           <label class="tool-slider"><span>Position</span><input type="range" id="cutSlider" min="0" max="100" value="50" aria-label="Cut position"><span class="mono" id="cutRead">no cut</span></label>
-          <div class="tool-row"><button class="icon-btn" id="cutFlip">Flip side</button><button class="icon-btn" id="cutClear">Clear cut</button></div>
+          <div class="tool-row"><button class="icon-btn" id="cutFlip">Flip side</button></div>
         </section>
         <section class="card" data-tsec="regions"><div class="task-kicker">Region filter</div><h2 class="task-title">Study one area</h2><div class="region-row" id="regionButtons"></div></section>
         <section class="card overlaycard" data-tsec="regions">
@@ -266,7 +265,7 @@
       </div>
     </div>
 </section></div>
-<div class="ctrlpill"><button class="icon-btn" id="viewerExploreBtn" aria-expanded="false" aria-controls="taskCard">Explore</button><button class="icon-btn" data-tsec="spread" aria-expanded="false" aria-controls="viewerToolsPanel">Spread</button><button class="icon-btn" data-tsec="cut" aria-expanded="false" aria-controls="viewerToolsPanel">Cut</button><button class="icon-btn" data-tsec="regions" aria-expanded="false" aria-controls="viewerToolsPanel">Regions</button><button class="icon-btn" id="resetBtn" aria-label="Reset view">Reset</button><button class="icon-btn" id="focusBtn">Focus</button></div>
+<div class="ctrlpill"><button class="icon-btn" id="viewerExploreBtn" aria-expanded="false" aria-controls="taskCard">Explore</button><button class="icon-btn" data-tsec="spread" aria-expanded="false" aria-controls="viewerToolsPanel">Tools</button><button class="icon-btn" data-tsec="regions" aria-expanded="false" aria-controls="viewerToolsPanel">Regions</button><button class="icon-btn" id="resetBtn" aria-label="Reset view">Reset</button><button class="icon-btn" id="focusBtn">Focus</button></div>
     </div>
             </div>
             <div id="viewerXrayPane" class="hidden">
@@ -286,7 +285,7 @@
                   <span class="mono" id="xrayAecRead">on</span>
                 </label>
               </div>
-              <div class="xray-display-controls"><label>Zoom<input id="xrayZoom" type="range" min=".5" max="3" step=".1" value="1"><output id="xrayZoomRead">1</output></label><label>Window<input id="xrayWindow" type="range" min="2" max="40" step=".5" value="19"><output id="xrayWindowRead">19</output></label><label>Level<input id="xrayLevel" type="range" min="0" max="25" step=".5" value="10.5"><output id="xrayLevelRead">10.5</output></label><button class="icon-btn" id="xrayReset">Reset projection</button></div><div id="xrayStatus" class="xray-status" role="status"></div><div class="xraywrap" id="xrayMount"></div><div id="xraySelection" class="xray-selection" aria-live="polite">Tap a structure to identify it.</div>
+              <div class="xray-display-controls"><label>Zoom<input id="xrayZoom" type="range" min=".5" max="3" step=".1" value="1"><output id="xrayZoomRead">1</output></label><label>Window<input id="xrayWindow" type="range" min="2" max="40" step=".5" value="19"><output id="xrayWindowRead">19</output></label><label>Level<input id="xrayLevel" type="range" min="0" max="25" step=".5" value="10.5"><output id="xrayLevelRead">10.5</output></label><button class="icon-btn" id="xrayReset">Reset projection</button></div><div id="xrayStatus" class="xray-status" role="status"></div><div class="xraywrap" id="xrayMount"></div><div id="xraySelection" class="xray-selection" aria-live="polite"></div>
               <div class="xray-appa">
                 <div class="xray-appa-lab">AP and PA — written by this app, not from your sources</div>
                 <p><strong>The name is the direction the beam travels through the patient.</strong>

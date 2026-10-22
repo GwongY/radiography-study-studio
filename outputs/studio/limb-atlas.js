@@ -77,7 +77,6 @@ function panelHtml() {
       <p id="la-procCaption" class="ha-proc-caption" aria-live="polite"></p>
     </section>
     <article class="ha-info" aria-live="polite"><strong id="la-infoTitle"></strong><span id="la-infoCat"></span><p id="la-infoText"></p></article>
-    <p class="ha-note">Device sizes, speeds and the clot and plaque shapes are teaching illustrations; the vessels are the explorer's own. Flow dots follow the vessel centre-lines.</p>
     <p class="ha-credit">Limb routes and procedure animations: BetterHeart, vessels CC BY-SA 4.0, from BodyParts3D / Z-Anatomy. <a href="./heart/MODEL-NOTICES.txt" target="_blank" rel="noopener">Sources and licence</a></p>
   </div>`;
 }

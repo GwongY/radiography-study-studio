@@ -1295,7 +1295,7 @@ export function renderXray(){
     const R=XRAY_REGIONS[x.region]||XRAY_REGIONS.body;
     const names={pa:'PA',ap:'AP',lat:'Lateral'};
     const proj=off>4?`oblique · ${off}° off ${names[x.view]||x.view}`:(names[x.view]||x.view);
-    els.stageMeta.textContent=`${R.label} · ${proj} · SID ${sid} cm · ${beam} · simulated · tap to name`;
+    els.stageMeta.textContent=`${R.label} · ${proj} · SID ${sid} cm · ${beam}`;
     const status=$('xrayStatus');if(status)status.textContent=els.stageMeta.textContent;
   }
   // A projection is one exposure; grain must not flicker every animation frame.

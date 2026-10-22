@@ -26,6 +26,7 @@ const L5 = 'phys.l5.2026';    /* ABCT2326 Lecture 5 Renal System (filed with the
 const L8 = 'phys.l8.2026';    /* ABCT2326 Lecture 8 Nervous System, 2026 */
 const L10 = 'phys.10.2026';   /* ABCT2326 Lecture 10 Immune System, 2026 */
 const N5 = 'hss.l5.2026';     /* HSS2011 W5 Nervous system I, 2026 */
+const H8 = 'hss.l8.2026';     /* HSS2011 W8 Cardiovascular system, 2026 */
 const HM = 'phys.hormech';    /* ABCT2326 Hormone Mechanism handout (older): a fallback, see FALLBACK below */
 const OC = 'phys.cells.old';  /* ABCT2326 Lecture 1, an older edition: a fallback, see FALLBACK below */
 
@@ -45,6 +46,7 @@ export const CELL_SOURCES = {
   [L8]: 'ABCT2326 Nervous system',
   [L10]: 'ABCT2326 Immune',
   [N5]: 'HSS2011 W5 Nervous system I',
+  [H8]: 'HSS2011 W8 Cardiovascular system',
 };
 
 /*
@@ -77,6 +79,9 @@ export const LEVELS = [
   { id: 'redcell', title: 'Red blood cells (RBCs)', note: 'Each RBC contains 280 million hemoglobin molecules', cite: [{ ref: L2, page: 5, match: 'Red blood cells (RBCs)' }, { ref: L2, page: 7, match: 'Each RBC contains 280 million hemoglobin molecules' }], next: 'hemoglobin' },
   { id: 'hemoglobin', title: 'Hemoglobin (Hb)', note: 'Each Hb binds four oxygen molecules', cite: [{ ref: L3, page: 45, match: 'hemoglobin (Hb) molecules' }, { ref: L3, page: 45, match: 'Each Hb binds four oxygen molecules' }], slider: 'hemoglobin' },
   { id: 'plasma', title: 'Plasma', note: 'Plasma proteins constitute 7-9% of plasma', cite: [{ ref: L2, page: 6, match: 'Plasma • Plasma proteins constitute 7-9% of plasma' }], back: 'blood' },
+  { id: 'vessels', title: 'Structures of different types of blood vessels', note: 'Both arteries and veins have the same three distinct tissue layers', cite: [{ ref: H8, page: 33, match: 'Structures of different types of blood vessels' }, { ref: H8, page: 33, match: 'Both arteries and veins have the same three distinct tissue layers' }], back: 'cell', side: 'capillaries' },
+  { id: 'capillaries', title: 'Types of Capillaries', note: 'Very thin walls--only one cell layer (endothelium).', cite: [{ ref: H8, page: 37, match: 'Types of Capillaries' }, { ref: H8, page: 35, match: 'Very thin walls--only one cell layer (endothelium).' }], back: 'vessels', slider: 'capillaries' },
+  { id: 'gutwall', title: 'Digestive Tract Layers', note: 'Four major layers of the digestive tract', cite: [{ ref: L4, page: 7, match: 'Digestive Tract Layers' }, { ref: L4, page: 7, match: 'Four major layers of the digestive tract' }], back: 'cell', side: 'parietal' },
   { id: 'alveolus', title: 'Alveolar epithelium', note: 'Consists of simple squamous epithelium', cite: [{ ref: L3, page: 10, match: 'Alveolar epithelium – Consists of simple squamous epithelium' }], back: 'cell' },
   { id: 'parietal', title: 'Parietal cell', note: 'Secrete intrinsic factor and hydrochloric acid (HCl)', cite: [{ ref: L4, page: 29, match: 'Parietal cell' }, { ref: L4, page: 26, match: 'Parietal Cells • Secrete intrinsic factor and hydrochloric acid (HCl)' }], back: 'cell', slider: 'parietal' },
   { id: 'pct', title: 'The mechanism of Reabsorption in the proximal tubule', note: 'In proximal convoluted tubule, most molecules and H2O return from filtrate back to peritubular capillaries', cite: [{ ref: L5, page: 24, match: 'The mechanism of Reabsorption in the proximal tubule' }, { ref: L5, page: 21, match: 'In proximal convoluted tubule, most molecules and H2O return from filtrate back to peritubular capillaries' }], back: 'cell', slider: 'pct' },
@@ -372,6 +377,45 @@ export const LABELS = {
     { id: 'co2', l: 'CO2', cite: [{ ref: L4, page: 29, match: 'converts CO2 and H2O' }] },
     { id: 'h2o', l: 'H2O', cite: [{ ref: L4, page: 29, match: 'converts CO2 and H2O' }] },
     { id: 'h2co3', l: 'Carbonic acid (H2CO3)', cite: [{ ref: L4, page: 29, match: 'carbonic acid (H2CO3)' }], revise: [['ABCT2326', 'p4_carbonic_anhydrase']] },
+    { id: 'vagus', l: 'Vagus nerve (N X)', cite: [{ ref: L4, page: 31, match: 'Vagus nerve (N X)' }] },
+    { id: 'gcell', l: 'G cells', note: 'G cells produce gastrin', cite: [{ ref: L4, page: 26, match: 'G cells produce gastrin' }], revise: [['ABCT2326', 'p4_g_cells']] },
+    { id: 'gastrin', l: 'Gastrin', note: 'Stimulates acids and enzyme production', cite: [{ ref: L4, page: 56, match: 'Gastrin' }, { ref: L4, page: 56, match: 'Stimulates acids and enzyme production' }], revise: [['ABCT2326', 'p4_gastrin']] },
+    { id: 'cck', l: 'Cholecystokinin (CCK)', note: 'Is secreted in duodenum', cite: [{ ref: L4, page: 57, match: 'Cholecystokinin (CCK)' }, { ref: L4, page: 57, match: 'Is secreted in duodenum' }], revise: [['ABCT2326', 'p4_cck']] },
+    { id: 'gip', l: 'Gastric Inhibitory Peptide (GIP)', note: 'Is secreted when fats and carbohydrates enter small intestine', cite: [{ ref: L4, page: 57, match: 'Gastric Inhibitory Peptide (GIP)' }, { ref: L4, page: 57, match: 'Is secreted when fats and carbohydrates enter small intestine' }], revise: [['ABCT2326', 'p4_gip']] },
+    { id: 'secretin', l: 'Secretin', note: 'Is released when chyme arrives in duodenum', cite: [{ ref: L4, page: 56, match: 'Secretin' }, { ref: L4, page: 56, match: 'Is released when chyme arrives in duodenum' }], revise: [['ABCT2326', 'p4_secretin']] },
+  ],
+  vessels: [
+    { id: 'artery', l: 'Arteries', note: ['Thick walls to withstand high pressure.', 'Narrow lumen to maintain pressure.'], cite: [{ ref: H8, page: 34, match: 'Thick walls to withstand high pressure.' }, { ref: H8, page: 34, match: 'Narrow lumen to maintain pressure.' }], revise: [['HSS2011', 'w8_artery'], ['ABCT2326', 'p2_arteries']] },
+    { id: 'vein', l: 'Veins', note: ['Thinner walls than arteries.', 'Larger lumen to accommodate more blood.', 'Three layers, like arteries, but with less smooth muscle and elastic tissue.'], cite: [{ ref: H8, page: 45, match: 'Thinner walls than arteries.' }, { ref: H8, page: 45, match: 'Larger lumen to accommodate more blood.' }, { ref: H8, page: 45, match: 'Three layers, like arteries, but with less smooth muscle and elastic tissue.' }], revise: [['HSS2011', 'w8_vein'], ['ABCT2326', 'p2_veins']] },
+    { id: 'externa', l: 'Tunica externa (adventitia)', note: 'Outer layer of connective tissue.', cite: [{ ref: H8, page: 34, match: 'Tunica externa (adventitia): Outer layer of connective tissue.' }, { ref: L2, page: 10, match: 'Externa is connective tissue' }], revise: [['HSS2011', 'w8_texterna'], ['ABCT2326', 'p2_tunica_externa']] },
+    { id: 'media', l: 'Tunica media', note: 'Thick middle layer of smooth muscle and elastic fibers.', cite: [{ ref: H8, page: 34, match: 'Tunica media: Thick middle layer of smooth muscle and elastic fibers.' }, { ref: L2, page: 10, match: 'Media is mostly smooth muscle' }], revise: [['HSS2011', 'w8_tmedia'], ['ABCT2326', 'p2_tunica_media']] },
+    { id: 'intima', l: 'Tunica intima', note: ['Inner layer with smooth endothelium.', 'Interna is made of endothelium, basement membrane, and elastin'], cite: [{ ref: H8, page: 34, match: 'Tunica intima: Inner layer with smooth endothelium.' }, { ref: L2, page: 10, match: 'Interna is made of endothelium, basement membrane, and elastin' }], revise: [['HSS2011', 'w8_tintima'], ['ABCT2326', 'p2_tunica_interna']] },
+    { id: 'endothelium', l: 'Endothelium', note: 'Innermost layer of all vessels is the endothelium', cite: [{ ref: L2, page: 10, match: 'Innermost layer of all vessels is the endothelium' }], revise: [['ABCT2326', 'p2_endothelium'], ['HSS2011', 'w8_endothelial']] },
+    { id: 'valves', l: 'Valves', note: 'Valves are present to prevent backflow, especially in limbs.', cite: [{ ref: H8, page: 45, match: 'Valves are present to prevent backflow, especially in limbs.' }], revise: [['ABCT2326', 'p2_venous_valves']] },
+    { id: 'vasa', l: 'Vasa Vasorum', note: 'Tiny blood vessels supply the walls of large blood vessels (like the aorta).', cite: [{ ref: H8, page: 46, match: 'Vasa Vasorum' }, { ref: H8, page: 46, match: 'Tiny blood vessels supply the walls of large blood vessels (like the aorta).' }], revise: [['HSS2011', 'w8_vasa']] },
+  ],
+  capillaries: [
+    { id: 'continuous', l: 'Continuous Capillaries', note: 'Endothelial cells form a continuous, uninterrupted lining.', cite: [{ ref: H8, page: 37, match: 'Continuous Capillaries' }, { ref: H8, page: 37, match: 'Endothelial cells form a continuous, uninterrupted lining.' }], revise: [['HSS2011', 'w8_contcap'], ['ABCT2326', 'p2_continuous_cap']] },
+    { id: 'fenestrated', l: 'Fenestrated Capillaries', note: 'Endothelial cells contain fenestrations (small pores).', cite: [{ ref: H8, page: 38, match: 'Fenestrated Capillaries' }, { ref: H8, page: 38, match: 'Endothelial cells contain fenestrations (small pores).' }], revise: [['HSS2011', 'w8_fencap'], ['ABCT2326', 'p2_fenestrated_cap']] },
+    { id: 'sinusoid', l: 'Sinusoid (Discontinuous) Capillaries', note: ['Large gaps between endothelial cells.', 'Irregular, wider lumen.'], cite: [{ ref: H8, page: 39, match: 'Sinusoid (Discontinuous) Capillaries' }, { ref: H8, page: 39, match: 'Large gaps between endothelial cells.' }, { ref: H8, page: 39, match: 'Irregular, wider lumen.' }], revise: [['HSS2011', 'w8_sinusoid']] },
+    { id: 'endothelial', l: 'Endothelial cells', note: 'Capillaries are made of only endothelial cells', cite: [{ ref: H8, page: 37, match: 'Endothelial cells' }, { ref: L2, page: 10, match: 'Capillaries are made of only endothelial cells' }], revise: [['ABCT2326', 'p2_endothelium'], ['HSS2011', 'w8_endothelial']] },
+    { id: 'tight', l: 'Tight junctions', note: 'Tight junctions between cells limit permeability.', cite: [{ ref: H8, page: 37, match: 'Tight junctions between cells limit permeability.' }] },
+    { id: 'fenestrations', l: 'Fenestrations', note: 'These pores may or may not have thin diaphragms.', cite: [{ ref: H8, page: 38, match: 'fenestrations (small pores)' }, { ref: H8, page: 38, match: 'These pores may or may not have thin diaphragms.' }], revise: [['HSS2011', 'w8_fencap']] },
+    { id: 'basement', l: 'Basement membrane', note: ['Surrounded by a continuous basement membrane.', 'Discontinuous or absent basement membrane.'], cite: [{ ref: H8, page: 37, match: 'Surrounded by a continuous basement membrane.' }, { ref: H8, page: 39, match: 'Discontinuous or absent basement membrane.' }] },
+    { id: 'rbc', l: 'Red blood cells', note: 'Extremely narrow lumen--just wide enough for red blood cells to pass through.', cite: [{ ref: H8, page: 35, match: 'Extremely narrow lumen--just wide enough for red blood cells to pass through.' }], revise: [['ABCT2326', 'p2_rbc']] },
+  ],
+  gutwall: [
+    { id: 'mucosa', l: 'Mucosa', note: ['Is the inner lining of digestive tract', 'Folded to increase surface area for absorption'], cite: [{ ref: L4, page: 9, match: 'Is the inner lining of digestive tract' }, { ref: L4, page: 9, match: 'Folded to increase surface area for absorption' }], revise: [['ABCT2326', 'p4_mucosa']] },
+    { id: 'epithelium', l: 'Epithelium', note: 'moistened by glandular secretions', cite: [{ ref: L4, page: 9, match: 'Epithelium, moistened by glandular secretions' }] },
+    { id: 'enteroendocrine', l: 'Enteroendocrine cells', note: 'secrete hormones that coordinate activities of the digestive tract and accessory glands', cite: [{ ref: L4, page: 9, match: 'Enteroendocrine cells secrete hormones that coordinate activities of the digestive tract and accessory glands' }], revise: [['ABCT2326', 'p4_enteroendocrine']] },
+    { id: 'lamina', l: 'Lamina propria', note: 'Lamina propria of areolar tissue', cite: [{ ref: L4, page: 9, match: 'Lamina propria of areolar tissue' }], revise: [['ABCT2326', 'p4_lamina_propria']] },
+    { id: 'mm', l: 'Muscularis mucosae', cite: [{ ref: L4, page: 10, match: 'Surrounds muscularis mucosae' }] },
+    { id: 'submucosa', l: 'Submucosa', note: 'Is a layer of dense irregular connective tissue', cite: [{ ref: L4, page: 10, match: 'The Submucosa' }, { ref: L4, page: 10, match: 'Is a layer of dense irregular connective tissue' }], revise: [['ABCT2326', 'p4_submucosa']] },
+    { id: 'bloodvessels', l: 'Blood vessels', note: 'Has large blood vessels and lymphatic vessels', cite: [{ ref: L4, page: 10, match: 'Has large blood vessels and lymphatic vessels' }] },
+    { id: 'lymph', l: 'Lymphatic vessels', note: 'Has large blood vessels and lymphatic vessels', cite: [{ ref: L4, page: 10, match: 'Has large blood vessels and lymphatic vessels' }] },
+    { id: 'glands', l: 'Exocrine glands', note: ['May contain exocrine glands', 'Secrete buffers and enzymes into digestive tract'], cite: [{ ref: L4, page: 10, match: 'May contain exocrine glands' }, { ref: L4, page: 10, match: 'Secrete buffers and enzymes into digestive tract' }] },
+    { id: 'externa', l: 'Muscularis externa', note: ['Is dominated by smooth muscle cells', 'Mechanical processing', 'Movement of materials along digestive tract'], cite: [{ ref: L4, page: 11, match: 'The Muscularis Externa' }, { ref: L4, page: 11, match: 'Is dominated by smooth muscle cells' }, { ref: L4, page: 11, match: 'Mechanical processing' }, { ref: L4, page: 11, match: 'Movement of materials along digestive tract' }], revise: [['ABCT2326', 'p4_musc_externa']] },
+    { id: 'serosa', l: 'Serosa', note: ['Serous membrane covering muscularis externa', 'Outer binding and protective layer'], cite: [{ ref: L4, page: 11, match: 'Serous membrane covering muscularis externa' }, { ref: L4, page: 11, match: 'Outer binding and protective layer' }], revise: [['ABCT2326', 'p4_serosa']] },
   ],
   sperm: [
     { id: 'head', l: 'Head', cite: [{ ref: L6, page: 8, match: 'Head (5' }], revise: [['ABCT2326', 'p7_sperm_head']] },
@@ -482,6 +526,19 @@ export const SLIDERS = {
       { id: 'pump', l: 'Active transport', note: 'The hydrogen ions are actively transported into the lumen of the gastric gland.', cite: [{ ref: L4, page: 29, match: 'The hydrogen ions are actively transported into the lumen of the gastric gland.' }, { ref: L4, page: 29, match: 'Active transport' }], revise: [['ABCT2326', 'p4_hcl']] },
       { id: 'counter', l: 'Countertransport', note: 'A countertransport mechanism ejects the bicarbonate ions into the interstitial fluid and imports chloride ions into the cell.', cite: [{ ref: L4, page: 29, match: 'A countertransport mechanism ejects the bicarbonate ions into the interstitial fluid and imports chloride ions into the cell.' }], revise: [['ABCT2326', 'p4_alkaline_tide']] },
       { id: 'diffuse', l: 'Diffusion', note: 'The chloride ions then diffuse across the cell and exit through open chloride channels into the lumen of the gastric gland.', cite: [{ ref: L4, page: 29, match: 'The chloride ions then diffuse across the cell and exit through open chloride channels into the lumen of the gastric gland.' }, { ref: L4, page: 29, match: 'Diffusion' }], revise: [['ABCT2326', 'p4_hcl']] },
+      { id: 'cephalic', l: 'Cephalic phase', group: 'regulation', note: ['Sight, smell, taste, or thoughts of food', 'Controlled by the CNS'], cite: [{ ref: L4, page: 30, match: 'Cephalic phase' }, { ref: L4, page: 30, match: 'Controlled by the CNS' }, { ref: L4, page: 31, match: 'Sight, smell, taste, or thoughts of food' }, { ref: L4, page: 31, match: 'Vagus nerve (N X)' }, { ref: L4, page: 31, match: 'Gastrin' }], revise: [['ABCT2326', 'p4_cephalic_phase'], ['ABCT2326', 'p4_g_cells']] },
+      { id: 'gastric', l: 'Gastric phase', group: 'regulation', note: ['Distension', 'Elevated pH', 'Stimulates acids and enzyme production'], cite: [{ ref: L4, page: 30, match: 'Gastric phase' }, { ref: L4, page: 32, match: 'Distension' }, { ref: L4, page: 32, match: 'Elevated pH' }, { ref: L4, page: 32, match: 'carried by bloodstream Gastrin' }, { ref: L4, page: 56, match: 'Stimulates acids and enzyme production' }], revise: [['ABCT2326', 'p4_gastric_phase'], ['ABCT2326', 'p4_gastrin']] },
+      { id: 'intestinal', l: 'Intestinal phase', group: 'regulation', note: ['Presence of lipids and carbohydrates', 'Decreased pH', 'Inhibition'], cite: [{ ref: L4, page: 30, match: 'Intestinal phase' }, { ref: L4, page: 33, match: 'Presence of lipids and carbohydrates' }, { ref: L4, page: 33, match: 'Decreased pH CCK GIP Secretin' }, { ref: L4, page: 33, match: 'Inhibition' }], revise: [['ABCT2326', 'p4_intestinal_phase'], ['ABCT2326', 'p4_cck'], ['ABCT2326', 'p4_gip'], ['ABCT2326', 'p4_secretin']] },
+    ],
+    groups: {
+      regulation: { l: 'Regulation of Gastric Activity', note: ['Regulated by hormones of digestive tract', 'Three phases of gastric control'], cite: [{ ref: L4, page: 30, match: 'Regulation of Gastric Activity' }, { ref: L4, page: 30, match: 'Regulated by hormones of digestive tract' }, { ref: L4, page: 30, match: 'Three phases of gastric control' }] },
+    },
+  },
+  capillaries: {
+    stages: [
+      { id: 'continuous', l: 'Continuous Capillaries', note: ['Small intercellular clefts allow passage of water and small solutes.', 'Least permeable type.'], cite: [{ ref: H8, page: 37, match: 'Continuous Capillaries' }, { ref: H8, page: 37, match: 'Small intercellular clefts allow passage of water and small solutes.' }, { ref: H8, page: 37, match: 'Least permeable type.' }], revise: [['HSS2011', 'w8_contcap'], ['ABCT2326', 'p2_continuous_cap']] },
+      { id: 'fenestrated', l: 'Fenestrated Capillaries', note: 'Increased permeability allows for rapid exchange of substances like hormones and nutrients.', cite: [{ ref: H8, page: 38, match: 'Fenestrated Capillaries' }, { ref: H8, page: 38, match: 'Increased permeability allows for rapid exchange of substances like hormones and nutrients.' }], revise: [['HSS2011', 'w8_fencap'], ['ABCT2326', 'p2_fenestrated_cap']] },
+      { id: 'sinusoid', l: 'Sinusoid (Discontinuous) Capillaries', note: ['Highly permeable to large molecules and even cells.', 'Facilitates exchange of proteins and blood cells.'], cite: [{ ref: H8, page: 39, match: 'Sinusoid (Discontinuous) Capillaries' }, { ref: H8, page: 39, match: 'Highly permeable to large molecules and even cells.' }, { ref: H8, page: 39, match: 'Facilitates exchange of proteins and blood cells.' }], revise: [['HSS2011', 'w8_sinusoid']] },
     ],
     groups: {},
   },
@@ -734,6 +791,30 @@ export const SHOW_IN_3D = {
     p4_carbonic_anhydrase: { level: 'parietal', stage: 'make', label: 'ca' },
     p4_hcl: { level: 'parietal', stage: 'diffuse' },
     p4_alkaline_tide: { level: 'parietal', stage: 'counter', label: 'tide' },
+    p4_cephalic_phase: { level: 'parietal', stage: 'cephalic', label: 'vagus' },
+    p4_gastric_phase: { level: 'parietal', stage: 'gastric', label: 'gastrin' },
+    p4_intestinal_phase: { level: 'parietal', stage: 'intestinal' },
+    p4_g_cells: { level: 'parietal', stage: 'cephalic', label: 'gcell' },
+    p4_gastrin: { level: 'parietal', stage: 'gastric', label: 'gastrin' },
+    p4_cck: { level: 'parietal', stage: 'intestinal', label: 'cck' },
+    p4_gip: { level: 'parietal', stage: 'intestinal', label: 'gip' },
+    p4_secretin: { level: 'parietal', stage: 'intestinal', label: 'secretin' },
+    p4_mucosa: { level: 'gutwall', label: 'mucosa' },
+    p4_enteroendocrine: { level: 'gutwall', label: 'enteroendocrine' },
+    p4_lamina_propria: { level: 'gutwall', label: 'lamina' },
+    p4_submucosa: { level: 'gutwall', label: 'submucosa' },
+    p4_musc_externa: { level: 'gutwall', label: 'externa' },
+    p4_serosa: { level: 'gutwall', label: 'serosa' },
+    p2_endothelium: { level: 'vessels', label: 'endothelium' },
+    p2_tunica_interna: { level: 'vessels', label: 'intima' },
+    p2_tunica_media: { level: 'vessels', label: 'media' },
+    p2_tunica_externa: { level: 'vessels', label: 'externa' },
+    p2_arteries: { level: 'vessels', label: 'artery' },
+    p2_veins: { level: 'vessels', label: 'vein' },
+    p2_venous_valves: { level: 'vessels', label: 'valves' },
+    p2_capillaries: { level: 'capillaries' },
+    p2_continuous_cap: { level: 'capillaries', stage: 'continuous', label: 'continuous' },
+    p2_fenestrated_cap: { level: 'capillaries', stage: 'fenestrated', label: 'fenestrated' },
     p7_spermatozoa: { level: 'sperm' },
     p7_sperm_head: { level: 'sperm', label: 'head' },
     p7_acrosome: { level: 'sperm', label: 'acrosome' },
@@ -774,6 +855,18 @@ export const SHOW_IN_3D = {
     w5_axons: { level: 'neuron', label: 'axon' },
     w5_myelin: { level: 'neuron', label: 'myelin' },
     w5_schwann: { level: 'neuron', label: 'schwann' },
+    w8_texterna: { level: 'vessels', label: 'externa' },
+    w8_tmedia: { level: 'vessels', label: 'media' },
+    w8_tintima: { level: 'vessels', label: 'intima' },
+    w8_lumen: { level: 'vessels' },
+    w8_artery: { level: 'vessels', label: 'artery' },
+    w8_vein: { level: 'vessels', label: 'vein' },
+    w8_vasa: { level: 'vessels', label: 'vasa' },
+    w8_endothelial: { level: 'capillaries', label: 'endothelial' },
+    w8_capillary: { level: 'capillaries' },
+    w8_contcap: { level: 'capillaries', stage: 'continuous', label: 'continuous' },
+    w8_fencap: { level: 'capillaries', stage: 'fenestrated', label: 'fenestrated' },
+    w8_sinusoid: { level: 'capillaries', stage: 'sinusoid', label: 'sinusoid' },
   },
 };
 
@@ -781,6 +874,22 @@ export const SHOW_IN_3D = {
 export const UNLABELLED = ['base pair', 'tetrad', 'homologous', 'linker DNA', 'H2A', 'H2B', 'H3', 'H4'];
 
 /* The stages a slider shows for a signal (the expression slider; the others have none). */
+/*
+ * "Zoom inside" from the body: a tapped structure of the 3D model opens the Cell level inside it, as a tapped muscle
+ * opens the muscle zoom. Matched on the mesh's layer and name, first row that fits; muscles stay with the muscle zoom.
+ */
+export const ZOOM_FROM = [
+  { layer: 'organs', name: /stomach|oesophag|esophag|duodenum|jejunum|ileum|colon|caecum|cecum|rectum|appendix|intestine/i, level: 'gutwall' },
+  { layer: 'organs', name: /lung/i, level: 'alveolus' },
+  { layer: 'organs', name: /^kidney/i, level: 'pct' },
+  { layer: 'organs', name: /^testis/i, level: 'testis' },
+  { layer: 'organs', name: /ovary/i, level: 'follicle' },
+  { layer: 'circulatory', name: /arter|aort|vein|vena|venous|trunk/i, level: 'vessels' },
+  { layer: 'circulatory', name: /^(left|right) (ventricle|atrium)/i, level: 'myocardial' },
+  { layer: 'nervous', name: /nerve|spinal cord|brain|cerebr|cerebell|plexus/i, level: 'neuron' },
+];
+export const zoomFrom = (layer, name) => (ZOOM_FROM.find((z) => z.layer === layer && z.name.test(name)) || {}).level || null;
+
 export const stagesFor = (slider, signal = 'none') => ((SLIDERS[slider] && SLIDERS[slider].stages) || []).filter((s) => !s.signal || s.signal === signal);
 export const levelById = (id) => LEVELS.find((l) => l.id === id) || null;
 export const showIn3D = (subject, id) => (SHOW_IN_3D[subject] && SHOW_IN_3D[subject][id]) || null;

@@ -210,7 +210,7 @@ export const CUT_LEVELS=[
    refs:[{ref:'hss.3.3', location:'p3 "L5 - transtubercular"'}]},
 
   {id:'median', axis:'sagittal', label:'Median plane',
-   note:'The mid-sagittal plane, measured from the midline structures themselves — the vertebral column and the sternum — rather than assumed to be x = 0.',
+   note:'The mid-sagittal plane, through the vertebral column and the sternum.',
    at:(ctx,G)=>(G&&Number.isFinite(G.medianX)?G.medianX:null),
    refs:[{ref:'hss.vocab', location:'p9 "Mid-sagittal/Median Plane"'}]},
 

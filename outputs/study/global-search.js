@@ -371,7 +371,7 @@ export function runSearch(q) {
       box.innerHTML = '<div class="empty">Search structures, Revise topics and Decoder words. Press Esc to close.</div>';
       return;
     }
-    box.innerHTML = '<div class="empty">Recent searches — tap to run again</div>'
+    box.innerHTML = '<div class="empty">Recent searches</div>'
       + recents.map((r, n) =>
         `<button class="sres" data-recent="${n}"><span class="grow"><b>${esc(r)}</b></span><span class="kind">Recent</span></button>`).join('');
     box.querySelectorAll('[data-recent]').forEach((b) => {

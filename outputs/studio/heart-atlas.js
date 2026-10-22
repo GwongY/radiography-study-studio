@@ -113,7 +113,7 @@ function panelHtml() {
     <p class="ha-status" id="ha-apparatusStatus"></p>
     <section class="ha-echo" id="ha-echoPanel" hidden></section>
     <div id="ha-clinical"></div>
-    <article class="ha-info" aria-live="polite"><strong id="ha-infoTitle">Tap a structure</strong><span id="ha-infoCat"></span><p id="ha-infoText">Tap the heart, or choose a chamber or valve, to read about it. Descriptions are adapted from BetterHeart.</p></article>
+    <article class="ha-info" aria-live="polite"><strong id="ha-infoTitle"></strong><span id="ha-infoCat"></span><p id="ha-infoText"></p></article>
     <p class="ha-credit">Heart model and teaching scripts: BetterHeart, meshes CC BY-SA 4.0, from BodyParts3D / Z-Anatomy. <a href="./heart/MODEL-NOTICES.txt" target="_blank" rel="noopener">Sources and licence</a></p>
   </div>`;
 }
@@ -280,7 +280,7 @@ function showIntro(i) {
 }
 
 function showInfo(key) {
-  if (!key) { $('ha-infoTitle').textContent = 'Tap a structure'; $('ha-infoCat').textContent = ''; $('ha-infoText').textContent = 'Tap the heart, or choose a chamber or valve, to read about it.'; return; }
+  if (!key) { $('ha-infoTitle').textContent = ''; $('ha-infoCat').textContent = ''; $('ha-infoText').textContent = ''; return; }
   const d = atlas.describe(key);
   $('ha-infoTitle').textContent = d.title;
   $('ha-infoCat').textContent = d.category;

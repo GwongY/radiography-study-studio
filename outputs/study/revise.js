@@ -265,14 +265,7 @@ function descendantsOf(id) {
 }
 
 function homeHTML() {
-  return `<h3>How to read this map</h3><div class="rv-hint"><p>It is a normal mind map: coloured branches, each opening into topics, and topics opening into ${esc(subjectData().copy.leafWords)}. Tap a name to open its branch and read it here.</p><ul>
-    <li>Before you open a branch, name what is inside it. That is the revision.</li>
-    <li>Tapping a topic draws <b>lines to everything it links to</b>, each ending in a <b>number</b>. The <b>Links</b> list under the map gives the reason for each number. Tap a row to light up its line; tap it again to go there.</li>
-    <li>The map holds <b>only what you have been taught up to the week chosen above</b>. A new week adds topics (marked <b>new</b>) and the links between them and everything before.</li>
-    <li>The small tags (W1…) say when each topic was taught. Tap any name and the notes open with a sentence about it.</li>
-    <li><b>Find</b> searches names and notes. Matches stay inside their branches, so you still see where each one lives.</li>
-    <li><b>Connections in 3D</b>, in a topic's notes, opens the same topic in Brain 3D, where you can walk its links.</li>
-    <li>Drag to pan. Pinch, or hold Ctrl / ⌘ and scroll, to zoom. <b>Jump to</b> opens any topic by name.</li></ul></div>`;
+  return '';
 }
 
 function weeksTags(n) {

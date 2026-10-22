@@ -141,12 +141,7 @@ export function createBrain(env) {
   }
 
   function home() {
-    side.innerHTML = `<h3>Brain 3D: how things connect</h3><div class="rv-hint"><p>One topic sits in the middle. Round it are the topics it links to; the faint dots further out are the next step. The Map shows what belongs where; this shows the links across it.</p><ul>
-      <li><b>Tap any ball or name</b> to bring it to the middle. The trail at the top keeps the chain you walked; <b>Back</b> steps back.</li>
-      <li>The numbers on the lines match the <b>Links</b> list under the picture. Tap a row to light up its line, tap it again to go there.</li>
-      <li>The grey ball at the top is the branch the topic sits in on the Map.</li>
-      <li><b>Tour</b> walks one pathway stop by stop. 跟住條路行一次，個次序就會記得。</li>
-      <li>Drag to turn, pinch or scroll to zoom.</li></ul></div>`;
+    side.innerHTML = '';
   }
 
   /* ---------- bring a topic to the centre ---------- */

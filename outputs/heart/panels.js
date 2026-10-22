@@ -50,10 +50,8 @@ export function ivusPanelHtml() {
     <p class="ha-note" id="ha-ivusModeName"></p>
     <div class="ha-ivus-wrap"><canvas id="ha-ivusCanvas" width="560" height="560" role="img" aria-label="Cross-section of the vessel as the imaging catheter sees it"></canvas>
       <button type="button" id="ha-ivusMeasure" class="active" aria-pressed="true" aria-label="Automatic contours on or off" title="Automatic contours on or off">&#9678;</button></div>
-    <canvas id="ha-ivusLmode" class="ha-ivus-lmode" width="640" height="140" role="img" aria-label="Longitudinal L-mode view; tap to jump to a position"></canvas>
-    <p class="ha-note">Longitudinal view (L-mode): proximal on the left, distal on the right, the blue line is the current position. Drag the round image or the longitudinal view to move along the vessel; while paused the lumen and vessel boundaries are measured automatically (the circle button switches the contours).</p>
+    <canvas id="ha-ivusLmode" class="ha-ivus-lmode" width="640" height="140" role="img" aria-label="Longitudinal L-mode view"></canvas>
     <p id="ha-ivusFind" class="ha-ivus-find" aria-live="polite"></p>
-    <p class="ha-note">Teaching images generated from a parametric model, not real patient images; lesion positions, sizes and measurements are for comparison only.</p>
   </section>`;
 }
 

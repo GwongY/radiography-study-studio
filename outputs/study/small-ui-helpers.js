@@ -199,8 +199,8 @@ export function setTaskPanelExpanded(open) {
   $$('viewerExploreBtn').setAttribute('aria-expanded', String(open));
 }
 /*
- * The Tools panel is three panels in one: the bottom bar's Spread, Cut and
- * Regions buttons each open it on their own section (data-tsec; app.css hides
+ * The Tools panel is two panels in one: the bottom bar's Tools (Spread, with
+ * Cut below it) and Regions buttons each open it on their own section (data-tsec; app.css hides
  * the rest). `section` is kept when omitted, so closing and reopening returns
  * to where the reader was.
  */

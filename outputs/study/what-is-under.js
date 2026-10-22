@@ -39,7 +39,7 @@ function renderPickStack(entries) {
     </li>`).join('')}</ol>
     <div class="pf">${at > 0
       ? `${at} structure${at === 1 ? '' : 's'} in front ghosted to expose it · <button class="peel" id="pickStackRestore">put them back</button>`
-      : 'Nearest first. Tap any of them, or tap the model again in the same spot to step deeper.'}</div>`;
+      : 'Nearest first.'}</div>`;
   box.querySelectorAll('[data-pick]').forEach((b) => {
     b.onclick = () => { if (window.__osteo && window.__osteo.pickFromStack) window.__osteo.pickFromStack(+b.dataset.pick); };
   });
@@ -132,7 +132,7 @@ async function enterProjection() {
   window.__osteo.resize();
   $$('xraySelection').textContent = loaded.length < 4
     ? 'Some tissue layers could not load. This is an incomplete projection; reopen this tab to retry.'
-    : 'Tap the image to name a structure. Drag to pan; use Zoom to enlarge the image.';
+    : '';
   /* The Tools card has to be told: entering the projection suspends the
      section cut, and the card is what says so. */
   renderViewerTools();

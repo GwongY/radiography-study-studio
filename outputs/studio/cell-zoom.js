@@ -21,13 +21,15 @@ import { $, els, state, prefersStill } from './imports.js';
 import { applyLayers } from './live-physiology.js';
 import { showToast } from './modes-and-bridge.js';
 import { frameWorldBox, restoreSnapshot, takeSnapshot } from './heart-atlas.js';
-import { LEVELS, LABELS, SLIDERS, CELL_SOURCES, levelById, stagesFor } from '../cell-zoom.js?v=1';
+import { LEVELS, LABELS, SLIDERS, CELL_SOURCES, levelById, stagesFor, zoomFrom } from '../cell-zoom.js?v=1';
 import { modelCredit } from '../cell/models.js?v=1';
+import { modelMeshName } from '../search-name.js';
 
 let zoom = null;            /* createCellZoom() result, built once */
 let saved = null;           /* the snapshot taken on entry */
 let panel = null, tags = null, toggle = null, busy = false;
 let current = null, selected = null;
+let zoomInto = null;        /* the level the selection card's "Zoom inside" opens */
 let tween = null, playing = false, lastNow = 0;
 let stageAnim = null;       /* { from, to, t0, dur } while a stage chip plays its step */
 const stageVal = {}, signalVal = {};
@@ -90,7 +92,7 @@ function panelHtml() {
     <ol class="mz-labels" id="cz-labels" aria-label="Labels"></ol>
     <article class="ha-info mz-info" id="cz-info" aria-live="polite" hidden><strong id="cz-infoTitle"></strong><div id="cz-infoNote"></div><small id="cz-infoCite"></small><div class="sel-revise mz-revise" data-cz-revise="label" hidden></div></article>
     <p class="ha-credit cz-model" id="cz-model" aria-live="polite" hidden></p>
-    <p class="ha-credit">Where a download exists, a level wears it (credited above when it is on show); everything else is modelled for this app in Blender, schematic and not to scale, and drawn on the spot until its model has loaded. The nucleosome is the Protein Data Bank's PDB 3AFA (Tachiwana et al. 2010; CC0). Labels and notes are the HSS2011 and ABCT2326 slides' and tutorials' words. <a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Notices</a></p>
+    <p class="ha-credit">Nucleosome: PDB 3AFA (Tachiwana et al. 2010; CC0). <a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Notices</a></p>
   </div>`;
 }
 
@@ -591,6 +593,32 @@ export function init() {
     else void enterCellZoom().catch((error) => { console.error('Cell zoom toggle failed.', error); showToast(loadFailureMessage()); });
   };
   dock.appendChild(toggle);
+  /* "Zoom inside" on the selection card, as the muscle zoom has: a tapped organ or vessel opens the level inside it */
+  const card = $('selectedCard');
+  if (card) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'cellZoomBtn';
+    btn.className = 'primary muscle-zoom-btn';
+    btn.hidden = true;
+    btn.setAttribute('aria-controls', 'cellZoomPanel');
+    btn.textContent = 'Zoom inside';
+    const paint = () => {
+      zoomInto = null;
+      if (!state.cellZoomOn) {
+        for (const m of [state.selectionAnchor, ...(state.selectionMeshes || [])].filter(Boolean)) {
+          zoomInto = zoomFrom(m.userData?.layerKey, modelMeshName(m));
+          if (zoomInto) break;
+        }
+      }
+      btn.hidden = !zoomInto;
+    };
+    btn.onclick = () => { if (zoomInto) void enterCellZoom({ level: zoomInto }).catch((error) => { console.error('Cell zoom failed.', error); showToast(loadFailureMessage()); }); };
+    const revise = $('selectedRevise');
+    if (revise) card.insertBefore(btn, revise); else card.appendChild(btn);
+    const name = $('selectedName');
+    if (name && typeof MutationObserver === 'function') new MutationObserver(paint).observe(name, { childList: true, characterData: true, subtree: true });
+  }
   window.__osteo = window.__osteo || {};
   const prevExit = window.__osteo.exitHeartAtlas;
   Object.assign(window.__osteo, {

@@ -41,11 +41,15 @@ export const PARTS = {
   testis: ['tubule', 'lumen', 'sertoli', 'spermatogonium', 'primary', 'secondary', 'spermatids', 'spermatozoa', 'leydig', 'capillary', 'lh', 'fsh', 'testosterone', 'abp', 'inhibin'],
   oogenesis: ['oogonia', 'primary', 'follicle', 'antrum', 'secondary', 'polar1', 'polar2', 'ovum', 'sperm'],
   follicle: ['ovary', 'capillary', 'primordial', 'follicle', 'antrum', 'primary', 'oocyte', 'polar1', 'zona', 'corona', 'cl', 'fsh', 'lh', 'estrogen', 'progesterone'],
+  parietal: ['ca', 'hplus', 'hco3', 'cl', 'clchannels', 'lumen', 'isf', 'tide', 'cell', 'blood', 'pump', 'counter', 'co2', 'h2o', 'h2co3', 'vagus', 'gcell', 'gastrin', 'cck', 'gip', 'secretin'],
+  vessels: ['artery', 'vein', 'externa', 'media', 'intima', 'endothelium', 'valves', 'vasa'],
+  capillaries: ['continuous', 'fenestrated', 'sinusoid', 'endothelial', 'tight', 'fenestrations', 'basement', 'rbc'],
+  gutwall: ['mucosa', 'epithelium', 'enteroendocrine', 'lamina', 'mm', 'submucosa', 'bloodvessels', 'lymph', 'glands', 'externa', 'serosa'],
 };
 
 /* Levels drawn by no code: the Blender model (cell/models.js) is the whole level, so until it loads the level is
    empty and the viewer says "Loading the 3D model…". Newer levels are made this way (CLAUDE.md: no code-drawn 3D). */
-export const MODEL_ONLY = ['redcell', 'hemoglobin', 'plasma', 'pct', 'pacemaker', 'myocardial', 'rmp', 'testis', 'follicle', 'oogenesis'];
+export const MODEL_ONLY = ['redcell', 'hemoglobin', 'plasma', 'pct', 'pacemaker', 'myocardial', 'rmp', 'testis', 'follicle', 'oogenesis', 'parietal', 'vessels', 'capillaries', 'gutwall'];
 /* the extent a model-only level frames before its model arrives (the models are built to about this size) */
 const MODEL_ONLY_EXTENT = 11;
 

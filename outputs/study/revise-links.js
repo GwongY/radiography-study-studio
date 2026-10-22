@@ -11,7 +11,7 @@ import { esc } from './imports.js';
 export function renderLinkList(el, rows) {
   if (!rows.length) { el.hidden = true; el.innerHTML = ''; return; }
   el.hidden = false;
-  el.innerHTML = `<li class="rv-lhead">Links (${rows.length}): tap one to light it up, tap again to go there</li>${rows.map((r) => `<li><button type="button" class="rv-lrow" data-node="${esc(r.id)}"><span class="rv-ln">${r.n}</span><span class="rv-lname">${esc(r.label)}${r.inside ? ` <small>inside ${esc(r.inside)}</small>` : ''}</span><span class="rv-lwhy">${esc(r.why)}</span></button></li>`).join('')}`;
+  el.innerHTML = `<li class="rv-lhead">Links (${rows.length})</li>${rows.map((r) => `<li><button type="button" class="rv-lrow" data-node="${esc(r.id)}"><span class="rv-ln">${r.n}</span><span class="rv-lname">${esc(r.label)}${r.inside ? ` <small>inside ${esc(r.inside)}</small>` : ''}</span><span class="rv-lwhy">${esc(r.why)}</span></button></li>`).join('')}`;
 }
 
 export function markLinkRow(el, id) {
