@@ -788,6 +788,11 @@ function mountFragments() {
   $$('rvThreads').innerHTML = sub.threads;
   $$('rvTables').innerHTML = sub.tables;
   $$('rvDecoder').innerHTML = `${sub.decoder}<div class="rv-foot">${sub.sources}</div>`;
+  /* the tab's own heading and its one-line intro are not wanted (owner, 23 Oct 2026): the tab name already says it */
+  ['rvThreads', 'rvTables', 'rvDecoder'].forEach((id) => {
+    const root = $$(id); const h = root.querySelector(':scope > h2');
+    if (h) { const p = h.nextElementSibling; if (p && p.tagName === 'P') p.remove(); h.remove(); }
+  });
   /* class names that would collide with the app's own */
   ['rvThreads', 'rvTables', 'rvDecoder'].forEach((id) => {
     const root = $$(id);
