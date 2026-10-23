@@ -95,9 +95,10 @@ function untuck() {
  */
 function tuckTab(on) {
   const tab = $$('bottomTab');
-  if (!tab || tab.classList.contains('tucked') === on) return;
+  if (!tab || tab.classList.contains('tucked') === on) return false;
   if (on) tab.style.setProperty('--tabh', `${tab.offsetHeight}px`);
   tab.classList.toggle('tucked', on);
+  return true;
 }
 /*
  * Tuck the main header and the tab bar now, and keep them tucked while a scroll
@@ -194,12 +195,22 @@ function tuckOnRead() {
     pane.addEventListener('scroll', () => {
       const y = pane.scrollTop;
       if (pane.__tuckHold > Date.now()) { last = y; return; }
+      /*
+       * Nothing changes near the bottom of the page. Tucking the tab bar makes
+       * the scroller taller, the browser pulls the page back to its new end,
+       * that reads as an upward scroll and untucks the bar, which shortens the
+       * scroller again: the page bounced up and down for as long as the finger
+       * stayed there (owner, 24 Oct 2026). iOS's rubber band at the end does the
+       * same on its own. Leaving the bottom band upward still untucks.
+       */
+      if (y + pane.clientHeight >= pane.scrollHeight - 48) { last = y; return; }
       const moved = y - last;
       if (Math.abs(moved) < 8) return;
       last = y;
       const on = moved > 0 && y > 90;
       head.classList.toggle('tucked', on);
-      if (pane.id === 'navContent') tuckTab(on);
+      /* the bar's own move resizes the scroller; hold the state until it has finished */
+      if (pane.id === 'navContent' && tuckTab(on)) pane.__tuckHold = Date.now() + 260;
     }, { passive: true });
   });
 }

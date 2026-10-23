@@ -695,7 +695,8 @@ function createMap() {
        scroller still for the length of the touch stops the glide and keeps the gesture the map's alone. */
     const pane = wrap.closest('.navcontent');
     if (pane) {
-      const hold = () => { pane.style.overflowY = 'hidden'; };
+      /* the scroll strip at the foot of the map is the one place a touch is meant to move the page */
+      const hold = (ev) => { if (ev.target.id !== 'rvScrollStrip') pane.style.overflowY = 'hidden'; };
       const free = (ev) => { if (!ev.touches || !ev.touches.length) pane.style.overflowY = ''; };
       /* capture: d3-zoom stops the touch events from bubbling past the svg */
       wrap.addEventListener('touchstart', hold, { passive: true, capture: true });
@@ -751,6 +752,14 @@ function createMap() {
       markLinkRow($$('rvLinkList'), hotRow);
       linkList.reset();
       setHot(g.dataset.at);
+    });
+    /* A tap (not a drag) on the scroll strip goes to whatever map part lies under it. */
+    $$('rvScrollStrip').addEventListener('click', (ev) => {
+      const strip = ev.currentTarget;
+      strip.style.pointerEvents = 'none';
+      const under = document.elementFromPoint(ev.clientX, ev.clientY);
+      strip.style.pointerEvents = '';
+      if (under && under !== strip) under.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, clientX: ev.clientX, clientY: ev.clientY, view: window }));
     });
     notesBtn.addEventListener('click', () => side.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 

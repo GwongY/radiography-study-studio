@@ -303,10 +303,12 @@ function programmePanel() {
 
 /* Quick jump to a subject's card, under the tab bar, on the tabs that stack
    one card per subject. */
+/* One word per subject, so five buttons fit a phone; the code stays in the tooltip (owner, 24 Oct 2026). */
+const JUMP_WORD = { HSS2011: 'Anatomy', ABCT2326: 'Physiology', HTI17103: 'Radiation', APSS1A08: 'Sociology', DSAI1202: 'AI' };
 function subjectJumpHTML(tab) {
   if (tab !== 'assess' && tab !== 'syllabus') return '';
   return `<div class="segbar subjjump">${Object.values(SUBJECT_ADMIN).map((a) =>
-    `<button class="seg" data-jumpsubj="${esc(a.code)}" style="--acc:${esc(subjectAccent(a.code))}">${esc(a.code)}</button>`).join('')}</div>`;
+    `<button class="seg" data-jumpsubj="${esc(a.code)}" title="${esc(a.code)} ${esc(a.title)}" style="--acc:${esc(subjectAccent(a.code))}">${esc(JUMP_WORD[a.code] || a.code)}</button>`).join('')}</div>`;
 }
 
 const TABS = [['week', 'This week'], ['next', 'Next week'], ['term', 'Full term'], ['assess', 'Assessments'], ['syllabus', 'Syllabus'], ['programme', 'Programme']];

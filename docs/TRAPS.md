@@ -1545,6 +1545,10 @@ names it.
 - **The page must not scroll while a finger is on the map.** d3-zoom reads each touch against the svg's place on screen, so a
   page still gliding from a flick through the notes moved the map by the distance the page travelled ("the map flies away").
   `createMap` sets `overflow-y:hidden` on `.navcontent` from touchstart to the last touchend on `#rvMmwrap`; keep it.
+- **The bottom tenth of the phone map is `#rvScrollStrip`** (`touch-action:pan-y`): a drag there scrolls the page, a tap is
+  passed to the map part under it. The touch lock above skips it by id; keep both in step.
+- **The tab bar and header do not change state in the last 48 px of the page** (small-ui-helpers.js tuckOnRead). Tucking
+  there resized the scroller, the page was pulled back, that read as an upward scroll and untucked it: an endless bounce.
 - **Opening a branch no longer folds its siblings on a phone** (owner, 23 Oct 2026: it folded on a text tap but not on a
   fold-circle tap, so it looked random). Do not bring `foldSiblings` back.
 - **Following a link on a phone scrolls the map's top edge to the top of the screen** (`showMapTop`) and tucks the header
