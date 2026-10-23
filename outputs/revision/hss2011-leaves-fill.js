@@ -72,11 +72,11 @@ export const ROWS = [
   links: { w4_medpterygoid: 'unilaterally swings the jaw laterally', w4_latpterygoid: 'unilaterally swings the jaw laterally' }, src: [HN, 10] },
 
 /* ---------------- Muscle teamwork (LL p25) ---------------- */
-{ k: 'process', id: 'w2_mt_prime', l: 'Prime mover', parent: 'muscleroles', w: 2, line: 'iliopsoas is the prime mover', links: { w2_iliopsoas: 'iliopsoas is the prime mover' }, src: [LL, 25] },
-{ k: 'process', id: 'w2_mt_syn', l: 'Synergists', parent: 'muscleroles', w: 2, line: 'sartorius, TFL, pectineus',
-  links: { w2_sartorius: 'a synergist', w2_tfl: 'a synergist', w2_pectineus: 'a synergist' }, src: [LL, 25] },
-{ k: 'process', id: 'w2_mt_antag', l: 'Antagonists', parent: 'muscleroles', w: 2, line: 'gluteus maximus, hamstring', links: { w2_gmax: 'an antagonist' }, src: [LL, 25] },
-{ k: 'process', id: 'w2_mt_fix', l: 'Fixators', parent: 'muscleroles', w: 2, line: 'abdominal muscles are the fixators', src: [LL, 25] },
+{ k: 'process', id: 'w2_mt_prime', l: 'Prime mover', parent: 'muscleroles', w: 2, line: 'The prime mover is the main muscle producing a movement; the iliopsoas drives hip flexion.', links: { w2_iliopsoas: 'iliopsoas drives hip flexion' }, src: [LL, 20, 24, 25] },
+{ k: 'process', id: 'w2_mt_syn', l: 'Synergists', parent: 'muscleroles', w: 2, line: 'Synergists help the prime mover produce a movement; sartorius, TFL and pectineus assist the iliopsoas in hip flexion.',
+  links: { w2_sartorius: 'a synergist', w2_tfl: 'a synergist', w2_pectineus: 'a synergist' }, src: [LL, 18, 20, 25] },
+{ k: 'process', id: 'w2_mt_antag', l: 'Antagonists', parent: 'muscleroles', w: 2, line: 'Antagonists oppose the prime mover; gluteus maximus and hamstrings oppose iliopsoas during hip flexion.', links: { w2_gmax: 'an antagonist' }, src: [LL, 14, 18, 22, 24, 25] },
+{ k: 'process', id: 'w2_mt_fix', l: 'Fixators', parent: 'muscleroles', w: 2, line: 'Fixators stabilize the body part a movement starts from; here, the abdominal muscles hold the trunk steady.', src: [LL, 25] },
 
 /* ---------------- Dermatomes (L5 p39, p42) ---------------- */
 { k: 'part', id: 'w5_dm_cutaneous', l: 'Cutaneous innervation', parent: 'dermatomes', w: 5, line: 'each spinal nerve (except C1) receives sensory input from specific skin areas', src: [L5, 39] },

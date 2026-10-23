@@ -29,7 +29,7 @@ export const DECODER_HTML = `<h2>Decoder</h2>
   <tr data-wk="2"><td>Acetabulum</td><td>"little vinegar cup" → the cup-shaped hip socket (acetabulo-femoral joint).</td></tr>
   <tr data-wk="2"><td>Gluteus maximus / medius / minimus</td><td>gloutos (buttock) + biggest / middle / smallest → max extends, medius + minimus level the pelvis.</td></tr>
   <tr data-wk="2"><td>Iliopsoas</td><td>ilium + psoas (loin) → sits on the iliac bone and the loin; the strongest hip flexor.</td></tr>
-  <tr data-wk="2"><td>Sartorius</td><td>sartor = tailor → sit cross-legged like a tailor: hip flexion + abduction + lateral rotation + knee flexion, exactly what the slide lists.</td></tr>
+  <tr data-wk="2"><td>Sartorius</td><td>sartor = tailor → picture a tailor seated cross-legged.</td></tr>
   <tr data-wk="2"><td>Quadriceps</td><td>quad (four) + ceps (head) → four heads: rectus femoris + three vasti.</td></tr>
   <tr data-wk="2"><td>Hamstring</td><td>butchers hung hams by these cords → the stringy tendons at the back of the knee.</td></tr>
   <tr data-wk="2"><td>Gastrocnemius</td><td>gastro (belly) + kneme (leg) → the belly of the leg, i.e. the calf bulge.</td></tr>
@@ -69,7 +69,7 @@ export const DECODER_HTML = `<h2>Decoder</h2>
   <tr class="grp" data-wk="5"><td colspan="2">Week 5 · nervous tissue, cord, spinal nerves</td></tr>
   <tr data-wk="5"><td>Afferent / efferent</td><td><b>Af</b>ferent = <b>a</b>rrives at the CNS, <b>ef</b>ferent = <b>e</b>xits.</td></tr>
   <tr data-wk="5"><td>Soma, axon, dendrite</td><td>body · axis (the axle) · dendron = tree → branches that catch signals.</td></tr>
-  <tr data-wk="5"><td>Pseudounipolar</td><td>pseudo = false → looks like one neurite but it branches in two.</td></tr>
+  <tr data-wk="5"><td>Pseudounipolar</td><td>pseudo = false, uni = one → the name describes its apparent single stem; picture the Y-shaped branch.</td></tr>
   <tr data-wk="5"><td>Ganglion</td><td>Greek "knot" → a knot of cell bodies tied onto a PNS nerve like a knot on a rope.</td></tr>
   <tr data-wk="5"><td>Satellite cell</td><td>circles the soma in a ganglion like a satellite.</td></tr>
   <tr data-wk="5"><td>Astrocyte, microglia, oligodendrocyte, ependymal</td><td>star cell · tiny glue cell (immune) · few-branched cell (that wraps many axons) · ependyma = "outer garment", the coat lining the cavities.</td></tr>
@@ -96,7 +96,7 @@ export const DECODER_HTML = `<h2>Decoder</h2>
   <tr data-wk="6"><td>Peduncle</td><td>ped = foot → a stalk. Cerebral = to the cerebrum (midbrain); cerebellar = three stalks to the cerebellum (medulla, pons, midbrain).</td></tr>
   <tr data-wk="6"><td>Diencephalon, thalamus, hypothalamus</td><td>di- = between, encephalon = brain · thalamos = inner chamber (the brain's bedroom/switchboard) · hypo = under it.</td></tr>
   <tr data-wk="6"><td>Corpus callosum</td><td>"tough body" (callous) → thick bridge of fibres between hemispheres.</td></tr>
-  <tr data-wk="6"><td>Insula</td><td>island → hidden deep in the lateral sulcus; taste and gut feelings.</td></tr>
+  <tr data-wk="6"><td>Insula</td><td>insula = island → picture a small island of cortex tucked within a larger fold.</td></tr>
   <tr data-wk="6"><td>Limbic, hippocampus, amygdala</td><td>limbus = border (rim around the brainstem) · seahorse · almond → <b>"hippo never forgets"</b> (memory) and the almond-shaped fear centre.</td></tr>
   <tr data-wk="6"><td>Putamen, globus pallidus</td><td>husk or shell · pale globe → two basal nuclei beside the tail-shaped caudate.</td></tr>
   <tr data-wk="6"><td>Saccade</td><td>French "jerk" → the jerky fast eye jump orchestrated by the frontal eye field.</td></tr>
@@ -139,7 +139,7 @@ export const DECODER_HTML = `<h2>Decoder</h2>
   <tr data-wk="7"><td>Thoracolumbar / craniosacral</td><td>chest + loin cord segments = sympathetic · skull + sacrum = parasympathetic.</td></tr>
   <tr data-wk="7"><td>Baroreceptor</td><td>baros = pressure (as in barometer) → pressure sensor in vessel walls.</td></tr>
   <tr class="grp" data-wk="8"><td colspan="2">Week 8 · heart and vessels</td></tr>
-  <tr data-wk="8"><td>Pericardium</td><td>peri (around) + kardia (heart) → the sac around the heart.</td></tr>
+  <tr data-wk="8"><td>Pericardium</td><td>peri (around) + kardia (heart); the same peri- prefix appears in periosteum, around bone.</td></tr>
   <tr data-wk="8"><td>Epicardium, myocardium, endocardium</td><td>epi (upon) · myo (muscle) · endo (inside) + cardium → <b>outside skin, middle muscle, inner lining</b>.</td></tr>
   <tr data-wk="8"><td>Mesothelium</td><td>meso (middle) + thele (nipple, thin layer) → the thin cell layer that makes pericardial fluid.</td></tr>
   <tr data-wk="8"><td>Atrium, ventricle</td><td>Latin "entrance hall" · "little belly" → the receiving room and the pumping belly.</td></tr>
@@ -164,7 +164,7 @@ export const DECODER_HTML = `<h2>Decoder</h2>
   <tr data-wk="8"><td>Atherosclerosis</td><td>athere (porridge) + sclerosis (hardening) → soft fatty plaque that hardens the artery wall.</td></tr>
   <tr data-wk="8"><td>Tamponade</td><td>French "plug" → fluid plugging the sac so the heart cannot fill.</td></tr>
   <tr class="grp" data-wk="9"><td colspan="2">Week 9 · respiratory system</td></tr>
-  <tr data-wk="9"><td>Pharynx</td><td>Greek "throat" → the shared tube behind the nose, mouth and larynx.</td></tr>
+  <tr data-wk="9"><td>Pharynx</td><td>Greek pharynx = throat; pharyng/o is the root in nasopharynx, oropharynx and laryngopharynx.</td></tr>
   <tr data-wk="9"><td>Nasopharynx, oropharynx, laryngopharynx</td><td>naso (nose) · oro (mouth) · laryngo (voice box) + pharynx → the throat named for what lies in front of it.</td></tr>
   <tr data-wk="9"><td>Choanae</td><td>Greek "funnel" → the funnel-shaped back openings of the nasal cavity.</td></tr>
   <tr data-wk="9"><td>Adenoids</td><td>aden (gland) + -oid (like) → gland-like lymphoid tissue in the nasopharynx.</td></tr>

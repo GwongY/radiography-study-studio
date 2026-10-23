@@ -10,9 +10,12 @@ in [`history/README-archive.md`](history/README-archive.md) (the old
 Do not add explanatory sentences to buttons, tabs, labels or other UI; let the
 layout speak for itself. For a term, Reading help gives its meaning, Chinese
 and pronunciation; the Decoder gives its word parts or a memory hook; and the
-one-sentence detail adds lecture-specific function or context. Review
-overlapping terms so each sentence adds something distinct, and omit a sentence
-that cannot add useful context.
+one-sentence detail adds lecture-specific function or context. A Map sentence
+must explain the term or relationship; an example list or circular restatement
+alone is not enough. Review overlapping terms so each sentence adds something
+distinct, and omit a sentence that cannot add useful context.
+The explanation audit is still in progress; its inventory, confirmed edits and
+remaining review candidates are tracked in [`EXPLANATION-AUDIT.md`](EXPLANATION-AUDIT.md).
 
 ### 2026-10-22 — The capillary bed and the osteon wear downloads; the nephron download is not used
 
