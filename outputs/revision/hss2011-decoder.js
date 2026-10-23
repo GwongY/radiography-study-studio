@@ -1,6 +1,5 @@
 /* HSS2011 decoder — ported from HSS2011_build/40_decoder.html. Each row carries data-wk, the week of its group. */
 export const DECODER_HTML = `<h2>Decoder</h2>
-  <p>Each strange word is split into roots, then given one hook that ties the name to what the structure does or where it sits. Type in the box to filter.</p>
   <div class="dq">
     <label for="dq" class="mono" style="color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-size:.78rem">Filter</label>
     <input id="dq" type="search" placeholder="e.g. tongue, hammer, tail, knee…" autocomplete="off">

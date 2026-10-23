@@ -287,7 +287,7 @@ function renderPanel(id, el) {
     /* a row with no slide line of its own still opens with one sentence: where it sits in the tree */
     const bare = n.leaf && !(n.line && n.line.trim());
     const own = n.own || OWN[id];
-    const said = own ? `<p class="rv-said">${esc(own)}</p><p class="rv-ownnote">In brief, in the app's own words, not the slide's.</p>` : bare ? `<p class="rv-said">${esc(describe(n, {
+    const said = own ? `<p class="rv-said">${esc(own)}</p>` : bare ? `<p class="rv-said">${esc(describe(n, {
       parent: ix.LABEL[ix.PARENT[id]] || '',
       kids: (ix.KIDS[id] || []).map((k) => ix.LABEL[k]),
       grand: ix.LABEL[ix.PARENT[ix.PARENT[id]]] || '',

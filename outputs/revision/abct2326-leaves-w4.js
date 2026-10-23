@@ -131,7 +131,6 @@ export const ROWS = [
     parent: 'p_gi_layers',
     w: 4,
     src: ['phys.l4.2026', 8],
-    own: 'A fold of peritoneum that holds the intestines in place and carries their blood vessels and nerves.',
   },
 
   // --- Movement of digestive materials (p_gi_move) ---
@@ -323,7 +322,7 @@ export const ROWS = [
     parent: 'p_stomach',
     w: 4,
     src: ['phys.l4.2026', 22, 23, 48, 49],
-    own: 'The dome-shaped upper part of the stomach, where gastric glands secrete acid and enzymes.',
+    own: 'Its gastric glands secrete acid and digestive enzymes into the stomach.',
   },
   {
     k: 'part',
@@ -350,7 +349,7 @@ export const ROWS = [
     parent: 'p_stomach',
     w: 4,
     src: ['phys.l4.2026', 22],
-    own: 'Temporary folds of the stomach wall that let the stomach expand greatly as it fills.',
+    own: 'These folds let the stomach expand as it fills.',
   },
   {
     k: 'part',
@@ -603,7 +602,7 @@ export const ROWS = [
     parent: 'p4_villi',
     w: 4,
     src: ['phys.l4.2026', 40],
-    own: 'A lymphatic capillary in each villus that carries absorbed fats away as chylomicrons.',
+    own: 'It carries absorbed fats away from the villus as chylomicrons.',
   },
   {
     k: 'substance',

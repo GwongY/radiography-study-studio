@@ -159,9 +159,11 @@ for (const subject of Object.values(REVISION)) {
   console.log(`\n${subject.id}`);
   const ids = new Set(data.NODES.map((n) => n.id));
   /* Rule 4 (rules.js): every row's notes say something useful. A row — or a sourced topic — whose slide line is not
-     useful (under 25 characters, a count or fragment, or under three words) needs an own-words sentence. The Week 1
-     position words of HSS2011 say where in full already. */
-  const PLAIN = subject.id === 'HSS2011' ? new Set(['w1_proximal', 'w1_distal', 'w1_medial', 'w1_lateral', 'w1_anterior', 'w1_posterior', 'w1_caudal', 'w1_superior', 'w1_inferior', 'w1_cranial']) : new Set();
+     useful (under 25 characters, a count or fragment, or under three words) needs an own-words sentence, unless
+     the curated exception already has an equivalent Reading help definition or Decoder detail, or is a self-evident position term. */
+  const PLAIN = subject.id === 'HSS2011'
+    ? new Set(['w1_proximal', 'w1_distal', 'w1_medial', 'w1_lateral', 'w1_anterior', 'w1_posterior', 'w1_caudal', 'w1_superior', 'w1_inferior', 'w1_cranial', 'w1_fascicle', 'w1_perimysium', 'w2_quads', 'w2_navicular', 'w2_mv_pronation', 'w2_mv_supination', 'w3_lunate', 'w3_radius', 'w3_triquetrum', 'w3_pisiform', 'w3_capitate', 'w3_hamate', 'w4_atlas', 'w4_axis', 'w4_parietal', 'w5_ache', 'w5_epineurium', 'w5_fascicle', 'w5_unipolar', 'w6_folia', 'w6_infpeduncle', 'w6_midpeduncle', 'w6_suppeduncle', 'w6_substantianigra', 'w6_sulcus', 'w6_arborvitae', 'w7_photo'])
+    : new Set(['p1_tis_organelles', 'p1_tis_leukocytes', 'p_placenta', 'p_inflammation', 'p4_mesentery', 'p9_axon', 'p9_dendrites']);
   const ownOf = (n) => n.own || OWN[n.id];
   const needy = data.NODES.filter((n) => (n.leaf || n.src) && !PLAIN.has(n.id) && needsOwn(n) && !ownOf(n)).map((n) => n.id);
   ok(!needy.length, `every row whose slide line is not useful has an own-words sentence${needy.length ? ` (missing: ${needy.slice(0, 30).join(' ')}${needy.length > 30 ? ` and ${needy.length - 30} more` : ''})` : ''}`);

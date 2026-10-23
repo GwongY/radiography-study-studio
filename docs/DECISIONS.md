@@ -5,6 +5,15 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-23 — Let the layout explain the interface
+
+Do not add explanatory sentences to buttons, tabs, labels or other UI; let the
+layout speak for itself. For a term, Reading help gives its meaning, Chinese
+and pronunciation; the Decoder gives its word parts or a memory hook; and the
+one-sentence detail adds lecture-specific function or context. Review
+overlapping terms so each sentence adds something distinct, and omit a sentence
+that cannot add useful context.
+
 ### 2026-10-22 — The capillary bed and the osteon wear downloads; the nephron download is not used
 
 The owner judged the Blender-only capillary bed, glomerulus and osteon poor and picked three CC BY 4.0 Sketchfab

@@ -32,8 +32,8 @@ export const ROWS = [
   { k: 'part', id: 'p9_cell_body', l: 'Cell Body', match: 'Cell Body', parent: 'p_neurons', w: 9, line: 'cluster in groups called nuclei in CNS and ganglia in PNS', src: [L8, 10, 11, 16] },
   { k: 'group', id: 'p9_nuclei', l: 'Nuclei', match: 'nuclei', parent: 'p9_cell_body', w: 9, line: 'clusters of neuron cell bodies in the CNS', src: [L8, 10] },
   { k: 'group', id: 'p9_ganglia', l: 'Ganglia', match: 'ganglia', parent: 'p9_cell_body', w: 9, line: 'clusters of neuron cell bodies in the PNS', src: [L8, 10] },
-  { k: 'part', id: 'p9_dendrites', l: 'Dendrites', match: 'Dendrites', parent: 'p_neurons', w: 9, line: 'receive signals', src: [L8, 10, 11, 24], own: 'The branching fibres of a neuron that receive signals from other cells.' },
-  { k: 'part', id: 'p9_axon', l: 'Axon', match: 'Axon', parent: 'p_neurons', w: 9, line: 'conducts impulses', src: [L8, 10, 11, 12, 16, 40], own: 'The single fibre that carries impulses away from the cell body to other cells.' },
+  { k: 'part', id: 'p9_dendrites', l: 'Dendrites', match: 'Dendrites', parent: 'p_neurons', w: 9, line: 'receive signals', src: [L8, 10, 11, 24] },
+  { k: 'part', id: 'p9_axon', l: 'Axon', match: 'Axon', parent: 'p_neurons', w: 9, line: 'conducts impulses', src: [L8, 10, 11, 12, 16, 40] },
 
   /* ---------------- Glial cells (p14-20) ---------------- */
   { k: 'cell', id: 'p9_oligodendrocytes', l: 'Oligodendrocytes', match: 'Oligodendrocytes', parent: 'p_glia', w: 9, line: 'form myelin sheaths around the axons of CNS neurons', src: [L8, 14, 16], links: { p9_myelin: 'produce myelin sheath in the CNS' } },
