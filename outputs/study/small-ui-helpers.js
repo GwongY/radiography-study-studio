@@ -47,6 +47,8 @@ export function showView(id) {
   if (id === 'viewerView' && window.__osteo) {
     window.__osteo.boot();
     setTimeout(() => window.__osteo.resize(), 60);
+    /* again once a tucked tab bar has finished coming back */
+    setTimeout(() => window.__osteo.resize(), 320);
   }
   if (id !== 'viewerView' && window.__osteo) {
     /* Hiding and the concept overlays are a within-viewer working state. */
@@ -83,7 +85,33 @@ export function coveragePill(status) {
  * height it needs to reserve is published separately, below.
  */
 function untuck() {
-  document.querySelectorAll('.navhead.tucked').forEach((h) => h.classList.remove('tucked'));
+  document.querySelectorAll('.navhead.tucked, .bottomtab.tucked').forEach((h) => h.classList.remove('tucked'));
+}
+/*
+ * The phone's bottom tab bar goes with the main header: down hides both, up
+ * brings both back. It is in flow, so it leaves by a negative margin of its own
+ * height (--tabh, measured as it goes; a transform does not change offsetHeight)
+ * and the scroller grows into the space below the text, which moves no line.
+ */
+function tuckTab(on) {
+  const tab = $$('bottomTab');
+  if (!tab || tab.classList.contains('tucked') === on) return;
+  if (on) tab.style.setProperty('--tabh', `${tab.offsetHeight}px`);
+  tab.classList.toggle('tucked', on);
+}
+/*
+ * Tuck the main header and the tab bar now, and keep them tucked while a scroll
+ * this code started is still travelling (a smooth scroll UP would otherwise
+ * bring them straight back). Revise uses it to put the map's top edge at the top
+ * of the screen when a link is followed.
+ */
+export function tuckFor(ms) {
+  const pane = $$('navContent');
+  if (!pane) return;
+  pane.__tuckHold = Date.now() + ms;
+  const head = pane.previousElementSibling;
+  if (head && head.classList.contains('navhead')) head.classList.add('tucked');
+  tuckTab(true);
 }
 
 /*
@@ -165,10 +193,13 @@ function tuckOnRead() {
      */
     pane.addEventListener('scroll', () => {
       const y = pane.scrollTop;
+      if (pane.__tuckHold > Date.now()) { last = y; return; }
       const moved = y - last;
       if (Math.abs(moved) < 8) return;
       last = y;
-      head.classList.toggle('tucked', moved > 0 && y > 90);
+      const on = moved > 0 && y > 90;
+      head.classList.toggle('tucked', on);
+      if (pane.id === 'navContent') tuckTab(on);
     }, { passive: true });
   });
 }

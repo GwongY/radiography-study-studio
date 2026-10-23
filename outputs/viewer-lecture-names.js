@@ -870,9 +870,9 @@ export const VIEWER_LECTURE_NAMES = [
   {
     "layer": "muscle",
     "name": "Iliacus muscle",
-    "ref": "hss.hnt.2026",
-    "file": "W4_Head_Neck_Trunk_2026_CKK_upload_20260920.pdf",
-    "page": 34,
+    "ref": "hss.ll.2026",
+    "file": "Week 2_LL _2026_CKK_upload.pdf",
+    "page": 18,
     "evidence": "slide row"
   },
   {
@@ -1345,9 +1345,9 @@ export const VIEWER_LECTURE_NAMES = [
   {
     "layer": "muscle",
     "name": "Psoas major",
-    "ref": "hss.hnt.2026",
-    "file": "W4_Head_Neck_Trunk_2026_CKK_upload_20260920.pdf",
-    "page": 34,
+    "ref": "hss.ll.2026",
+    "file": "Week 2_LL _2026_CKK_upload.pdf",
+    "page": 18,
     "evidence": "slide row"
   },
   {
@@ -1567,7 +1567,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.hnt.2026",
     "file": "W4_Head_Neck_Trunk_2026_CKK_upload_20260920.pdf",
     "page": 30,
-    "evidence": "named"
+    "evidence": "slide row"
   },
   {
     "layer": "muscle",

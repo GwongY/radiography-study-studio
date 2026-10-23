@@ -1542,6 +1542,13 @@ names it.
 - **A 3D label can be hidden on purpose.** A label that would overlap a higher-priority label is not drawn, so a linked ball can be unlabelled; its number dot and its row in the list remain. Do not "fix" it by drawing every label.
 - **Changing the week while Brain 3D is showing makes Markmap fit() the hidden Map**, logging `<g> attribute transform: Expected number "translate(NaN,NaN) scale(NaN)"`. The Map redraws correctly when shown (the ResizeObserver refit). Believed to predate the hub work, since fit() on week change was already there; not checked against the older commit.
 - **On a phone a selected Map node near the left edge can have its text clipped** by the panned view.
+- **The page must not scroll while a finger is on the map.** d3-zoom reads each touch against the svg's place on screen, so a
+  page still gliding from a flick through the notes moved the map by the distance the page travelled ("the map flies away").
+  `createMap` sets `overflow-y:hidden` on `.navcontent` from touchstart to the last touchend on `#rvMmwrap`; keep it.
+- **Opening a branch no longer folds its siblings on a phone** (owner, 23 Oct 2026: it folded on a text tap but not on a
+  fold-circle tap, so it looked random). Do not bring `foldSiblings` back.
+- **Following a link on a phone scrolls the map's top edge to the top of the screen** (`showMapTop`) and tucks the header
+  and tab bar with `tuckFor(ms)`, which also holds them tucked while that smooth scroll travels upward.
 - **System colours come from the registry** (`systems` in each subject's entry in `registry.js`) and are written as CSS variables by `applySubject()`; a key is unique across subjects, and the legend is built from the systems taught by the chosen week. Never re-add static legend spans.
 - **Physiology own words live on the row** (`own`), anatomy's in `own-words.js`. `own` only where `needsOwn` is true (slide line under 25 characters or a fragment), no digits, no star, and only what the cited page supports; `revision-check` fails an `own` on any other row.
 - **A subject written from scratch keeps its fragments as data** (`abct2326-fragments.js`, rendered by `fragments.js`); `requireFragments: false` in the registry hides its Threads, Tables and Decoder tabs until they are filled.

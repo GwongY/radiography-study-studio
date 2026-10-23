@@ -65,7 +65,9 @@ export const ROWS = [
 /* ---------------- muscles: thigh (p18-25) ---------------- */
 { k: 'group', id: 'w2_thigh', l: 'Thigh', parent: 'll_muscles', w: 2, src: [LL, 18] },
 { k: 'group', id: 'w2_antthigh', l: 'Anterior thigh', parent: 'w2_thigh', w: 2, src: [LL, 18] },
-{ k: 'muscle', id: 'w2_iliopsoas', l: 'Iliopsoas', parent: 'w2_antthigh', w: 2, joints: { w2_j_hip: 'flexion (the strongest; alone it can perform pure hip flexion)' }, note: 'iliacus + psoas major', links: { muscleroles: 'prime mover of hip flexion' }, src: [LL, 18, 20, 24, 25] },
+{ k: 'muscle', id: 'w2_iliopsoas', l: 'Iliopsoas', parent: 'w2_antthigh', w: 2, joints: { w2_j_hip: 'flexion (the strongest; alone it can perform pure hip flexion)' }, links: { muscleroles: 'prime mover of hip flexion' }, src: [LL, 18, 20, 24, 25] },
+{ k: 'muscle', id: 'w2_iliacus', l: 'Iliacus', parent: 'w2_iliopsoas', w: 2, joints: { w2_j_hip: 'flexion (as iliopsoas)' }, src: [LL, 18] },
+{ k: 'muscle', id: 'w2_psoas', l: 'Psoas major', parent: 'w2_iliopsoas', w: 2, joints: { w2_j_hip: 'flexion (as iliopsoas)' }, src: [LL, 18] },
 { k: 'muscle', id: 'w2_sartorius', l: 'Sartorius', parent: 'w2_antthigh', w: 2, joints: { w2_j_hip: 'flexion, abduction, lateral rotation', w2_j_knee: 'flexion' }, links: { muscleroles: 'synergist of hip flexion' }, src: [LL, 18, 25] },
 { k: 'muscle', id: 'w2_tfl', l: 'Tensor fascia latae', parent: 'w2_antthigh', w: 2, joints: { w2_j_hip: 'abduction, medial rotation, flexion' }, links: { muscleroles: 'synergist of hip flexion' }, src: [LL, 18, 20, 24, 25] },
 { k: 'muscle', id: 'w2_pectineus', l: 'Pectineus', parent: 'w2_antthigh', w: 2, joints: { w2_j_hip: 'adduction, flexion; assists medial rotation' }, links: { muscleroles: 'synergist of hip flexion' }, src: [LL, 18, 20, 25] },

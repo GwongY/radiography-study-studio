@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1046 —
-  ac1c4a693bbd835d  WHOLE SET
+— user-facing strings in outputs/ — 1044 —
+  b96972bb2656121c  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -400,7 +400,6 @@
   4bf4f120eac41088  I have handed this in
   a149aa9f92e925e8  Image scan, 4 pp — ABCT2326 Tut1 (Cells/Tissues/Body Org, pp.1–2) + Tut2 (CVS, pp.3–4); not text-extractable; content verified via phys.cells.tut and phys.cvs.tut. Registry entry only — never appears in a sourceRefs.
   932af6969eb76923  In Revise
-  3cb628b528cea201  In brief, in the app's own words, not the slide's.
   ec0f7ff7ac2ed3e2  In the examinable glossary
   52e1d334ec0f4d41  Instrument Sans
   06ebc6cb3943c309  Internal organs
@@ -954,7 +953,6 @@
   9260618caffedf9d  s map in the lobe
   4e01dcdc55cd6293  s own half-width put the oesophagus
   ade98b80a888aed2  s own signature. 
-  c1a643d0fef960be  s own words, not the slide
   0fb35ed1991ca018  s pages add to the explorer
   bc09ef9032b412a7  s selection card. A week given here is the student
   0ebe06048585c52f  s selection card: where the selected structure sits in Revise. The studio names the selection

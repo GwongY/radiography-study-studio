@@ -116,6 +116,8 @@ export const ROWS = [
 { k: 'group', id: 'w4_backextr', l: 'Extrinsic back muscles', match: 'Extrinsic (usually', parent: 'trunk_muscles', w: 4, line: 'usually moves shoulders and limbs; except trapezius', src: [HN, 29] },
 { k: 'group', id: 'w4_backintr', l: 'Intrinsic back muscles', match: 'Intrinsic (Deep)', parent: 'trunk_muscles', w: 4, line: 'move head; move and stabilise the vertebral column', src: [HN, 29, 30] },
 { k: 'muscle', id: 'w4_splcap', l: 'Splenius', parent: 'w4_backintr', w: 4, moves: { w4_cervical: 'unilateral: laterally flex and rotate head and neck; bilateral: extend' }, note: 'a major extensor of the neck', src: [HN, 30, 35] },
+{ k: 'muscle', id: 'w4_splcapitis', l: 'Splenius capitis', parent: 'w4_splcap', w: 4, moves: { w4_cervical: 'unilateral: laterally flex and rotate head and neck; bilateral: extend' }, src: [HN, 30] },
+{ k: 'muscle', id: 'w4_splcervicis', l: 'Splenius cervicis', parent: 'w4_splcap', w: 4, moves: { w4_cervical: 'unilateral: laterally flex and rotate head and neck; bilateral: extend' }, src: [HN, 30] },
 { k: 'muscle', id: 'w4_erector', l: 'Erector spinae', parent: 'w4_backintr', w: 4, moves: { w4_vcolumn: 'bilaterally main extensors of head and spine; unilaterally laterally flex' }, note: 'keeps the trunk upright', src: [HN, 30, 35] },
 { k: 'group', id: 'w4_transpin', l: 'Transversospinalis', parent: 'w4_backintr', w: 4, line: 'stabilise the spine, maintain posture, control small intervertebral movement', src: [HN, 30] },
 
@@ -127,7 +129,7 @@ export const ROWS = [
 { k: 'muscle', id: 'w4_intoblique', l: 'Internal oblique abdominis', match: 'Internal oblique', parent: 'w4_anterolat', w: 4, moves: { w4_vcolumn: 'with contralateral external oblique: flexion, lateral flexion or axial rotation' }, note: 'underneath the external oblique; functions similarly', src: [HN, 33] },
 { k: 'muscle', id: 'w4_transabd', l: 'Transverse abdominis', parent: 'w4_anterolat', w: 4, moves: { w4_abdcontents: 'holds abdominal contents' }, note: 'deepest layer', src: [HN, 33] },
 { k: 'group', id: 'w4_posterior', l: 'Posterior group', parent: 'trunk_muscles', w: 4, src: [HN, 32, 34] },
-{ k: 'muscle', id: 'w4_psoas', l: 'Psoas major', parent: 'w4_posterior', w: 4, joints: { w2_j_hip: 'hip flexor (iliopsoas)' }, src: [HN, 34, 35] },
-{ k: 'muscle', id: 'w4_iliacus', l: 'Iliacus', parent: 'w4_posterior', w: 4, joints: { w2_j_hip: 'hip flexor (iliopsoas)' }, src: [HN, 34, 35] },
+{ k: 'muscle', id: 'w4_psoas', l: 'Psoas major', parent: 'w4_posterior', w: 4, joints: { w2_j_hip: 'hip flexor (iliopsoas)' }, links: { w2_psoas: 'the same muscle, under Iliopsoas' }, src: [HN, 34, 35] },
+{ k: 'muscle', id: 'w4_iliacus', l: 'Iliacus', parent: 'w4_posterior', w: 4, joints: { w2_j_hip: 'hip flexor (iliopsoas)' }, links: { w2_iliacus: 'the same muscle, under Iliopsoas' }, src: [HN, 34, 35] },
 { k: 'muscle', id: 'w4_quadlumb', l: 'Quadratus lumborum', parent: 'w4_posterior', w: 4, joints: { w2_j_hip: 'hip stabiliser' }, src: [HN, 34, 35] },
 ];

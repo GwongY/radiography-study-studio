@@ -19,7 +19,7 @@ import { $$, STORAGE_PREFIX, esc, weekOf, weekStart } from './imports.js';
 import { read, write } from './storage-versioned-keys.js';
 import { setActiveNav } from './navigation-destinations.js';
 import { leaveProjection } from './what-is-under.js';
-import { scrollViewTop, showView } from './small-ui-helpers.js';
+import { scrollViewTop, showView, tuckFor } from './small-ui-helpers.js';
 import { glossifyNode } from './reading-help.js';
 import { bindLinkList, markLinkRow, renderLinkList } from './revise-links.js';
 import { DEFAULT_SUBJECT, REVISION } from '../revision/registry.js?v=1';
@@ -367,13 +367,15 @@ function createMap() {
     return hit;
   };
 
-  /* On a phone, opening a branch folds the open branches beside it, so the map stays about one screen tall. */
-  function foldSiblings(id) {
-    (ix.KIDS[ix.PARENT[id]] || []).forEach((k) => {
-      if (k === id) return;
-      const n = findNode(k);
-      if (n && (n.children || []).length && !n.payload.fold) n.payload = Object.assign({}, n.payload, { fold: 1 });
-    });
+  /* On a phone, following a link from the notes below brings the map back: its top edge at the top of the
+     screen, with the header and the tab bar tucked away so the whole map shows. */
+  function showMapTop() {
+    if (!NARROW) return;
+    const pane = wrap.closest('.navcontent'); if (!pane) return;
+    const dy = wrap.getBoundingClientRect().top - pane.getBoundingClientRect().top;
+    if (Math.abs(dy) < 4) return;
+    tuckFor(900);
+    pane.scrollTo({ top: Math.max(0, pane.scrollTop + dy), behavior: 'smooth' });
   }
 
   function applyMarks() {
@@ -687,6 +689,20 @@ function createMap() {
     }
     /* the mouse wheel zooms the map (no Ctrl needed); the page scrolls from outside the map */
 
+    /* While a finger is on the map the page under it must not move. d3-zoom reads each touch against the svg's
+       place on screen, so a page still gliding from a flick through the notes (or scrolled by the same drag)
+       shifts that place every frame and the map runs away by the distance the page travelled. Holding the
+       scroller still for the length of the touch stops the glide and keeps the gesture the map's alone. */
+    const pane = wrap.closest('.navcontent');
+    if (pane) {
+      const hold = () => { pane.style.overflowY = 'hidden'; };
+      const free = (ev) => { if (!ev.touches || !ev.touches.length) pane.style.overflowY = ''; };
+      /* capture: d3-zoom stops the touch events from bubbling past the svg */
+      wrap.addEventListener('touchstart', hold, { passive: true, capture: true });
+      wrap.addEventListener('touchend', free, { passive: true, capture: true });
+      wrap.addEventListener('touchcancel', free, { passive: true, capture: true });
+    }
+
     /* clicking text: select, and open the branch; clicking the small circle only folds/unfolds */
     svgEl.addEventListener('click', (ev) => {
       const t = ev.target;
@@ -700,7 +716,6 @@ function createMap() {
       if (id === 'root') { clearSel(); return; }
       select(id);
       if (hasKids && (folded || wasSel)) {
-        if (NARROW && folded) foldSiblings(id);
         mm.toggleNode(d, false).then(() => {
           if (folded) focusBranch(d);
           track(700);
@@ -721,13 +736,13 @@ function createMap() {
     side.addEventListener('mouseleave', () => setHot(null));
     side.addEventListener('click', (ev) => {
       const b = ev.target.closest('button'); if (!b) return;
-      if (b.dataset.node) reveal(b.dataset.node);
+      if (b.dataset.node) { showMapTop(); reveal(b.dataset.node); }
       if (b.dataset.thread) openThread(b.dataset.thread);
       if (b.dataset.to3d) openIn3D(b.dataset.to3d);
     });
     linkList = bindLinkList($$('rvLinkList'), {
       onHot: (id) => { hotRow = id; setHot(linkKey[id] || null); },
-      onOpen: (id) => { reveal(id); },
+      onOpen: (id) => { showMapTop(); reveal(id); },
     });
     ov.addEventListener('click', (ev) => {
       const g = ev.target.closest && ev.target.closest('.rv-dot'); if (!g) return;
