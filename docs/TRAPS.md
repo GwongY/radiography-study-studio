@@ -1549,7 +1549,7 @@ names it.
   passed to the map part under it. The touch lock above skips it by id; keep both in step.
 - **The tab bar and header do not change state in the last 48 px of the page** (small-ui-helpers.js tuckOnRead). Tucking
   there resized the scroller, the page was pulled back, that read as an upward scroll and untucked it: an endless bounce.
-  Nor does the tab bar START hiding within 240 px of the end: a quick flick reached the end mid-slide and bounced once.
+  Nor does the tab bar START hiding within 120 px (two bar heights) of the end: a quick flick reached the end mid-slide and bounced once.
 - **The map's Fit button is "Close all"** (owner, 24 Oct 2026): it folds every branch back to the top level, then fits.
 - **Opening a branch no longer folds its siblings on a phone** (owner, 23 Oct 2026: it folded on a text tap but not on a
   fold-circle tap, so it looked random). Do not bring `foldSiblings` back.

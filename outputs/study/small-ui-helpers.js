@@ -212,12 +212,13 @@ function tuckOnRead() {
       head.classList.toggle('tucked', on);
       /*
        * The bar's own move resizes the scroller; hold the state until it has
-       * finished. And the bar does not START hiding within 240px of the end: a
-       * quick flick from there reached the end while the bar was still sliding
-       * away, so the end moved under the scroll and the page bounced once
-       * (owner, 24 Oct 2026). The header is an overlay and still tucks there.
+       * finished. And the bar does not START hiding within 120px (about two bar
+       * heights) of the end: a quick flick from there reached the end while the
+       * bar was still sliding away, so the end moved under the scroll and the
+       * page bounced once (owner, 24 Oct 2026; 240px at first, then reduced).
+       * The header is an overlay and still tucks there.
        */
-      if (pane.id === 'navContent' && !(on && rest < 240) && tuckTab(on)) pane.__tuckHold = Date.now() + 260;
+      if (pane.id === 'navContent' && !(on && rest < 120) && tuckTab(on)) pane.__tuckHold = Date.now() + 260;
     }, { passive: true });
   });
 }
