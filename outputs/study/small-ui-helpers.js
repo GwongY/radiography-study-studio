@@ -203,14 +203,21 @@ function tuckOnRead() {
        * stayed there (owner, 24 Oct 2026). iOS's rubber band at the end does the
        * same on its own. Leaving the bottom band upward still untucks.
        */
-      if (y + pane.clientHeight >= pane.scrollHeight - 48) { last = y; return; }
+      const rest = pane.scrollHeight - pane.clientHeight - y;
+      if (rest < 48) { last = y; return; }
       const moved = y - last;
       if (Math.abs(moved) < 8) return;
       last = y;
       const on = moved > 0 && y > 90;
       head.classList.toggle('tucked', on);
-      /* the bar's own move resizes the scroller; hold the state until it has finished */
-      if (pane.id === 'navContent' && tuckTab(on)) pane.__tuckHold = Date.now() + 260;
+      /*
+       * The bar's own move resizes the scroller; hold the state until it has
+       * finished. And the bar does not START hiding within 240px of the end: a
+       * quick flick from there reached the end while the bar was still sliding
+       * away, so the end moved under the scroll and the page bounced once
+       * (owner, 24 Oct 2026). The header is an overlay and still tucks there.
+       */
+      if (pane.id === 'navContent' && !(on && rest < 240) && tuckTab(on)) pane.__tuckHold = Date.now() + 260;
     }, { passive: true });
   });
 }

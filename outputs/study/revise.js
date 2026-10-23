@@ -764,7 +764,16 @@ function createMap() {
     notesBtn.addEventListener('click', () => side.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 
     $$('rvJump').addEventListener('change', () => { const v = $$('rvJump').value; if (v) reveal(v); else clearSel(); });
-    $$('rvFit').addEventListener('click', () => { clearSel(); mm.fit(); track(700); });
+    /* Close all: every branch folded back to the subject's top level, then the whole map framed. */
+    $$('rvFit').addEventListener('click', async () => {
+      clearSel();
+      (function walk(n) {
+        if (n.payload && n.payload.id !== 'root' && (n.children || []).length && !n.payload.fold) n.payload = Object.assign({}, n.payload, { fold: 1 });
+        (n.children || []).forEach(walk);
+      })(mm.state.data);
+      await mm.renderData();
+      mm.fit(); track(700);
+    });
     $$('rvUndo').addEventListener('click', () => goHist(hi - 1));
     $$('rvRedo').addEventListener('click', () => goHist(hi + 1));
     /* every tap on the map, the Jump menu, a link in the side panel or the Find box is one step */

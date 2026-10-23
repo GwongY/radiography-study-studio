@@ -163,9 +163,9 @@ belong in `init()`. The two keep separate import scopes and talk only through
 | `reading-help.js` | 218 | Reading help |
 | `revise-brain.js` | 424 | Revise · Brain 3D — the connections hub |
 | `revise-links.js` | 32 | Revise · the numbered links list under the Map and under the 3D hub. |
-| `revise.js` | 1221 | Revise |
+| `revise.js` | 1230 | Revise |
 | `search-viewer-open.js` | 56 | Search -> viewer: open the model, select the part, auto-uncover, and |
-| `small-ui-helpers.js` | 300 | Small UI helpers |
+| `small-ui-helpers.js` | 307 | Small UI helpers |
 | `spatial-overlay-controls.js` | 120 | Spatial overlay controls (viewer "..." sheet) |
 | `state.js` | 29 | The study system's mutable UI state. |
 | `storage-versioned-keys.js` | 74 | Storage -- versioned keys and the one-time purge of the retired testing data |
