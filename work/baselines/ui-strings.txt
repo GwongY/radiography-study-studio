@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1044 —
-  b96972bb2656121c  WHOLE SET
+— user-facing strings in outputs/ — 1048 —
+  cb5fb2c54c6ac74e  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -342,6 +342,7 @@
   f7b81d5c080156a2  Everything is marked. Final:
   4e9ac1992ad89c82  Exam Past paper by year 2003-2013/ (11 papers, 2003-04 to 2013-14)
   024712ec57d80d28  Exploring Radiography
+  ac4f35e8f157693c  External — Canvas course notice text supplied by the owner, not a file in the shared folders
   058eb20c2b99e492  External — a reference the course names, not a file in the shared folders
   2d0b76bdb337e12c  External — official programme document in E:/UNI sources, not a file in the shared folders
   ee0b93467f59d3a0  Extra exercise.pdf
@@ -376,7 +377,9 @@
   68d33afb48f57eb9  Guidelines and Topics for Presentations 2018-19.pdf
   14d3326b9e65363b  HSS2011 Human Anatomy/Module 0 Online Studies on Human Body and Movement/Previous Years
   f8935505567e0234  HSS2011 Human Anatomy/Module 3 Abdomen and Pelvis/Previous Years
+  1caa57ed8883b0e9  HSS2011 assessment dates notice (Canvas, supplied 23 Oct 2026)
   a922f8e6c07e1e27  HTI17101 Exploring Radiography/Lecture notes
+  c07c78e67dd76cad  HTI17103 assessment and RestHub notice (Canvas, supplied 23 Oct 2026)
   76cf25daf5c66005  Handout version 2017/18. Slide footers run L1 p2 … L1 p60, which is what the page references below point at.
   c690d7fcaa1865bc  Heart atlas
   fb328932c2fb282f  Heart atlas animation stopped; closing the mode.
@@ -584,6 +587,7 @@
   9944576179012a04  Revise →
   8fd7fc8ccc0f89e0  Revision Exercise Answer.pdf
   818f842a6df6eadc  Revision exercise
+  8598fbba03f5642d  Revision exercises by module, 2% each: Module 1 due Sun 13 Sep; Module 2 released Fri 16 Oct 23:00, due Fri 23 Oct; Module 3 released Fri 6 Nov 23:00, due Fri 13 Nov; Module 4 released Fri 20 Nov 23:00, due Fri 27 Nov (all 23:59). Closed-book test 60%, Sat 28 Nov 2026 16:00–17:30. Supersedes the weeks 2, 5, 8 and 10 dates in hss.sched.2026b.
   7341ca361884e9b9  Revision views
   70e713c50b354a05  Rib-count memory
   e32da4522b9793a5  Right arm

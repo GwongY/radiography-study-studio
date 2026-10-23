@@ -149,7 +149,7 @@ export const SUBJECT_ADMIN = {
        deck breaks that 100% into three, and the Canvas schedule confirms the
        60% test and its date. Same total, three documents. */
     assessment: [
-      { name: 'Revision exercise', weight: 8, group: 'Individual', note: 'FOUR separate exercises worth 2% each, due at the end of weeks 2, 5, 8 and 10. Online, open book.', src: { ref: 'hss.sched.2026b', location: 'Important Dates & Weeks' } },
+      { name: 'Revision exercise', weight: 8, group: 'Individual', note: 'FOUR separate exercises worth 2% each, one per module: Module 1 due Sun 13 Sep, Module 2 Fri 23 Oct, Module 3 Fri 13 Nov, Module 4 Fri 27 Nov, each at 23:59. Online, open book.', src: { ref: 'hss.canvas.2026', location: 'HSS2011 assessment dates, as updated 23 Oct 2026' } },
       { name: 'Closed-book test', weight: 60, group: 'Individual', note: 'Individual, close book, Lectures 1–12. Sat 28 Nov 2026, 16:00–17:30.', src: { ref: 'hss.sched.2026b', location: 'Week 13 row' } },
       { name: 'In-class exercise', weight: 32, group: 'Group', note: 'The group half. An AI task allocated at random; discussion in session 1, a 3-minute presentation on 1 slide in session 2. Set in the tutorials as case studies.', src: { ref: 'hss.sched.2026b', location: 'Group Assignment (Total 32%)' } },
     ],
@@ -218,16 +218,18 @@ export const SUBJECT_ADMIN = {
     objectiveNote: 'App-authored summary of the schedule, not a quoted objective: the 2026 timetable schedule carries no separate objectives section.',
     ilos: [],
     assessment: [
-      { name: 'Worksheet', weight: 50, note: 'Submitted via the designated portal before the deadline.', src: { ref: 'hti.sched.2026', location: 'p1 "Worksheet"' } },
-      { name: 'Seminar presentation', weight: 50, note: '10 minutes per group plus 5 minutes of Q&A. Everyone in the group must speak.', src: { ref: 'hti.sched.2026', location: 'p1 "Seminar Presentation"' } },
+      { name: 'Clinical worksheet', weight: 40, note: 'Due end of Week 9, before 23:59 Sun 1 Nov 2026, via Turnitin. Late submissions will NOT be accepted.', src: { ref: 'hti.canvas.2026', location: 'HTI17103 assessment, Clinical Worksheet (40%)' } },
+      { name: 'Written assignment', weight: 30, note: 'Reflections from the RestHub visits — me and my feelings, me and myself, me and others. Due end of Week 13, before 23:59 Sun 29 Nov 2026.', src: { ref: 'hti.canvas.2026', location: 'HTI17103 assessment, Written Assignment (30%)' } },
+      { name: 'Group presentation', weight: 30, note: 'Weeks 7 and 8, tentatively 11 topics. 10 minutes per group plus 5 minutes of Q&A; everyone in the group must speak.', src: { ref: 'hti.canvas.2026', location: 'HTI17103 assessment, Group Presentation (30%)' } },
     ],
+    assessmentNote: 'The updated split replaces the 2026 teaching schedule\u2019s worksheet 50% / seminar 50%. RestHub activities: Session 1 is a 30-minute 1-on-1, booked through the link on Canvas and finished before the Week 6 observation; Sessions 2 and 3 are group activities held in Weeks 7–13. The written assignment is the reflective essay on them.',
     effort: [
       { what: 'Lecture', hours: 10 },
       { what: 'Seminar presentation', hours: 4 },
       { what: 'Clinical observation', hours: 12 },
       { what: 'Total contact hours', hours: 26, total: true },
     ],
-    teaching: 'Five lectures, two group seminars, and a two-day clinical observation placement in Hospital Authority hospitals.',
+    teaching: 'Five lectures, two group seminars, a two-day clinical observation placement in Hospital Authority hospitals, and three RestHub sessions (one 1-on-1, two group activities).',
     texts: [],
     src: { ref: 'hti.sched.2026', location: 'p1 "This is a 2-credit subject with a subtotal of 26 contact hours required"' },
   },
@@ -463,10 +465,10 @@ export const SESSIONS = [
    * four deadlines, all Sunday 23:59, and they are the only hard dates
    * HSS2011 publishes apart from the test.
    */
-  S({ subject: 'HSS2011', week: 2, kind: 'assessment', on: [2026, 8, 13], at: [23, 59, 23, 59], title: 'Revision exercise 1 — 2%', weight: 2, note: 'Individual, online, open book. Deadline Sun 13 Sep 2026 23:59.' }),
-  S({ subject: 'HSS2011', week: 5, kind: 'assessment', on: [2026, 9, 4], at: [23, 59, 23, 59], title: 'Revision exercise 2 — 2%', weight: 2, note: 'Individual, online, open book. Deadline Sun 4 Oct 2026 23:59.' }),
-  S({ subject: 'HSS2011', week: 8, kind: 'assessment', on: [2026, 9, 25], at: [23, 59, 23, 59], title: 'Revision exercise 3 — 2%', weight: 2, note: 'Individual, online, open book. Deadline Sun 25 Oct 2026 23:59.' }),
-  S({ subject: 'HSS2011', week: 10, kind: 'assessment', on: [2026, 10, 8], at: [23, 59, 23, 59], title: 'Revision exercise 4 — 2%', weight: 2, note: 'Individual, online, open book. Deadline Sun 8 Nov 2026 23:59.' }),
+  S({ subject: 'HSS2011', week: 2, kind: 'assessment', on: [2026, 8, 13], at: [23, 59, 23, 59], title: 'Revision exercise 1 (Module 1) — 2%', weight: 2, note: 'Individual, online, open book. Deadline Sun 13 Sep 2026 23:59.' }),
+  S({ subject: 'HSS2011', week: 8, kind: 'assessment', on: [2026, 9, 23], at: [23, 59, 23, 59], title: 'Revision exercise 2 (Module 2) — 2%', weight: 2, note: 'Individual, online, open book. Released Fri 16 Oct 23:00; deadline Fri 23 Oct 2026 23:59.', src: { ref: 'hss.canvas.2026', location: 'HSS2011 assessment dates, Week 7 & 8 row' } }),
+  S({ subject: 'HSS2011', week: 11, kind: 'assessment', on: [2026, 10, 13], at: [23, 59, 23, 59], title: 'Revision exercise 3 (Module 3) — 2%', weight: 2, note: 'Individual, online, open book. Released Fri 6 Nov 23:00; deadline Fri 13 Nov 2026 23:59.', src: { ref: 'hss.canvas.2026', location: 'HSS2011 assessment dates, Week 10 & 11 row' } }),
+  S({ subject: 'HSS2011', week: 13, kind: 'assessment', on: [2026, 10, 27], at: [23, 59, 23, 59], title: 'Revision exercise 4 (Module 4) — 2%', weight: 2, note: 'Individual, online, open book. Released Fri 20 Nov 23:00; deadline Fri 27 Nov 2026 23:59.', src: { ref: 'hss.canvas.2026', location: 'HSS2011 assessment dates, Week 12 & 13 row' } }),
   S({ subject: 'HSS2011', week: 13, kind: 'revision', ...hssLec(13), title: 'Online revision', dur: '2 hours' }),
   S({ subject: 'HSS2011', week: 13, kind: 'assessment', on: [2026, 10, 28], at: [16, 0, 17, 30], title: 'Closed-book test (individual) — 60%', weight: 60, note: 'Covers Lectures 1–12.' }),
 
@@ -534,6 +536,8 @@ export const SESSIONS = [
   S({ subject: 'HTI17103', week: 6, kind: 'observation', on: [2026, 9, 8], title: 'Observation (HA Hospital, Thursday group)', teacher: 'CE', room: 'TBA', note: 'Check hospital, session and reporting location in CLIPS and use the latest worksheet on Canvas.', src: { ref: 'email.2026', location: 'HTI17103 course notice, 1 Oct 2026' } }),
   S({ subject: 'HTI17103', week: 7, kind: 'seminar', on: [2026, 9, 15], at: [9, 30, 11, 20], room: 'TU201', title: 'Seminar I — Group Presentation', teacher: 'LTL', note: '10 minutes plus 5 minutes Q&A. Everyone in the group must speak.' }),
   S({ subject: 'HTI17103', week: 8, kind: 'seminar', on: [2026, 9, 22], at: [9, 30, 11, 20], room: 'TU201', title: 'Seminar II — Group Presentation', teacher: 'LTL', note: '10 minutes plus 5 minutes Q&A.' }),
+  S({ subject: 'HTI17103', week: 9, kind: 'assessment', on: [2026, 10, 1], at: [23, 59, 23, 59], title: 'Clinical worksheet due — 40%', weight: 40, note: 'Submit via Turnitin before 23:59. Late submissions will NOT be accepted.', noStudy: true, src: { ref: 'hti.canvas.2026', location: 'HTI17103 assessment, Clinical Worksheet (40%)' } }),
+  S({ subject: 'HTI17103', week: 13, kind: 'assessment', on: [2026, 10, 29], at: [23, 59, 23, 59], title: 'Written assignment due — RestHub reflective essay, 30%', weight: 30, note: 'Reflections from the RestHub visits: me and my feelings, me and myself, me and others. RestHub Sessions 2 and 3 (group activities) run in Weeks 7–13.', noStudy: true, src: { ref: 'hti.canvas.2026', location: 'HTI17103 assessment, Written Assignment (30%)' } }),
 
   /* ---------------- The other three subjects ---------------------------- *
    * APSS1A08 and DSAI1202 now have current source files, so their real topic
