@@ -44,6 +44,11 @@ export const VIEWER_LECTURE_SOURCES = [
     "ref": "hss.ll.2026",
     "file": "Week 2_LL _2026_CKK_upload.pdf",
     "pages": 35
+  },
+  {
+    "ref": "hss.tut.ice",
+    "file": "Tutorial 1_ HSS2011_Human Anatomy_2026-27-Ice breaking.pdf",
+    "pages": 21
   }
 ];
 export const VIEWER_LECTURE_NAMES = [
@@ -297,7 +302,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.ll.2026",
     "file": "Week 2_LL _2026_CKK_upload.pdf",
     "page": 13,
-    "evidence": "named"
+    "evidence": "slide row"
   },
   {
     "layer": "joint",
@@ -556,7 +561,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.ul.2026",
     "file": "Week 3_UL_2026_CKK_upload.pdf",
     "page": 28,
-    "evidence": "named whole",
+    "evidence": "slide row",
     "whole": "Pronator teres"
   },
   {
@@ -1638,7 +1643,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.ul.2026",
     "file": "Week 3_UL_2026_CKK_upload.pdf",
     "page": 28,
-    "evidence": "named whole",
+    "evidence": "slide row",
     "whole": "Pronator teres"
   },
   {
@@ -1689,7 +1694,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.ul.2026",
     "file": "Week 3_UL_2026_CKK_upload.pdf",
     "page": 28,
-    "evidence": "named"
+    "evidence": "slide row"
   },
   {
     "layer": "muscle",
@@ -1930,7 +1935,7 @@ export const VIEWER_LECTURE_NAMES = [
     "ref": "hss.l7.2026",
     "file": "2627_M2_L7_ANS_spec_sen.pdf",
     "page": 31,
-    "evidence": "named"
+    "evidence": "slide row"
   },
   {
     "layer": "nervous",
@@ -2344,9 +2349,9 @@ export const VIEWER_LECTURE_NAMES = [
   {
     "layer": "organs",
     "name": "Kidney",
-    "ref": "hss.hnt.2026",
-    "file": "W4_Head_Neck_Trunk_2026_CKK_upload_20260920.pdf",
-    "page": 26,
+    "ref": "hss.tut.ice",
+    "file": "Tutorial 1_ HSS2011_Human Anatomy_2026-27-Ice breaking.pdf",
+    "page": 12,
     "evidence": "named"
   },
   {
@@ -3256,14 +3261,6 @@ export const VIEWER_LECTURE_NAMES = [
     "file": "Week 3_UL_2026_CKK_upload.pdf",
     "page": 8,
     "evidence": "slide row"
-  },
-  {
-    "layer": "skeleton",
-    "name": "Vertebra T6",
-    "ref": "hss.hnt.2026",
-    "file": "W4_Head_Neck_Trunk_2026_CKK_upload_20260920.pdf",
-    "page": 24,
-    "evidence": "named"
   },
   {
     "layer": "skeleton",

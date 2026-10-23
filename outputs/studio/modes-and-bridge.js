@@ -445,7 +445,9 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
     const hit=all.find(m=>m.userData.canonicalId===id);
     const spec=hit&&FLOW_CLASSES[hit.userData.flowClass];
     if(!spec||!spec.says) return '';
-    return `<div class="physline" style="--tone:#${spec.color.toString(16).padStart(6,'0')}"><b>${clean(spec.label)}</b><span>${clean(spec.says)}</span></div>`;
+    /* "Skeletal muscle" over "Skeletal muscle." said it twice: a line that only repeats its label is left off */
+    const said=String(spec.says).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()===String(spec.label).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+    return `<div class="physline" style="--tone:#${spec.color.toString(16).padStart(6,'0')}"><b>${clean(spec.label)}</b>${said?'':`<span>${clean(spec.says)}</span>`}</div>`;
   }
   /*
    * Does the course name this, and where?
@@ -498,7 +500,7 @@ window.__osteo={boot:()=>{if(!state.__booted){state.__booted=true;state.bootProm
      its "radiography" line is only the atlas's generic "Named structure in the ... layer" (unitBlurb), so a
      muscle's card showed two boxes with nothing in them. */
   function infoGridHTML(record){const lm=(record.landmarks||[]).slice(0,4),rad=String(record.radiographyImportance||'').trim();const boxes=[lm.length?`<div><div class="info-label">Landmarks</div><ul class="compact-list">${lm.map(x=>`<li>${clean(x)}</li>`).join('')}</ul></div>`:'',rad&&!/^Named structure in the /.test(rad)?`<div><div class="info-label">Radiography</div><div class="info-value">${clean(rad)}</div></div>`:''].filter(Boolean);return boxes.length?`<div class="info-grid">${boxes.join('')}</div>`:''}
-  function renderSelected(record,side){const card=$('selectedCard');if(card)card.classList.remove('quiet');els.selectedName.textContent=viewerStructureName(record.canonicalName);els.selectedChips.innerHTML=courseChipHTML(record,state.selectionAnchor);els.selectedDetails.innerHTML=`${physLineHTML(record.id)}${infoGridHTML(record)}${memoryTipHTML(record)}<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button class="primary detail-open" id="openDetailBtn" style="margin-top:0">Open detail</button><button class="icon-btn" id="hideSelectedBtn" style="min-height:38px;border:1px solid var(--line);border-radius:9px;background:rgba(255,186,103,.12);color:var(--orange);padding:0 12px;font-size:12px">Hide this</button></div>`;$('openDetailBtn').onclick=()=>openDetail(record,side);const hb=$('hideSelectedBtn');if(hb)hb.onclick=()=>hideMesh(state.selectionAnchor)}
+  function renderSelected(record,side){const card=$('selectedCard');if(card)card.classList.remove('quiet');els.selectedName.textContent=viewerStructureName(record.canonicalName);els.selectedChips.innerHTML=courseChipHTML(record,state.selectionAnchor);els.selectedDetails.innerHTML=`${physLineHTML(record.id)}${infoGridHTML(record)}${memoryTipHTML(record)}<div class="sel-actions"><button class="primary detail-open" id="openDetailBtn">Open detail</button><button class="icon-btn" id="hideSelectedBtn">Hide this</button></div>`;$('openDetailBtn').onclick=()=>openDetail(record,side);const hb=$('hideSelectedBtn');if(hb)hb.onclick=()=>hideMesh(state.selectionAnchor)}
   /* Tapping a bone selects it. */
   export function onBonePicked(obj){const {canonicalId,side}=obj.userData;if(getRecord(canonicalId))selectBone(canonicalId,side)}
   export function clearHighlight(){[...state.fullMeshes,...Object.values(state.extraModels||{}).flatMap(m=>m.meshes)].forEach(m=>{m.material.emissive?.setHex(0x000000);m.material.emissiveIntensity=0;m.userData.presentationActive=false;if(state.xray&&m.userData.xrayHot){m.material.dispose();m.material=state.xray.shared.get(m.userData.xrayTissue);delete m.userData.xrayHot}if(m.userData.baseScale)m.scale.set(...m.userData.baseScale);if(m.userData.basePosition)m.position.set(...m.userData.basePosition)});state.fullPickables.forEach(m=>{m.material.opacity=0})}

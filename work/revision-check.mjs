@@ -381,5 +381,35 @@ console.log('\nRevise box -> viewer unit (outputs/revision/viewer-units.js)');
   }
 }
 
+/* The lecturers' focus star (outputs/revision/focus.js) sits on real rows only. */
+{
+  const { FOCUS } = await import('../outputs/revision/focus.js');
+  for (const [sub, rows] of Object.entries(FOCUS)) {
+    const have = new Set(REVISION[sub].data.NODES.map((n) => n.id));
+    const lost = Object.keys(rows).filter((id) => !have.has(id));
+    ok(!lost.length, `${sub}: every focus star is on a real row` + (lost.length ? ' - ' + lost.join(', ') : ''));
+  }
+}
+
+/* The owner's rule (23 Oct 2026): a structure the viewer names from a lecture is in a lecture, so Revise has a box that
+   opens it. Every name in viewer-lecture-names.js reaches a unit that a Revise box (not a heading's members) links,
+   except what the HSS2011 lecturer said is not tested (docs/DECISIONS.md, 2026-10-22): the viewer keeps those labels, Revise does not. */
+{
+  const { VIEWER_LECTURE_NAMES } = await import('../outputs/viewer-lecture-names.js');
+  const { MESH_INDEX: MI } = await import('../outputs/mesh-index.js');
+  const { UNIT_BOXES } = await import('../outputs/revision/viewer-units.js');
+  const NOT_TESTED = [
+    /(?:hallucis|digiti|digitorum brevis|plantae|plantar|of foot)/i, /* the short muscles of the foot */
+    /(?:hyoid|thyroid muscle|digastric|glossus)/i, /* suprahyoid, infrahyoid and tongue muscles */
+    /^(?:Frontal sinus|Sphenoidal sinus|Sinus of (?:frontal|sphenoid) bone)$/, /* on the slide headed "Bony Landmarks"; specific landmark names */
+    /^(?:Platysma|Spleen)$/, /* a facial-expression muscle; a mere location on the capillary slide (owner, 24 Oct) */
+    /^Spinalis/, /* individual intrinsic back muscles */
+    /^(?:Median|Ulnar|Radial|Femoral|Obturator|Sciatic|Common (?:peroneal|fibular)|Superior gluteal) nerve$/, /* nerve supply */
+    /^(?:Calcaneofibular|Posterior cruciate) ligament$/, /* ligament names but the ATFL and deltoid */
+  ];
+  const lost = VIEWER_LECTURE_NAMES.filter((n) => !NOT_TESTED.some((re) => re.test(n.name))).filter((n) => !MI.some((r) => r.layer === n.layer && (r.name === n.name || r.mesh === n.name) && UNIT_BOXES.has(r.unitId)));
+  ok(!lost.length, 'every structure the viewer names from a lecture has a Revise box' + (lost.length ? ' - ' + lost.slice(0, 8).map((n) => n.name).join('; ') : ''));
+}
+
 console.log(fail ? `\n${fail} FAILED` : '\nALL PASS');
 process.exit(fail ? 1 : 0);

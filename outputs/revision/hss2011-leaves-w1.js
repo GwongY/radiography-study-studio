@@ -146,5 +146,7 @@ export const ROWS = [
 { k: 'part', id: 'w1_coronal', l: 'Coronal plane', parent: 'w1_planes', w: 1, line: 'separates the body into anterior and posterior parts', src: [ORI, 16] },
 { k: 'part', id: 'w1_sagittal', l: 'Sagittal plane', parent: 'w1_planes', w: 1, line: 'separates the body into left and right', src: [ORI, 16] },
 { k: 'part', id: 'w1_transverse', l: 'Transverse/horizontal plane', parent: 'w1_planes', w: 1, line: 'separates the body into superior and inferior parts', src: [ORI, 16] },
+
+/* ---------------- named on the slides but not yet a row (p28) ---------------- */
 ];
 

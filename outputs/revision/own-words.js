@@ -313,4 +313,7 @@ export const OWN = {
   w6_hy_thermo: 'Keeping the body temperature steady.',
   w6_hy_circadian: 'The body clock that sets the daily cycle of sleep and waking.',
   w6_rf_cardio: 'Helping to adjust the work of the heart and blood vessels.',
+  /* ---- Added when the viewer's lecture names were brought into Revise (23 Oct 2026) ---- */
+  w3_pronteres: 'It turns the forearm so the palm faces down.',
+  w3_supinator: 'It turns the forearm so the palm faces up.',
 };

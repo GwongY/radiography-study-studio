@@ -5,6 +5,25 @@ one without new source evidence. The longer reasoning is in the linked spec or
 in [`history/README-archive.md`](history/README-archive.md) (the old
 `outputs/README.md`, kept whole).
 
+### 2026-10-24 — The not-tested rule stands; physiology's list is added
+
+The owner pasted the lecturers' tested and not-tested remarks (with recording timestamps). The 2026-10-22 HSS2011 rule is
+unchanged, nerve supply included: the owner confirmed the existing rules are correct, so the remark that lower-limb nerves
+are "needed" does not bring those rows back. The viewer names every structure a lecture names, and Revise carries a box for
+each except what the HSS2011 lecturer excludes (`work/revision-check.mjs` lists the exceptions: foot short muscles, hyoid and
+tongue muscles, Spinalis, the limb nerves, the CFL and PCL, the two sinuses, which the slide headed "Bony Landmarks" lists,
+Platysma and Spleen). For ABCT2326 the lecturer said not to memorise counting valve cusps and reciting valve names, or the
+accessory respiratory muscle names: the four accessory muscle rows are gone from Revise and the Course tab lists both under
+Not tested. The owner said the centrioles' arrangement (nine triplets) IS tested in the mid-term, against the lecturer's
+remark, so it stays in Revise.
+
+The ★ now means "the lecturers said to take more focus", not "a textbook fact". Rows carry it from
+`outputs/revision/focus.js` (a row id and where it was said); the Map and the notes draw it, and the position in the
+lecture recording is its tooltip. The Course tab does not list focus items. The textbook facts themselves stay (the
+Martini sentences on the Physiology thread steps, and the beyond-the-slides clauses in the Anatomy threads, tables and
+topics, each still cited where it was): only the star glyph was removed from them. The remark that lower-limb nerves
+are "needed" is not marked, because the nerve rule stands.
+
 ### 2026-10-23 — Let the layout explain the interface
 
 Do not add explanatory sentences to buttons, tabs, labels or other UI; let the

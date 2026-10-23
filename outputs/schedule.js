@@ -128,7 +128,7 @@ export const SUBJECT_ADMIN = {
        is listed; the lecturer's slide also lists origins/insertions of muscles, which the app does not name. */
     notTestedSrc: 'From the Week 4 lecture slide “I will not test the following”, limited to what this app shows.',
     notTested: [
-      { what: 'Specific names of the bony landmarks', app: 'The viewer labels them (Parts menu on a bone).' },
+      { what: 'Specific names of the bony landmarks — trochanter, condyle, tuberosity, fissures, foramina', app: 'The viewer labels them (Parts menu on a bone).' },
       { what: 'Nerve supply — except that the arm is innervated by the brachial plexus, from the ventral rami of C5–T1', app: 'The nerves are in the viewer.' },
       { what: 'Individual names of the ligaments — except ATFL and DL', app: 'The Ligaments layer of the viewer names them.' },
       { what: 'Names and functions of the facial muscles and tongue muscles', app: 'Named in the Muscles layer of the viewer.' },
@@ -180,6 +180,12 @@ export const SUBJECT_ADMIN = {
     credits: 3,
     level: '2',
     prereq: 'Nil',
+    /* Said in the lectures (Cells and Circulation in weeks 1-2, Respiration in week 3); only what the app itself shows is listed. */
+    notTestedSrc: 'From the lecturer’s remarks in lectures 1 to 3, limited to what this app shows.',
+    notTested: [
+      { what: 'Counting valve cusps and reciting the valve names', app: 'The heart atlas names the valves.' },
+      { what: 'Names of the accessory respiratory muscles', app: 'Named in the Muscles layer of the viewer.' },
+    ],
     objective: 'By completing this subject using an organ system-based approach in teaching and learning, students will be able to demonstrate a basic understanding of the function of the human body and the physiological mechanisms of the operation of major body systems.',
     ilos: [
       'Demonstrate a basic understanding of the different levels from cells to systems of body organization',

@@ -216,6 +216,7 @@ const SHELL = [
   './revision/rules.js?v=1',
   './revision/cross-links.js?v=1',
   './revision/viewer-units.js?v=1',
+  './revision/focus.js?v=1',
   './revision/hss2011-data.js',
   './revision/leaves.js',
   './revision/hss2011-leaves-w1.js',

@@ -250,4 +250,7 @@ export const ROWS = [
   links: { w7_postganglionic: 'postganglionic fibers' }, src: [L7, 53] },
 { k: 'part', id: 'w7_para_head', l: 'Innervation to head', parent: 'w7_parasympmotor', w: 7, line: 'oculomotor (III), facial (VII), glossopharyngeal (IX)', src: [L7, 53] },
 { k: 'part', id: 'w7_para_viscera', l: 'Innervation to viscera', parent: 'w7_parasympmotor', w: 7, line: 'vagus nerve (X)', src: [L7, 53] },
+
+/* ---------------- named in the spiral-organ slide (p31) ---------------- */
+{ k: 'nerve', id: 'w7_cochlearn', l: 'Cochlear nerve', parent: 'ear_hearing', w: 7, supplies: { w7_innerhair: 'carries their signals; 90-95% of its sensory fibres' }, src: [L7, 31] },
 ];

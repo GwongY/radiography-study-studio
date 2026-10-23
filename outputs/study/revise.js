@@ -30,6 +30,7 @@ import { OWN } from '../revision/own-words.js?v=1';
 import { crossFor, legendKeys, viewerEligible } from '../revision/rules.js?v=1';
 import { CROSS } from '../revision/cross-links.js?v=1';
 import { UNIT_BOXES, VIEWER_UNITS } from '../revision/viewer-units.js?v=1';
+import { FOCUS } from '../revision/focus.js?v=1';
 import { openUnitInViewer } from './global-search.js';
 import { openCellInViewer } from './search-viewer-open.js';
 import { showIn3D } from '../cell-zoom.js?v=1';
@@ -239,6 +240,7 @@ function deriveWeek() {
       const weeks = ix.byId[spec.id].w.slice().sort((a, b) => a - b);
       html += `<span class="mwk">${weeks.filter((w) => w <= rv.week).map((w) => `W${w}`).join(' ')}</span>`;
       if (ix.fresh.has(spec.id)) html += '<span class="wknew">new</span>';
+      if (focusOf(spec.id)) html += `<span class="mstar" title="${esc(focusOf(spec.id))}">★</span>`;
     }
     const kids = (spec.kids || []).map((k) => build(k, sy, key, depth + 1));
     ix.KIDS[key] = kids.map((k) => k.payload.id);
@@ -271,6 +273,9 @@ function weeksTags(n) {
   return n.w.slice().sort((a, b) => a - b).filter((x) => x <= rv.week).map((x) => `<span class="rv-tag">Week ${x}</span>`).join('');
 }
 
+/* The lecturers' focus star on a row (outputs/revision/focus.js): where it was said, or ''. */
+const focusOf = (id) => ((FOCUS[rv.subject] || {})[id]) || '';
+
 /* The viewer unit for a box: a lookup in outputs/revision/viewer-units.js, generated and checked by
    work/build-revision-units.mjs and revision-check. No unit, no button. */
 function viewerUnit(id, subject = rv.subject) {
@@ -283,7 +288,7 @@ function renderPanel(id, el) {
   const n = ix.byId[id];
   let h;
   if (n) {
-    h = `<h3>${esc(n.l)}</h3><div class="rv-tags"><span class="rv-tag sys" style="background:var(--rv-c-${n.s})">${esc(sysOf(n.s).label)}</span>${weeksTags(n)}</div>`;
+    h = `<h3>${esc(n.l)}${focusOf(id) ? ` <span class="star" title="${esc(focusOf(id))}">★</span>` : ''}</h3><div class="rv-tags"><span class="rv-tag sys" style="background:var(--rv-c-${n.s})">${esc(sysOf(n.s).label)}</span>${weeksTags(n)}</div>`;
     /* a row with no slide line of its own still opens with one sentence: where it sits in the tree */
     const bare = n.leaf && !(n.line && n.line.trim());
     const own = n.own || OWN[id];

@@ -3,7 +3,7 @@
  *
  * Every step cites a slide page and `match` is words on that page (work/revision-check.mjs);
  * `ids` names the map boxes the step is about, so the box's notes can offer the thread and the
- * coverage rule (work/revision-coverage.mjs) can see what is linked. ★ facts: Martini, one
+ * coverage rule (work/revision-coverage.mjs) can see what is linked. Textbook facts (star: field): Martini, one
  * sentence, the lecture's own chapter. The 廣東話 line adds no English word or number the
  * steps do not have. Gap analysis: docs/superpowers/notes/2026-10-20-physiology-gap-analysis.md.
  */

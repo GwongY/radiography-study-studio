@@ -26,8 +26,7 @@ const letters = (s) => String(s || '').toLowerCase().replace(/[^a-z]+/g, ' ').tr
 
 /**
  * What is wrong with an own-words sentence, as a list (empty = fine). Own words
- * may not carry a number (numbers come from a slide line) or a star (a ★
- * textbook fact sits on a thread step with its page), and must be a real
+ * may not carry a number (numbers come from a slide line) or a star (the ★ marks a focus row and is drawn by the app), and must be a real
  * sentence about the row.
  */
 export function ownProblems(own, label) {
@@ -38,12 +37,12 @@ export function ownProblems(own, label) {
   if (s.length > 220) out.push('over 220 characters');
   if (!s.endsWith('.')) out.push('no full stop at the end');
   if (/\d/.test(s)) out.push('a digit (numbers come only from a slide line)');
-  if (/[★*]/.test(s)) out.push('a star (★ facts go on thread steps with their textbook page)');
+  if (/[★*]/.test(s)) out.push('a star (the ★ marks a focus row and is drawn by the app, not written)');
   if (letters(s) === letters(label)) out.push('only the name');
   return out;
 }
 
-/* ---- the owner's answers 6 and 7: 廣東話 lines and ★ facts add nothing unsourced ---- */
+/* ---- the owner's answers 6 and 7: 廣東話 lines and textbook facts add nothing unsourced ---- */
 
 /**
  * What is wrong with a thread's 廣東話 line (empty = fine). It retells the
@@ -64,7 +63,7 @@ export function yueProblems(yue, stepTexts) {
 }
 
 /**
- * What is wrong with a ★ textbook fact on a thread step (empty = fine): one
+ * What is wrong with a textbook fact on a thread step (empty = fine): one
  * sentence, a PDF page of the Martini textbook, and a chapter the step's own
  * lecture deck is built on (`chapters`, from the registry's `decks`).
  */

@@ -1,5 +1,5 @@
-— user-facing strings in outputs/ — 1048 —
-  cb5fb2c54c6ac74e  WHOLE SET
+— user-facing strings in outputs/ — 1047 —
+  224e39ee502e8bca  WHOLE SET
 
   5377418b277d768e   float dome=smoothstep(-.2,.45,rssAlong/max(uMLength,.000001));transformed-=uMAxis*uMAmt*uDeform*dome;\n
   2d8a38847224b5fa   float rssRip=pow(max(0.,.5+.5*sin(rssW*6.2831853)),uSharp);\n
@@ -8,6 +8,7 @@
   753ec4f3a305c1c3   <span class="cut-levelcite">
   33fff96676d47f8a   Tap to ask the browser to reconfigure the viewport.
   1f1170e574c9a100   \u2014 nearest to it
+  ec77011779fa5c87   focus star on a row (outputs/revision/focus.js): where it was said, or 
   4086a0d4cd005901   showed metatarsals with no toes; choosing 
   f45783c4bcd27e3d   · inside
   df725abe14c48979   · this week
@@ -193,6 +194,7 @@
   ddc6aca43efa6a7e  <span class="mmt mmb" style="--bc:var(--c-
   b83f09d243f67fb8  <span class="mono" data-depthread="
   62bc3808f16130c2  <span class="mono" style="color:
+  5d24ac9c438edf09  <span class="mstar" title="
   79494432a3df21c8  <span class="openwk">This week</span>
   24337fc436267890  <span class="pc" style="color:
   a8bd35f3ae605d47  <span class="pending" style="width:
@@ -415,7 +417,6 @@
   90a8aa236c266060  Jugular notch
   2e5922f2b0aef227  Jump to today
   8270b0379eedc536  Jump to today ↓
-  bfd62f38eb7f415e  Keep hidden
   2072e9484cb255ff  Keyboard up · viewport
   f11e2c29d715e2ab  L2 Regional Anatomy of the Thorax.pdf
   5b03442d3cba299d  Lab reports
@@ -624,9 +625,10 @@
   aa8ea843d6a657b5  Show in the viewer
   d0b966e35ee96fdd  Show the skeleton around the heart
   f0c80dc7d3d237d2  Show the skeleton around the vessels
-  cab88e281cc40392  Show them
   c8e398243f5fa550  Shrunk by
   50870a5c5468e10a  Simulated ultrasound sector image
+  79d4f977e9d4fc6b  Skeletal muscle
+  2e88cb4a4caf5980  Skeletal muscle.
   d9d3b7327b495751  Skeletal, joint and muscular systems — Dr William Tsang, 2018.
   1a5f0309b5e9c356  Skipped line
   3c18ba95de1982d4  Slow motion
@@ -905,7 +907,6 @@
   b4d0b1a5df8f0d4a  measured from
   ddef735c79b2f059  median plane from the vertebral column and sternum; transumbilical plane at the L3/L4 junction
   1c75c0d36de79131  midclavicular lines from the midpoint of each clavicle; subcostal plane at the tenth costal cartilage; transtubercular plane at the iliac tubercles
-  f3d699287b13df92  min-height:38px;border:1px solid var(--line);border-radius:9px;background:rgba(255,186,103,.12);color:var(--orange);padding:0 12px;font-size:12px
   6581a1af2821cdb5  mmt mmb mmroot
   2404a2a6da56a404  more in the list
   9926eafbd8d2de07  more step
@@ -988,12 +989,10 @@
   0d9fec38ee8cf1fe  source.receivedAt must be ISO with an offset.
   a1c7213f9215c796  source.threadId must be hexadecimal.
   88a595b7ebfe83fb  summary small
-  f5f88ae39b9a5ceb  that structure
   8ef9472e82771a5b  the body frame
   d7928f8a1b7fd967  the model’s own muscle
   4f6a3d859e615a5a  the skeleton
   8a3a6bcf33fef191  this is what I got
-  5d2033a00068467a  to uncover
   e44871869c937cfc  uShell is zero for the soft-tissue layers. See radiography.js boneTau(). */
   e53766dcd94ffbe0  uncoverbanner hidden
   b76b61628827fa7f  under one name

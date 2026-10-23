@@ -12,17 +12,17 @@ const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&
 const weeksOf = (list) => [...new Set(list)].sort((a, b) => a - b).map((w) => `W${w}`).join(' · ');
 const cite = ([sid, page], sources) => `${sources[sid] || sid}, p${page}`;
 
-/** The set textbook a ★ fact cites (SOURCE_FILES `phys.ebook`, Martini). Its text is not in this public repo. */
+/** The set textbook a textbook fact cites (SOURCE_FILES `phys.ebook`, Martini). Its text is not in this public repo. */
 export const STAR_SOURCE = 'phys.ebook';
 
 /**
  * threads: [{ id: 't1', title, yue, steps: [{ wk, hd, text, src: [id, page], match, star? }] }]
- * star: { text, page, ch } — one textbook sentence, shown with ★ and its page (owner, 19 Oct 2026).
+ * star: { text, page, ch } — one textbook sentence, shown with its page (owner, 19 Oct 2026; the ★ glyph was dropped 24 Oct, it now marks focus).
  * yue: the 廣東話 retelling; it carries the thread's last week, so it hides until every step is taught.
  */
 export function renderThreads(threads, sources = {}, intro = '') {
   if (!threads.length) return '';
-  const star = (s) => (s.star ? ` ${esc(s.star.text)} <span class="star">★</span> <span class="rv-src">${esc(sources[STAR_SOURCE] || 'Martini textbook')}, p${s.star.page}</span>` : '');
+  const star = (s) => (s.star ? ` ${esc(s.star.text)} <span class="rv-src">${esc(sources[STAR_SOURCE] || 'Martini textbook')}, p${s.star.page}</span>` : '');
   const one = (t, i) => {
     const steps = t.steps.map((s) => `  <li data-wk="${s.wk}"><span class="wk">W${s.wk}</span><span class="hd">${esc(s.hd)}</span> ${esc(s.text)} <span class="rv-src">${esc(cite(s.src, sources))}</span>${star(s)}</li>`).join('\n');
     const yue = t.yue ? `\n<div class="yue" data-wk="${Math.max(...t.steps.map((s) => s.wk))}"><b>廣東話</b>${esc(t.yue)}</div>` : '';

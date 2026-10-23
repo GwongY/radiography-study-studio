@@ -425,6 +425,6 @@ export function runSearch(q) {
   }
   const terms = expandQuery(q.trim().toLowerCase());
   box.innerHTML = hits.slice(0, 30).map((h, n) =>
-    `<button class="sres" data-hit="${n}"><span class="grow"><b>${markHit(h.title, terms)}</b><small>${esc(h.note)}</small></span><span class="kind">${esc(h.kind)}</span></button>`).join('');
+    `<button class="sres" data-hit="${n}"><span class="grow"><b>${markHit(h.title, terms)}</b></span><span class="kind">${esc(h.kind)}</span></button>`).join('');
   box.querySelectorAll('[data-hit]').forEach((b) => { b.onclick = () => { rememberSearch(searchLastQuery); hits[+b.dataset.hit].go(); }; });
 }

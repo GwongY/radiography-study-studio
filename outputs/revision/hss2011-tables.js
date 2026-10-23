@@ -18,27 +18,27 @@ export const TABLES_HTML = `<h2>Tables</h2>
   <tbody>
   <tr data-wk="5"><td>C1–C5</td><td><b>Cervical plexus</b></td><td>Diaphragm, some neck and back muscles.</td><td>W4 (neck); breathing is Module 3</td></tr>
   <tr data-wk="5"><td>C5–T1<br><span class="pill">cervical enlargement</span></td><td><b>Brachial plexus</b>, from the ventral rami of C5–T1</td><td>The upper limb: the arm is basically innervated by the brachial plexus.</td><td>W3</td></tr>
-  <tr data-wk="5"><td>T1–T12</td><td>No plexus <span class="star">★</span></td><td>Lateral horn here = sympathetic outflow.</td><td>W4, W7</td></tr>
+  <tr data-wk="5"><td>T1–T12</td><td>No plexus</td><td>Lateral horn here = sympathetic outflow.</td><td>W4, W7</td></tr>
   <tr data-wk="5"><td>L1–L4<br><span class="pill">lumbosacral enlargement</span></td><td><b>Lumbar plexus</b></td><td>Sensory from the hip and knee joints; motor to the hip, thigh and scrotum.</td><td>W2</td></tr>
   <tr data-wk="5"><td>L4–S4<br><span class="pill">lumbosacral enlargement</span></td><td><b>Sacral plexus</b></td><td>Gives rise to the sciatic nerve.</td><td>W2</td></tr>
-  <tr data-wk="5"><td>Below the cord</td><td><b>Cauda equina</b> (roots hanging in the vertebral canal)</td><td>Innervates pelvic and lower limbs (slide). The adult cord ends around L1–L2 <span class="star">★</span>, shorter than the 33-vertebra column.</td><td>W4 + W5</td></tr>
+  <tr data-wk="5"><td>Below the cord</td><td><b>Cauda equina</b> (roots hanging in the vertebral canal)</td><td>Innervates pelvic and lower limbs (slide). The adult cord ends around L1–L2, shorter than the 33-vertebra column.</td><td>W4 + W5</td></tr>
   </tbody></table></div>
   <p class="hint">Which named nerve supplies which muscle is not examined in HSS2011; the plexuses and their levels are.</p></div>
 <div class="rv-sec"><h3 id="tb-cn">2 · The 12 cranial nerves, tied to bone, muscle and brain (W4 + W6 + W7)</h3>
   <div class="note-box">Names (slide mnemonic): <b>O</b>h <b>o</b>nce <b>o</b>ne <b>t</b>akes <b>t</b>he <b>a</b>natomy <b>f</b>inal, <b>v</b>ery <b>g</b>ood <b>v</b>acation <b>ah</b>ead.
-  Types <span class="star">★</span>: <b>S</b>ome <b>S</b>ay <b>M</b>arry <b>M</b>oney, <b>B</b>ut <b>M</b>y <b>B</b>rother <b>S</b>ays <b>B</b>ig <b>B</b>rains <b>M</b>atter <b>M</b>ore = S S M M B M B S B B M M. Nuclei: <b>midbrain</b> III–IV · <b>pons</b> V–VIII · <b>medulla</b> VIII–XII.</div>
+  Types: <b>S</b>ome <b>S</b>ay <b>M</b>arry <b>M</b>oney, <b>B</b>ut <b>M</b>y <b>B</b>rother <b>S</b>ays <b>B</b>ig <b>B</b>rains <b>M</b>atter <b>M</b>ore = S S M M B M B S B B M M. Nuclei: <b>midbrain</b> III–IV · <b>pons</b> V–VIII · <b>medulla</b> VIII–XII.</div>
   <div class="tw"><table>
   <thead><tr><th>Nerve</th><th>Type</th><th>Job (from slides)</th><th>Level</th><th>Link back to bone / muscle (W4)</th><th>Link forward / sideways</th></tr></thead>
   <tbody>
-  <tr data-wk="7"><td>I Olfactory</td><td>Sensory</td><td>Smell</td><td>Mucosa → olfactory bulb</td><td>Fibres cross the ethmoid bone <span class="star">★</span></td><td>Straight to olfactory cortex, limbic system; skips thalamus</td></tr>
+  <tr data-wk="7"><td>I Olfactory</td><td>Sensory</td><td>Smell</td><td>Mucosa → olfactory bulb</td><td>Fibres cross the ethmoid bone</td><td>Straight to olfactory cortex, limbic system; skips thalamus</td></tr>
   <tr data-wk="7"><td>II Optic</td><td>Sensory</td><td>Vision</td><td>Retina → thalamus / midbrain</td><td>Optic canal (sphenoid) in the orbit</td><td>Chiasm, LGN, occipital lobe</td></tr>
-  <tr data-wk="6"><td>III Oculomotor</td><td>Motor</td><td>SR, MR, IR, IO</td><td>Midbrain</td><td>Four extraocular muscles</td><td>Parasympathetic: pupil and lens <span class="star">★</span></td></tr>
+  <tr data-wk="6"><td>III Oculomotor</td><td>Motor</td><td>SR, MR, IR, IO</td><td>Midbrain</td><td>Four extraocular muscles</td><td>Parasympathetic: pupil and lens</td></tr>
   <tr data-wk="6"><td>IV Trochlear</td><td>Motor</td><td>Superior oblique</td><td>Midbrain</td><td>SO tendon through the trochlea</td><td>Smallest job, longest name: pulley</td></tr>
   <tr data-wk="6"><td>V Trigeminal</td><td>Mixed</td><td>V1 upper face, V2 middle, V3 lower face + chewing</td><td>Pons</td><td>V2 ↔ maxilla, V3 ↔ mandible. V3 drives temporalis, masseter, pterygoids</td><td>TMJ movements</td></tr>
   <tr data-wk="6"><td>VI Abducens</td><td>Motor</td><td>Lateral rectus</td><td>Pons</td><td>Abducts the eye</td><td>Pairs with III for horizontal gaze</td></tr>
   <tr data-wk="6"><td>VII Facial</td><td>Mixed</td><td>Facial expression; taste front ⅔; tears, saliva, nasal and oral mucus</td><td>Pons</td><td>Facial expression muscles</td><td>Parasympathetic (craniosacral list)</td></tr>
-  <tr data-wk="7"><td>VIII Vestibulocochlear</td><td>Sensory</td><td>Hearing and equilibrium</td><td>Inner ear → medulla + pons</td><td>Temporal bone: internal acoustic meatus <span class="star">★</span></td><td>Cerebellum, eye muscles, posture</td></tr>
-  <tr data-wk="6"><td>IX Glossopharyngeal</td><td>Mixed</td><td>Taste back ⅓; pharynx and soft palate sensation; salivation; swallowing</td><td>Medulla</td><td>Pharyngeal muscle</td><td>Parasympathetic (parotid <span class="star">★</span>)</td></tr>
+  <tr data-wk="7"><td>VIII Vestibulocochlear</td><td>Sensory</td><td>Hearing and equilibrium</td><td>Inner ear → medulla + pons</td><td>Temporal bone: internal acoustic meatus</td><td>Cerebellum, eye muscles, posture</td></tr>
+  <tr data-wk="6"><td>IX Glossopharyngeal</td><td>Mixed</td><td>Taste back ⅓; pharynx and soft palate sensation; salivation; swallowing</td><td>Medulla</td><td>Pharyngeal muscle</td><td>Parasympathetic (parotid)</td></tr>
   <tr data-wk="6"><td>X Vagus</td><td>Mixed</td><td>Taste (palate, pharynx, epiglottis); hunger, GI discomfort; swallowing, speech, heart rate, bronchoconstriction</td><td>Medulla</td><td>Pharynx, larynx, tongue base</td><td>Parasympathetic to the viscera (Modules 3 and 4)</td></tr>
   <tr data-wk="6"><td>XI Accessory</td><td>Motor</td><td>Swallowing; head, neck, shoulder movement</td><td>Medulla + C1–C6</td><td>Trapezius (W3/W4) and SCM (W4), palate, pharynx</td><td>Cervical cord roots</td></tr>
   <tr data-wk="6"><td>XII Hypoglossal</td><td>Motor</td><td>Tongue movement: speech, food handling, swallowing</td><td>Medulla</td><td>Tongue muscles</td><td>Speech and swallowing thread</td></tr>
@@ -58,8 +58,8 @@ export const TABLES_HTML = `<h2>Tables</h2>
   <tr data-wk="2"><td>Knee</td><td>Hinge (tibiofemoral + patellofemoral)</td><td>Flexion, extension</td><td>Extend: quadriceps (rectus femoris + 3 vasti) · Flex: hamstrings · Rectus femoris is the only quadriceps muscle that also flexes the hip</td></tr>
   <tr data-wk="2"><td>Ankle (talocrural)</td><td>Hinge</td><td>Dorsiflexion, plantarflexion</td><td>Dorsiflex: tibialis anterior (+EHL, EDL) · Plantarflex: gastrocnemius, soleus</td></tr>
   <tr data-wk="2"><td>Subtalar</td><td>Plane</td><td>Inversion, eversion</td><td>Invert: tibialis anterior + posterior · Evert: fibularis longus + brevis</td></tr>
-  <tr data-wk="4"><td>Atlanto-occipital</td><td>Condyloid</td><td>Nodding "yes" <span class="star">★</span></td><td>Flex: SCM, scalenes · Extend: trapezius, splenius</td></tr>
-  <tr data-wk="4"><td>Atlantoaxial</td><td>Pivot</td><td>Rotation "no" <span class="star">★</span></td><td>SCM (rotates to the opposite side), splenius (same side <span class="star">★</span>)</td></tr>
+  <tr data-wk="4"><td>Atlanto-occipital</td><td>Condyloid</td><td>Nodding "yes"</td><td>Flex: SCM, scalenes · Extend: trapezius, splenius</td></tr>
+  <tr data-wk="4"><td>Atlantoaxial</td><td>Pivot</td><td>Rotation "no"</td><td>SCM (rotates to the opposite side), splenius (same side)</td></tr>
   <tr data-wk="4"><td>Vertebral facet joints</td><td>Plane</td><td>Cervical: all · Thoracic: rotation (ribs limit the rest) · Lumbar: flex/extend</td><td>Erector spinae (extend; lateral flex one side) · Transversospinalis (stabilise) · Rectus abdominis, obliques, transversus (flex, rotate)</td></tr>
   <tr data-wk="4"><td>Temporomandibular</td><td>Hinge + glide</td><td>Elevate, depress, protrude, retrude, side-to-side</td><td>Elevate: temporalis, masseter, medial pterygoid · Depress: lateral pterygoid · Protrude: pterygoids · Retrude: temporalis</td></tr>
   </tbody></table></div></div>
@@ -100,7 +100,7 @@ export const TABLES_HTML = `<h2>Tables</h2>
   <tr data-wk="1"><td>Bones</td><td>206</td><td>Axial 80 + appendicular 126</td></tr>
   <tr data-wk="4"><td>Skull</td><td>22</td><td>8 cranial + 14 facial</td></tr>
   <tr data-wk="4"><td>Vertebrae</td><td>33</td><td>7 C + 12 T + 5 L + 5 S (fused) + 4 Co</td></tr>
-  <tr data-wk="5"><td>Spinal nerves</td><td>31 pairs</td><td>8 C + 12 T + 5 L + 5 S + 1 Co. Eight cervical nerves exist because C1–C7 leave above their vertebra and C8 leaves below C7 <span class="star">★</span></td></tr>
+  <tr data-wk="5"><td>Spinal nerves</td><td>31 pairs</td><td>8 C + 12 T + 5 L + 5 S + 1 Co. Eight cervical nerves exist because C1–C7 leave above their vertebra and C8 leaves below C7</td></tr>
   <tr data-wk="6"><td>Cranial nerves</td><td>12 pairs</td><td>3 sensory, 5 motor, 4 mixed</td></tr>
   <tr data-wk="5"><td>Spinal cord</td><td>45 cm × 1.8 cm</td><td>4 regions, 2 enlargements</td></tr>
   <tr data-wk="6"><td>Meninges</td><td>3</td><td>Dura, arachnoid, pia</td></tr>
@@ -183,7 +183,7 @@ export const TABLES_HTML = `<h2>Tables</h2>
   <tr data-wk="9"><td><b>Left</b></td><td>2: superior, inferior; cardiac notch for the heart</td><td>Oblique</td></tr>
   </tbody></table></div></div>
 <div class="rv-sec"><h3 id="tb-check">6 · Double-check list: where the slides and standard textbooks differ or stay silent</h3>
-  <div class="note-box" data-wk="6"><b>Facial nerve and chewing.</b> The W6 slide lists "muscles for mastication" under VII's motor targets. Standard textbooks give the chewing muscles to <b>V3</b>; VII is for facial expression (plus stapedius <span class="star">★</span>, tears, saliva). Use V3 for chewing unless your lecturer says otherwise.</div>
+  <div class="note-box" data-wk="6"><b>Facial nerve and chewing.</b> The W6 slide lists "muscles for mastication" under VII's motor targets. Standard textbooks give the chewing muscles to <b>V3</b>; VII is for facial expression (plus stapedius, tears, saliva). Use V3 for chewing unless your lecturer says otherwise.</div>
   <div class="note-box" data-wk="5"><b>Plexus ranges.</b> The slide gives sacral + coccygeal plexus as "L4 to S4". Many texts call L4–S4 the <i>sacral</i> plexus (part of the lumbosacral plexus) and put the coccygeal plexus at S4–Co1.</div>
   <div class="note-box" data-wk="6"><b>"Basal ganglia".</b> Slide uses basal nuclei. "Ganglion" strictly means PNS, so "nuclei" is the neat name.</div>
-  <div class="note-box" data-wk="7"><b>Hearing route.</b> The slides stop at CN VIII → medulla/pons and list the inferior colliculus for auditory reflexes. The thalamus and temporal-lobe steps are standard-textbook <span class="star">★</span>.</div></div>`;
+  <div class="note-box" data-wk="7"><b>Hearing route.</b> The slides stop at CN VIII → medulla/pons and list the inferior colliculus for auditory reflexes. The thalamus and temporal-lobe steps are standard-textbook.</div></div>`;

@@ -3,7 +3,7 @@
  *
  * Split out of study.js along its banner sections. See docs/CODEMAP.md.
  */
-import { $$, esc, ui } from './imports.js';
+import { $$, ui } from './imports.js';
 import { closeSearchSheet } from './global-search.js';
 import { goTo } from './navigation-destinations.js';
 import { isPhoneViewer, setTaskPanelExpanded, setToolsPanelOpen } from './small-ui-helpers.js';
@@ -16,17 +16,12 @@ export function openStructureInViewer(spec) {
   closeSearchSheet();
   ui.viewerTab = '3d';
   goTo('viewer');
-  /* The card that names what was found lives in Explore, so a result opens it (a phone keeps one panel at a time). */
-  setTaskPanelExpanded(true);
-  if (isPhoneViewer()) setToolsPanelOpen(false);
+  /* The card that names what was found lives in Explore. A desktop opens it; a phone stays on the model (one panel at a time, and the tools panel closes). */
+  if (isPhoneViewer()) setToolsPanelOpen(false); else setTaskPanelExpanded(true);
   setTimeout(async () => {
     if (!window.__osteo || !window.__osteo.revealStructure) return;
-    const res = await window.__osteo.revealStructure(spec);
-    if (res && res.ok && res.covered && res.covered.length) {
-      showUncoverBanner(spec.name || spec.id || 'that structure', res.covered);
-    } else {
-      hideUncoverBanner();
-    }
+    await window.__osteo.revealStructure(spec);
+    hideUncoverBanner();
   }, 140);
 }
 /* Revise's "Show in 3D": the viewer's Cell mode, at a level, stage and label (outputs/cell-zoom.js SHOW_IN_3D). */
@@ -36,19 +31,6 @@ export function openCellInViewer(target) {
   setTimeout(() => {
     if (window.__osteo && window.__osteo.enterCellZoom) void window.__osteo.enterCellZoom(target).catch((error) => console.error('Cell zoom failed.', error));
   }, 140);
-}
-function showUncoverBanner(target, names) {
-  const el = $$('uncoverBanner');
-  if (!el) return;
-  const list = names.slice(0, 4).join(', ') + (names.length > 4 ? ` +${names.length - 4} more` : '');
-  el.innerHTML = `<span>Hid <b>${esc(list)}</b> to uncover ${esc(target)}.</span>
-    <button class="show" id="uncoverShow">Show them</button>
-    <button class="keep" id="uncoverKeep">Keep hidden</button>`;
-  el.classList.remove('hidden');
-  $$('uncoverShow').onclick = () => { if (window.__osteo) window.__osteo.unhide('auto'); hideUncoverBanner(); };
-  $$('uncoverKeep').onclick = hideUncoverBanner;
-  clearTimeout(showUncoverBanner.t);
-  showUncoverBanner.t = setTimeout(hideUncoverBanner, 9000);
 }
 export function hideUncoverBanner() {
   const el = $$('uncoverBanner');

@@ -134,7 +134,7 @@ export const REVISION = {
     /* The only sources a physiology row, topic or step may cite: the lecture decks in iCloud Human Physology
        (owner, 19 Oct 2026: no labs, no tutorials, no old decks), with the teaching weeks each was lectured in
        (outputs/schedule.js; a deck run over two lectures lists both, and its rows start at the first) and the
-       Martini chapters it is built on (the only chapters a ★ fact may come from). The tissue tutorial is the one
+       Martini chapters it is built on (the only chapters a textbook fact may come from). The tissue tutorial is the one
        tutorial: filed with the physiology decks, merged into Lecture 1, week 1, by the owner's answer. */
     decks: {
       'phys.1.2026': { weeks: [1], ch: [1, 3, 4] },

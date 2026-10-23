@@ -102,4 +102,9 @@ export const ROWS = [
 { k: 'muscle', id: 'w2_fhl', l: 'Flexor hallucis longus', parent: 'w2_deeppost', w: 2, joints: { w2_j_ankle: 'plantar flexion' }, note: 'flexes the big toe', src: [LL, 30, 32] },
 
 /* ---------------- nerves (p33) ---------------- */
+
+/* ---------------- iliotibial band, foot muscles, ankle ligaments, nerves (p13, p14, p33, p34; msk p23) ---------------- */
+{ k: 'part', id: 'w2_itb', l: 'Iliotibial band', parent: 'w2_gluteal', w: 2, line: 'gluteus maximus attachment', links: { w2_gmax: 'gluteus maximus attaches to it' }, src: [LL, 14] },
+{ k: 'part', id: 'w2_atfl', l: 'Anterior talofibular ligament', parent: 'ligcart', w: 2, line: 'the ligament most often injured in an inversion sprain of the ankle', links: { w2_j_ankle: 'sprained when the foot turns inward' }, src: [LL, 13] },
+{ k: 'joint', id: 'w2_j_mtp', l: 'Metatarsophalangeal joints', parent: 'w2_lljoints', w: 2, line: 'toes 2-5; a condyloid joint, permitting flexion, extension, abduction, adduction and circumduction', src: ['hss.msk.2026', 23] },
 ];

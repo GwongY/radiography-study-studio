@@ -203,4 +203,5 @@ export const ROWS = [
 { k: 'part', id: 'w8_tamponade', l: 'Cardiac tamponade', parent: 'cvdisease', w: 8, line: 'fluid in the pericardial sac compresses the heart and cuts cardiac output', links: { w8_pericavity: 'fluid builds up in the pericardial sac' }, src: [L8, 66] },
 { k: 'part', id: 'w8_effusion', l: 'pericardial effusion', parent: 'cvdisease', w: 8, line: 'too much pericardial fluid', links: { w8_pericfluid: 'too much or too little fluid causes problems' }, src: [L8, 7] },
 { k: 'part', id: 'w8_pericarditis', l: 'pericarditis', parent: 'cvdisease', w: 8, line: 'named with effusion as a problem of too much or too little pericardial fluid', src: [L8, 7] },
+
 ];

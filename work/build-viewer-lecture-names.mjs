@@ -106,6 +106,8 @@ function named(phrase, r) {
       if (/bone$/.test(r.name) && !/bone$/.test(phrase) && !/^hss\.(ll|ul|hnt|msk)\.2026$/.test(p.ref)) continue;
       if (/bone$/.test(r.name) && /^(?:lobe|cortex|plane|sinus)$/.test(next)) continue;
       if (/muscle$/.test(r.name) && /^(?:ligament|nerve|artery|vein|fascia|membrane)$/.test(next)) continue;
+      /* "kidney-shaped" describes a vertebra; "T5 vertebra T6 vertebra" reads as "vertebra T6" across two captions */
+      if (next === 'shaped' || (next === 'vertebra' && /^vertebra [a-z]d+$/.test(phrase))) continue;
       if (r.layer !== 'nervous' && before.some((w) => NOT_AFTER.has(w))) continue;
       const longer = prefixOwners.get(r.layer + '|' + phrase + ' ' + next);
       if (next && longer && [...longer].some((n) => n !== r.name)) continue;
@@ -291,7 +293,10 @@ for (const [k, g] of partsOf) {
 }
 
 /* 4. structures named in a deck's text */
+/* a caption in the costovertebral figure ("T5 vertebra  T6 vertebra"), not a structure the lecture teaches */
+const CAPTION_ONLY = new Set(['skeleton|Vertebra T6']);
 for (const r of rows) {
+  if (CAPTION_ONLY.has(r.layer + '|' + r.name)) continue;
   const phrase = norm(r.name), short = phrase.replace(/\s+(?:muscle|bone)$/, '');
   const found = [phrase, ...(short !== phrase ? [short] : [])].filter((v) => v.length > 3).map((v) => named(v, r)).find(Boolean);
   if (found) put(r, { ...at(found.ref, found.page), evidence: 'named' });

@@ -119,4 +119,8 @@ export const ROWS = [
 { k: 'muscle', id: 'w3_ed', l: 'Extensor digitorum', parent: 'w3_postforearm', w: 3, moves: { w3_phalanges: 'major finger extensor' }, note: 'the slide labels it ED', match: 'ecrl ed', src: [UL, 27, 28] },
 
 /* ---------------- nerves (p23, 27) ---------------- */
+
+/* ---------------- named in the action table and the compartment slides (p23, p27, p28) ---------------- */
+{ k: 'muscle', id: 'w3_pronteres', l: 'Pronator teres', parent: 'w3_antforearm', w: 3, joints: { w1_j_pru: 'major pronator' }, src: [UL, 28] },
+{ k: 'muscle', id: 'w3_supinator', l: 'Supinator', parent: 'w3_postforearm', w: 3, joints: { w1_j_pru: 'major supinator' }, src: [UL, 28] },
 ];

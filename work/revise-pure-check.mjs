@@ -203,7 +203,7 @@ ok(/<details class="thread" id="t1" open>/.test(th) && /<summary>Pressure &amp; 
 ok((th.match(/<li data-wk="\d+">/g) || []).length === 2 && !/<li>/.test(th), 'every step carries its week');
 ok(th.includes('GFR &lt;125&gt;') && th.includes('K slides, p17'), 'step text is escaped and cites its page');
 const th2 = renderThreads([{ id: 't2', title: 'X', yue: '甲 → 乙', steps: [{ wk: 3, hd: 'A.', text: 'a', src: ['k.2026', 1], match: 'a', star: { text: 'A sentence from the textbook.', page: 812, ch: 23 } }, { wk: 5, hd: 'B.', text: 'b', src: ['k.2026', 2], match: 'b' }] }], { ...fsrc, 'phys.ebook': 'Martini textbook' }, 'Intro');
-ok(th2.includes('A sentence from the textbook. <span class="star">★</span> <span class="rv-src">Martini textbook, p812</span>'), 'a ★ fact shows its star and its textbook page');
+ok(th2.includes('A sentence from the textbook. <span class="rv-src">Martini textbook, p812</span>') && !th2.includes('★'), 'a textbook fact shows its page and no star');
 ok(/<div class="yue" data-wk="5"><b>廣東話<\/b>甲 → 乙<\/div>/.test(th2), "the 廣東話 line waits for the thread's last week");
 const tb = renderTables([{ id: 'tb-h', title: 'Hormones', head: ['Hormone', 'Acts on'], rows: [{ wk: 5, cells: ['Renin', 'angiotensinogen'], src: ['k.2026', 40], match: 'renin' }] }], fsrc, 'Intro');
 ok(/<div class="rv-sec"><h3 id="tb-h">Hormones<\/h3>/.test(tb) && /<tr data-wk="5"><td>Renin<\/td>/.test(tb) && !/<tr>\s*<td/.test(tb) && /data-jump="tb-h"/.test(tb), 'a table renders as revise.js expects, every row with a week');

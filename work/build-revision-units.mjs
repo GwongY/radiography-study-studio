@@ -66,15 +66,29 @@ const SETS = {
     w2_iliopsoas: ['Psoas major', 'Iliacus muscle'],
     w3_lumbricals: ['Lumbricals of hand'],
     w3_dorsalinteross: ['Dorsal interossei of hand'],
+    /* the lecture names these as wholes or pairs the model splits */
+    w8_ivc: ['Inferior vena cava (abdominal part)', 'Inferior vena cava (thoracic part)'],
+    w8_brachiocv: ['Right brachiocephalic vein', 'Left brachiocephalic vein'],
+    w8_subclavian: ['Left subclavian artery', 'Right subclavian artery'],
+    w8_carotid: ['Left common carotid artery', 'Right common carotid artery'],
+    pleurae: ['Pleura'],
+    symp: ['Sympathetic nerves'],
+    w5_centralcanal: ['Central canal', "Central canal'"],
+    w6_centralcanal: ['Central canal', "Central canal'"],
+    w1_j_hu: ['Elbow joint'],
+    w1_j_hr: ['Elbow joint'],
+    w1_j_pru: ['Elbow joint'],
   },
 };
 /* The layer each structure row's kind lives in. */
 const KIND_LAYERS = { bone: ['skeleton'], muscle: ['muscle'], joint: ['joint'], nerve: ['nervous'] };
 const norm = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+/* The lookup key: spaces and hyphens squashed (Hemi-azygos = Hemiazygos), one trailing plural dropped (Pleurae/Pleura is not caught; Veins = Vein is). */
+const kk = (s) => norm(s).replace(/ /g, '').replace(/s$/, '');
 
 function indexBy(list, key, val) {
   const m = new Map();
-  for (const x of list) { const k = norm(key(x)); if (!m.has(k)) m.set(k, new Set()); m.get(k).add(val(x)); }
+  for (const x of list) { const k = kk(key(x)); if (!m.has(k)) m.set(k, new Set()); m.get(k).add(val(x)); }
   return m;
 }
 
@@ -94,14 +108,17 @@ export function deriveViewerUnits() {
     const nodeById = new Map(S.data.NODES.map((x) => [x.id, x]));
     for (const n of S.data.NODES) {
       const set = SETS[sub] && SETS[sub][n.id];
-      if (!viewerEligible(n) && !set) continue;
+      /* a heading row (group) is tried by exact name or synonym only; failing that it falls to the members pass below */
+      const groupOnly = n.leaf === 'group' && n.viewer !== false;
+      if (!viewerEligible(n) && !set && !groupOnly) continue;
       if (set) {
         const ids = set.map((lab) => { const u = UNITS.find((x) => x.label.toLowerCase() === lab.toLowerCase()); if (!u) throw new Error(`viewer set ${n.id}: no unit called ${lab}`); return u.id; });
         res.units[n.id] = ids.length === 1 ? ids[0] : ids; res.how[n.id] = 'set'; continue;
       }
       if (NOT_THE_SAME[sub] && NOT_THE_SAME[sub][n.id]) { res.missing.push(n.id); continue; }
       const own = norm(n.l);
-      const syn = [...new Set([...(SYNONYMS.get(n.l.toLowerCase()) || [])].map(norm))].filter((t) => t && t !== own);
+      const ownK = kk(n.l);
+      const syn = [...new Set([...(SYNONYMS.get(n.l.toLowerCase()) || [])].map(kk))].filter((t) => t && t !== ownK);
       const words = new Set(own.split(' ').map((w) => w.replace(/s$/, '')));
       const sharesWord = (id) => norm(UNITS[id].label).split(' ').some((w) => words.has(w.replace(/s$/, '')));
       let unit = null, how = null, amb = false;
@@ -124,9 +141,14 @@ export function deriveViewerUnits() {
         }
         return false;
       };
-      if (!tryMap(byUnit, [own], 'name')
+      if (groupOnly) {
+        if (!tryMap(byUnit, [ownK], 'name')) tryMap(byUnit, syn, 'synonym');
+        if (unit != null) { res.units[n.id] = unit; res.how[n.id] = how; }
+        continue;
+      }
+      if (!tryMap(byUnit, [ownK], 'name')
         && !tryMap(byUnit, syn, 'synonym')
-        && !tryMap(byRowShared(byRow, sharesWord), [own], 'row')) {
+        && !tryMap(byRowShared(byRow, sharesWord), [ownK], 'row')) {
         const c = [...new Set(unitNames.filter(([k, id]) => k.startsWith(`${own} `)
           && ((layers && layers.includes(UNITS[id].layer)) || /^\([^)]*\)\*?$/.test(UNITS[id].label.slice(n.l.length).trim())))
           .map(([, id]) => id))];

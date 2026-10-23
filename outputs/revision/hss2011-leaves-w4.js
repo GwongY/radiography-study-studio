@@ -132,4 +132,6 @@ export const ROWS = [
 { k: 'muscle', id: 'w4_psoas', l: 'Psoas major', parent: 'w4_posterior', w: 4, joints: { w2_j_hip: 'hip flexor (iliopsoas)' }, links: { w2_psoas: 'the same muscle, under Iliopsoas' }, src: [HN, 34, 35] },
 { k: 'muscle', id: 'w4_iliacus', l: 'Iliacus', parent: 'w4_posterior', w: 4, joints: { w2_j_hip: 'hip flexor (iliopsoas)' }, links: { w2_iliacus: 'the same muscle, under Iliopsoas' }, src: [HN, 34, 35] },
 { k: 'muscle', id: 'w4_quadlumb', l: 'Quadratus lumborum', parent: 'w4_posterior', w: 4, joints: { w2_j_hip: 'hip stabiliser' }, src: [HN, 34, 35] },
+
+/* ---------------- named in the text (p11, p14, p30; msk p11) ---------------- */
 ];

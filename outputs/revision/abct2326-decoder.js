@@ -52,7 +52,6 @@ export const DECODER = [
   { wk: 3, term: 'Type II pneumocytes', reading: 'pneum/o = air + cyt/o = cell' },
   { wk: 3, term: 'Alveolar macrophages', reading: 'macro- = large + phag/o = eat, swallow' },
   { wk: 3, term: 'External intercostal muscles', reading: 'inter- = between + cost/o = rib (costa)' },
-  { wk: 3, term: 'Serratus anterior muscle', reading: 'anter/o = front, forehead + -ior = pertaining to' },
   { wk: 3, term: 'Internal intercostal muscles', reading: 'inter- = between + cost/o = rib (costa)' },
   { wk: 3, term: 'Transversus thoracis muscle', reading: 'trans- = through, across + vers/o = turn, turning' },
   { wk: 3, term: 'Pulmonary volumes', reading: 'pulmon/o = lung + -ary = pertaining to' },
