@@ -1582,11 +1582,11 @@ export const BONE_LANDMARKS = {
     "points": [
       {
         "name": "Vertebral body",
-        "vertex": 251,
+        "vertex": 220,
         "expected": [
-          -0.000244,
-          0.267616,
-          0.954955
+          -0.04944,
+          0.096318,
+          0.949583
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1596,11 +1596,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Vertebral foramen",
-        "vertex": 216,
+        "vertex": 242,
         "expected": [
-          -0.147832,
-          -0.153813,
-          -0.130375
+          0,
+          0.13233,
+          0.434492
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1610,11 +1610,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Pedicle",
-        "vertex": 474,
+        "vertex": 406,
         "expected": [
-          0.398602,
-          0.180793,
-          0.000854
+          0.549883,
+          -0.009889,
+          0.34843
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1652,11 +1652,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Lamina",
-        "vertex": 536,
+        "vertex": 474,
         "expected": [
-          0.095584,
-          -0.196418,
-          -0.585772
+          0.398602,
+          0.180793,
+          0.000854
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1666,11 +1666,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular process",
-        "vertex": 440,
+        "vertex": 353,
         "expected": [
-          0.50032,
-          0.282022,
-          0.132206
+          0.828242,
+          0.427776,
+          0.246101
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1707,11 +1707,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Vertebral foramen",
-        "vertex": 164,
+        "vertex": 222,
         "expected": [
-          -0.207526,
-          0.150884,
-          -0.083743
+          0,
+          0.157352,
+          0.393841
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1721,11 +1721,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Pedicle",
-        "vertex": 352,
+        "vertex": 341,
         "expected": [
-          0.431562,
-          0.064333,
-          -0.027711
+          0.535478,
+          -0.005372,
+          0.293985
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1763,11 +1763,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Lamina",
-        "vertex": 423,
+        "vertex": 402,
         "expected": [
-          0.098392,
-          -0.100713,
-          -0.456587
+          0.297281,
+          -0.019653,
+          -0.130741
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1777,11 +1777,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular process",
-        "vertex": 326,
+        "vertex": 319,
         "expected": [
-          0.520829,
-          0.329998,
-          0.229377
+          0.650838,
+          0.37211,
+          0.301187
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1818,11 +1818,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Vertebral foramen",
-        "vertex": 251,
+        "vertex": 259,
         "expected": [
-          -0.0271,
-          0.033327,
-          -0.428022
+          0,
+          -0.221564,
+          0.391644
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1832,11 +1832,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Pedicle",
-        "vertex": 435,
+        "vertex": 410,
         "expected": [
-          0.426069,
-          0.037353,
-          0.059328
+          0.488205,
+          -0.04297,
+          0.351726
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1874,11 +1874,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Lamina",
-        "vertex": 502,
+        "vertex": 435,
         "expected": [
-          0.113163,
-          -0.103153,
-          -0.528031
+          0.426069,
+          0.037353,
+          0.059328
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1888,11 +1888,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular process",
-        "vertex": 391,
+        "vertex": 416,
         "expected": [
-          0.608844,
-          0.175299,
-          0.014771
+          0.501419,
+          0.353192,
+          0.381756
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1929,11 +1929,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Vertebral foramen",
-        "vertex": 250,
+        "vertex": 417,
         "expected": [
           0,
-          -0.0083,
-          -0.58272
+          -0.075684,
+          0.515091
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1943,11 +1943,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Pedicle",
-        "vertex": 458,
+        "vertex": 387,
         "expected": [
-          0.407147,
-          -0.146855,
-          0.01648
+          0.502274,
+          -0.064331,
+          0.390545
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1985,11 +1985,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Lamina",
-        "vertex": 499,
+        "vertex": 394,
         "expected": [
-          0.090335,
-          -0.098514,
-          -0.639119
+          0.471603,
+          0.015627,
+          0.114261
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -1999,11 +1999,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular process",
-        "vertex": 430,
+        "vertex": 338,
         "expected": [
-          0.485031,
-          0.290566,
-          0.380047
+          0.708213,
+          0.38615,
+          0.434858
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2040,20 +2040,6 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular facet",
-        "vertex": 382,
-        "expected": [
-          0.516068,
-          0.396404,
-          0.416547
-        ],
-        "sourceRef": {
-          "ref": "hss.hnt.2026",
-          "location": "p22: labelled anatomy diagram",
-          "diagramLabel": "Superior articular facet"
-        }
-      },
-      {
-        "name": "Superior costal facet",
         "vertex": 317,
         "expected": [
           0.379559,
@@ -2063,16 +2049,30 @@ export const BONE_LANDMARKS = {
         "sourceRef": {
           "ref": "hss.hnt.2026",
           "location": "p22: labelled anatomy diagram",
+          "diagramLabel": "Superior articular facet"
+        }
+      },
+      {
+        "name": "Superior costal facet",
+        "vertex": 385,
+        "expected": [
+          0.573077,
+          0.101078,
+          0.382366
+        ],
+        "sourceRef": {
+          "ref": "hss.hnt.2026",
+          "location": "p22: labelled anatomy diagram",
           "diagramLabel": "Superior costal facet"
         }
       },
       {
         "name": "Inferior costal facet",
-        "vertex": 346,
+        "vertex": 313,
         "expected": [
-          0.388348,
-          -0.274821,
-          0.40141
+          0.388714,
+          -0.232428,
+          0.371258
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2108,11 +2108,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular facet",
-        "vertex": 311,
+        "vertex": 362,
         "expected": [
-          0.717124,
-          0.413617,
-          0.050417
+          0.378582,
+          0.467085,
+          0.391888
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2122,11 +2122,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior costal facet",
-        "vertex": 415,
+        "vertex": 367,
         "expected": [
-          0.332316,
-          0.387858,
-          0.28959
+          0.469649,
+          0.034547,
+          0.353313
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2136,11 +2136,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Inferior costal facet",
-        "vertex": 379,
+        "vertex": 370,
         "expected": [
-          0.385174,
-          -0.303142,
-          0.306925
+          0.426191,
+          -0.336468,
+          0.373089
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2176,11 +2176,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular facet",
-        "vertex": 313,
+        "vertex": 402,
         "expected": [
-          0.586505,
-          0.389203,
-          -0.003418
+          0.271767,
+          0.501909,
+          0.284829
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2190,11 +2190,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior costal facet",
-        "vertex": 400,
+        "vertex": 363,
         "expected": [
-          0.292764,
-          0.530108,
-          0.325114
+          0.424238,
+          -0.020019,
+          0.360149
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2204,11 +2204,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Inferior costal facet",
-        "vertex": 408,
+        "vertex": 407,
         "expected": [
-          0.321696,
-          -0.282752,
-          0.25956
+          0.408124,
+          -0.274576,
+          0.366741
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2244,11 +2244,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular facet",
-        "vertex": 312,
+        "vertex": 389,
         "expected": [
-          0.699423,
-          0.469648,
-          -0.147221
+          0.405683,
+          0.534989,
+          0.142094
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2258,11 +2258,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior costal facet",
-        "vertex": 418,
+        "vertex": 424,
         "expected": [
-          0.350993,
-          0.603716,
-          0.165044
+          0.422651,
+          0.109744,
+          0.283486
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2272,11 +2272,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Inferior costal facet",
-        "vertex": 387,
+        "vertex": 359,
         "expected": [
-          0.425214,
-          -0.26017,
-          0.159307
+          0.478561,
+          -0.226326,
+          0.307657
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2312,11 +2312,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular facet",
-        "vertex": 379,
+        "vertex": 405,
         "expected": [
-          0.443892,
-          0.672321,
-          0.018189
+          0.314982,
+          0.68697,
+          -0.054201
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2326,11 +2326,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior costal facet",
-        "vertex": 398,
+        "vertex": 369,
         "expected": [
-          0.366863,
-          0.704551,
-          0.004273
+          0.375774,
+          0.246102,
+          0.073733
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2394,11 +2394,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior costal facet",
-        "vertex": 315,
+        "vertex": 282,
         "expected": [
-          0.360393,
-          0.80102,
-          -0.117069
+          0.343181,
+          0.513259,
+          0.101077
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2408,11 +2408,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Inferior costal facet",
-        "vertex": 340,
+        "vertex": 344,
         "expected": [
-          0.420087,
-          -0.079349,
-          0.29252
+          0.454512,
+          0.026367,
+          0.022462
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2448,11 +2448,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular facet",
-        "vertex": 494,
+        "vertex": 498,
         "expected": [
-          0.444746,
-          0.781733,
-          -0.260781
+          0.346355,
+          0.768671,
+          -0.343547
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2462,11 +2462,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior costal facet",
-        "vertex": 415,
+        "vertex": 475,
         "expected": [
-          0.384075,
-          0.506791,
-          0.183844
+          0.40849,
+          0.449384,
+          -0.029664
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2476,11 +2476,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Inferior costal facet",
-        "vertex": 422,
+        "vertex": 419,
         "expected": [
-          0.359539,
-          -0.106692,
-          0.254677
+          0.4185,
+          -0.049319,
+          -0.057741
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2516,11 +2516,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular facet",
-        "vertex": 253,
+        "vertex": 243,
         "expected": [
-          0.418378,
-          0.811762,
-          -0.356609
+          0.351848,
+          0.815301,
+          -0.392498
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2530,11 +2530,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior costal facet",
-        "vertex": 219,
+        "vertex": 220,
         "expected": [
-          0.442427,
-          0.577837,
-          0.447798
+          0.382,
+          0.492476,
+          0.028077
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2544,11 +2544,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Inferior costal facet",
-        "vertex": 240,
+        "vertex": 248,
         "expected": [
-          0.361858,
-          -0.053834,
-          0.178961
+          0.494552,
+          0.028687,
+          0.033937
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2584,11 +2584,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular facet",
-        "vertex": 516,
+        "vertex": 525,
         "expected": [
-          0.470016,
-          0.719198,
-          -0.338176
+          0.478195,
+          0.699547,
+          -0.341838
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2598,11 +2598,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior costal facet",
-        "vertex": 441,
+        "vertex": 492,
         "expected": [
-          0.51326,
-          0.477216,
-          0.215583
+          0.43083,
+          0.489059,
+          -0.036012
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2612,11 +2612,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Inferior costal facet",
-        "vertex": 446,
+        "vertex": 456,
         "expected": [
-          0.438398,
-          -0.110965,
-          0.250404
+          0.414838,
+          0.11292,
+          -0.014283
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2652,11 +2652,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular facet",
-        "vertex": 512,
+        "vertex": 351,
         "expected": [
-          0.482589,
-          0.694784,
-          -0.296793
+          0,
+          0.446089,
+          0.012452
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2666,11 +2666,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior costal facet",
-        "vertex": 475,
+        "vertex": 477,
         "expected": [
-          0.468795,
-          0.543902,
-          0.237434
+          0.418989,
+          0.543779,
+          0.124882
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2680,11 +2680,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Inferior costal facet",
-        "vertex": 486,
+        "vertex": 428,
         "expected": [
-          0.379803,
-          -0.057252,
-          0.157109
+          0.494919,
+          0.129032,
+          0.086184
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2720,11 +2720,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular facet",
-        "vertex": 245,
+        "vertex": 268,
         "expected": [
-          0.377239,
-          0.594196,
-          -0.300333
+          0.423872,
+          0.666708,
+          -0.393353
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2734,11 +2734,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior costal facet",
-        "vertex": 227,
+        "vertex": 246,
         "expected": [
-          0.423139,
-          0.50203,
-          0.144536
+          0.409345,
+          0.45549,
+          -0.048341
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2748,11 +2748,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Inferior costal facet",
-        "vertex": 391,
+        "vertex": 230,
         "expected": [
-          0.322062,
-          -0.082034,
-          0.264321
+          0.427778,
+          0.057497,
+          -0.033814
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2788,11 +2788,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior articular facet",
-        "vertex": 359,
+        "vertex": 422,
         "expected": [
-          0.324259,
-          0.581376,
-          -0.352458
+          0.324625,
+          0.575641,
+          -0.442305
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2802,11 +2802,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Superior costal facet",
-        "vertex": 308,
+        "vertex": 503,
         "expected": [
-          0,
-          0.506302,
-          0.237922
+          0.507279,
+          0.401899,
+          0.035035
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2816,11 +2816,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Inferior costal facet",
-        "vertex": 395,
+        "vertex": 396,
         "expected": [
-          0.217536,
-          -0.191046,
-          0.136235
+          0.328043,
+          -0.11292,
+          0.076296
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2842,11 +2842,11 @@ export const BONE_LANDMARKS = {
     "points": [
       {
         "name": "Vertebral body",
-        "vertex": 292,
+        "vertex": 360,
         "expected": [
           0,
-          0.115849,
-          1
+          0.335734,
+          0.910031
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2856,11 +2856,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Vertebral foramen",
-        "vertex": 273,
+        "vertex": 297,
         "expected": [
-          -0.101077,
-          -0.023438,
-          0.535234
+          0,
+          0.349039,
+          0.096194
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2870,11 +2870,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Lamina",
-        "vertex": 694,
+        "vertex": 653,
         "expected": [
-          0.049684,
-          -0.042483,
-          -0.583453
+          0.159917,
+          0.107914,
+          -0.301065
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2884,11 +2884,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Articular facet",
-        "vertex": 540,
+        "vertex": 547,
         "expected": [
-          0.339763,
-          0.513749,
-          -0.361614
+          0.285562,
+          0.383952,
+          -0.314982
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2910,11 +2910,11 @@ export const BONE_LANDMARKS = {
     "points": [
       {
         "name": "Vertebral body",
-        "vertex": 312,
+        "vertex": 313,
         "expected": [
           0,
-          -0.049807,
-          0.992553
+          0.138797,
+          0.922117
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2924,11 +2924,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Vertebral foramen",
-        "vertex": 127,
+        "vertex": 42,
         "expected": [
           0,
-          -0.102665,
-          0.702231
+          -0.094486,
+          0.179327
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2938,11 +2938,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Lamina",
-        "vertex": 361,
+        "vertex": 546,
         "expected": [
-          0.131718,
-          -0.196905,
-          -0.472945
+          0.527421,
+          -0.149906,
+          0.314127
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2952,11 +2952,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Articular facet",
-        "vertex": 450,
+        "vertex": 123,
         "expected": [
-          0.347087,
-          0.560136,
-          -0.283731
+          -0.355388,
+          0.330364,
+          0.759026
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2978,11 +2978,11 @@ export const BONE_LANDMARKS = {
     "points": [
       {
         "name": "Vertebral body",
-        "vertex": 374,
+        "vertex": 305,
         "expected": [
           0,
-          -0.155768,
-          1
+          0.021118,
+          0.976806
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -2992,11 +2992,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Vertebral foramen",
-        "vertex": 373,
+        "vertex": 375,
         "expected": [
           0,
-          -0.221807,
-          0.589801
+          0.129277,
+          0.167119
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -3006,11 +3006,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Lamina",
-        "vertex": 690,
+        "vertex": 652,
         "expected": [
-          0.11829,
-          -0.221687,
-          -0.589557
+          0.208258,
+          0.008424,
+          -0.265664
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -3020,11 +3020,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Articular facet",
-        "vertex": 503,
+        "vertex": 567,
         "expected": [
-          0.460616,
-          0.507156,
-          -0.327311
+          0.363811,
+          0.324015,
+          -0.227058
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -3046,11 +3046,11 @@ export const BONE_LANDMARKS = {
     "points": [
       {
         "name": "Vertebral body",
-        "vertex": 400,
+        "vertex": 377,
         "expected": [
-          0,
-          0.20716,
-          0.948851
+          -0.041749,
+          0.049319,
+          0.91113
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -3060,11 +3060,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Vertebral foramen",
-        "vertex": 347,
+        "vertex": 403,
         "expected": [
-          -0.137944,
-          0.098391,
-          -0.23719
+          0,
+          0.015626,
+          0.089114
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -3074,11 +3074,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Lamina",
-        "vertex": 807,
+        "vertex": 768,
         "expected": [
-          0.215827,
-          -0.170292,
-          -0.504715
+          0.221931,
+          0.037598,
+          -0.264565
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -3088,11 +3088,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Articular facet",
-        "vertex": 595,
+        "vertex": 656,
         "expected": [
-          0.508499,
-          0.439497,
-          -0.295816
+          0.440718,
+          0.341716,
+          -0.219855
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -3114,11 +3114,11 @@ export const BONE_LANDMARKS = {
     "points": [
       {
         "name": "Vertebral body",
-        "vertex": 453,
+        "vertex": 442,
         "expected": [
           0,
-          0.054079,
-          0.782342
+          -0.085574,
+          0.724693
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -3128,11 +3128,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Vertebral foramen",
-        "vertex": 399,
+        "vertex": 446,
         "expected": [
-          -0.078616,
-          0.109256,
-          -0.315714
+          0,
+          -0.132084,
+          -0.034547
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -3142,11 +3142,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Lamina",
-        "vertex": 851,
+        "vertex": 826,
         "expected": [
-          0.152593,
-          -0.00647,
-          -0.455733
+          0.212409,
+          0.098148,
+          -0.328166
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",
@@ -3156,11 +3156,11 @@ export const BONE_LANDMARKS = {
       },
       {
         "name": "Articular facet",
-        "vertex": 585,
+        "vertex": 637,
         "expected": [
-          0.504715,
-          0.456466,
-          -0.178106
+          0.480636,
+          0.406537,
+          -0.172857
         ],
         "sourceRef": {
           "ref": "hss.hnt.2026",

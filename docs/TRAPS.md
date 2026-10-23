@@ -1507,8 +1507,10 @@ names it.
 - **The map zooms with the plain mouse wheel**; do not put the Ctrl-only capture handler back.
 - **A Revise box whose name is a Cell-mode label or level opens it** (`showIn3D(subject, id, name)` in cell-zoom.js), in
   addition to the curated `SHOW_IN_3D` entries.
-- **Vertebra landmarks** come from `work/derive-vertebra-landmarks.mjs` (extreme/nearest vertices, names from W4 p19/20/22/26),
-  committed as `work/bone-landmark-vertebrae.mjs`; the camera comes in to Focus distance for one bone with landmarks, or the
+- **Vertebra landmarks** come from `work/derive-vertebra-landmarks.mjs` (names from W4 p19/20/22/26), committed as
+  `work/bone-landmark-vertebrae.mjs`. Place parts relative to the vertebral foramen found in a slice, never by bounding-box
+  fractions: those put the pedicle on the lamina, the lamina on the spinous process and the costal facets on the transverse
+  process. The body's back is hollow at the midline, so the costal facets sit ~3 mm behind the foramen's front edge; the camera comes in to Focus distance for one bone with landmarks, or the
   labels (drawn only when close) never appear on a 6 cm vertebra.
 - **The Explore card opens on every result and STAYS open when the chosen structure is hidden**: hideMesh passes the selection to the next structure in the tap stack (owner, 23 Oct 2026; an earlier version closed Explore, which was the reverse of what was asked).
 - **Bone landmarks are searchable** (global-search.js, kind "Landmark"): the hit opens the bone and presses that
